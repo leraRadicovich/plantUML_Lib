@@ -1,382 +1,105 @@
 @startuml
 
-/'SequenceBuildingLib
-    Библиотека для построения сиквенс-диаграмм. Версия 1.5
+!include SequenseLib.puml
 
-    СОДЕРЖАНИЕ
-    1. ТУДУШКИ И СПИСОК ИЗМЕНЕНИЙ
-    2. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
-    3. ПРОЦЕДУРЫ РАБОТЫ С УЧАСТНИКАМИ ПРОЦЕССА И СПИСОК УЧАСТНИКОВ
-    4. ПЕРЕМЕННЫЕ, ИСПОЛЬЗУЕМЫЕ ВО ВСЕХ ФУНКЦИЯХ И ПРОЦЕДУРАХ - ГЛБАЛЬНЫЕ ПЕРЕМЕННЫЕ
-    5. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
-    6. ПАРАМЕТРЫ СТИЛЯ
-'/
-
-
-    /'1. ТУДУШКИ И СПИСОК ИЗМЕНЕНИЙ
-    TODO Добавить action                                                          | v1.1
-    TODO Добавить инициирующую процедуру DIAGRAMM_INIT                            | v1.2
-    TODO Добавить формирование табличной и текстовой (csv) карты процесса         | v1.3
-    TODO Добавить altAction                                                       | v1.3
-    TODO Добавить actionAlt                                                       | v1.4
-    TODO Добавить alt                                                             | v1.5
-    TODO Продумать порядок расположения для участников, сделать в версии 1.*      | v1.5
-    TODO Остановить поддержку версии 1.* - 02.03.2024                             | v1.5
-
-  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======
-  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======  ======
-
-    \TODO Добавить процедуру хранения кэша с памятью о донорских стрелках на каждом уровне вложенности
-    \TODO Придумать функцию для бесконченого уровня вложенности, на вход она будет принимать значение altLevel:
-    благодаря КЭШ поддерживается до 25 уровней вложенности, более чем достаточно.
-    \TODO Переделать логику испльзования action:
-        1 должна анализировать активный уровень и наличие донорской стрелки
-        2 должна понимать свое положение: в альте или нет, в опте или нет
-        3 отказ от иерархии счетчика стерлок в альтах, возможно будет в opt
-    \TODO Переделать логику испльзования альтов и елсов:
-        альт должен содержать описание условия и указание донорской стрелки,
-        на каждом уровне возможно наличие только 1 альта, поэтому нет необходимости в сквозной нумерации
-        '\TODO Подумать над определением цвета для разных уровней
-        \TODO Протестировать вложенность альтов на новой логике, продумать введение донорской переменной для определения
-
-  '\TODO Добавить процедуру opt
-  '\TODO Добавить процедуру group
-  '\TODO Добавить процедуру par
-
-  '\TODO Написать вспомогательные процедуры, которые будут рисовать код, спрятанный в процедурах библиотеки
-  '\TODO Написать мануал, как пользоваться библиотекой
-  '\TODO Подготовить митап
-  '\TODO Написать библиотеки для UseCase и Activity диаграмм
-  '\TODO Перенести библиотеку в GIT
-
-  Изменения от 30.03.2024
-  1. Переписан способ подсчета длинны донорской стрелки и номера стрелки
-  2. Переименованы переменны $donorTye - $donorLength, $counterType - $counterLength, переписана запись в кэш и получение из кэша (длина строк изменилась)
-
-  Изменения от 26.03.2024
-  1. Исправлен баг в процедуре DIAGRAMM_INIT - participant и web были перепутаны местами при вызове AddBox
-  2. Исправлены орфографические ошибки
-  3. Добавлено описание процедур ELSE_ALT и END_ALT
-  4. Рефакторинг для переменной, комментирующей условие - удалена
-  5. Рефаторинг определения юникода при создании записи в КЭШе - удалено дублирование
-
-  Изменения от 08.03.2024
-  1. Удалены лишние глобальные переменные
-  2. Написаны ALT, ELSE_ALT, END_ALT и ACTION
-  3. Написана логика параллельного подсчета счетчиков стрелок
-
-  Изменения от 05.03.2024
-  1. Удалены переменные 5 уровней вложенности (altCounter1,altCounter2 и т.д.)
-  2. Переименована библиотека
-  3. Написан метод удаления объекта из КЭШа
-
-  Изменения от 03.03.2024
-  1. Из библиотеки удалены прцоедуры altAction, actionAlt, alt, соответствующие 1-ой версии библиотеки
-  2. Произведен очерденой рефакторинг КЭШа: заменена глобальная переменная на $cash, процедура переименована в $cashApi
-  3. Написан метод для получения донорской стрелки по id уровня альта
-
-  Изменения от 02.03.2024
-  1. Найден способ получить все данные из КЭШ и определенную запись по id уровня (A,B,C):
-     были сложности с преобразованием level в UNICODE, которые почему-то не возникли при наполнении КЭШа
-  2. Рефакторинг КЭШа
-
-  Изменения от 01.03.2024
-  1. Введено преобразование $altLevel в символ латинского алфавита UNICOD
-
-  Изменения от 28.02.2024
-  1. Созданы прототипы КЭШа для донорских стрелок
-  2. Введен абсолютный счетчик action - $techCounter
-'/
-
-/'
- 2. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
-
-1. DIAGRAMM($title) Функция-инициатор, инициирует процедуры добавления компонентов и групп-компонентов
-   Принимает на вход заголовок диаграммы, создает группы компонетов-участников диаграммы из
-   JSON $data
-
-2. Процедура LEGEND автоматически добавляет на диагрмму блок легенда с текстовым описанием процесса
-   Не работает при указании в диаграмме ленедны в явном текстовом виде (функция из коробки PlantUml)
-
-3. Процедура NOTE автоматически добавляет на диагрмму блок note - заметка, с текстовым описанием процесса,
-   Если на вход ничего не передано или 0 - формирует таблицу c текстовым описание процесса,
-   если на вход передан параметр 1 - формирует JSON-строку,
-   если на вход передан параметр 2 - формирует текст с разделителем ";"
-'/
-
-!unquoted procedure DIAGRAMM_INIT($title)
-    Title $title
-    addBox("\nАУТЕНТИФИКАЦИЯ ПАРТНЕРОВ", lightblue, participants)
-    addBox("\nWEB", lightgreen, web)
-!endprocedure
-
-!unquoted procedure LEGEND()
-    legend left
-    Карта процесса
-    ====
-    $tableProcessDescription
-    end legend
-!endprocedure
-
-!unquoted procedure NOTE($mode=0)
-'/Табличный формат
-!if $mode == 0
+addBox("queue","test box", "pink", "",test component, test, 5)
+DIAGRAMM_INIT(Отладка конфига для сиквенс-диаграммы)
 note across
-Таблица: карта процесса
-====
-$tableProcessDescription
+    %filename()
+    27.02.2024
+    by Patrushev Valery
 end note
-'/Текстовый формат с разделителями
-!elseif $mode == 1
-note across
-=Текстовое описание процесса (текст с разделителем)
-====
-$csvProcessDescription
-end note
-!endif
-!endprocedure
+/'user -> site++:траляля
+site ->user--:траляля
+==Макеты для понимания==
+autonumber 1
 
+group#moccasin %lighten(lightgreen,-10) <size:15> положение альта (1 кейс): альт после донорской стрелки
+    user->site: донорская стрелка
+    alt#yellow #orange 1 Условие (1 уровень)
+        autonumber 1
+        user->site: альтернативная стрелка
+    else #orange 2 Условие (1 уровень)
+        autonumber 1
+        user->site: альтернативная стрелка
+    end
+else %lighten(lightgreen, -25) <size:15> положение альта (2 кейс): альт до донорской стрелки**
+    alt#yellow #orange 1 Условие (1 уровень)
+        site->user: альтернативная стрелка
+    else #orange 2 Условие (1 уровень)
+        autonumber 2
+        site->user: альтернативная стрелка
+    end
+    autonumber 2
+    site->user: донорская стрелка
+else %lighten(lightgreen, -40) <size:15> положение альта (3 кейс): альт является донором для самого себя
+    alt#yellow #orange 1 Условие (1 уровень)
+        site->user: альтернативная стрелка
+    else #orange 2 Условие (1 уровень)
+        autonumber 3
+        site->user: альтернативная стрелка
+    end
+end
 
-/' 3. ПРОЦЕДУРЫ РАБОТЫ С УЧАСТНИКАМИ ПРОЦЕССА И СПИСОК УЧАСТНИКОВ
+group#moccasin %lighten(lightgreen,-10) <size:15> вложенность альта (1 кейс) + 3 кейса на положение
+    user->site: донорская стрелка
+    alt#yellow #orange 1 Условие (1 уровень)
+        user->site: альтернативная стрелка
+        alt#yellow %lighten(orange, -30) 1 Условие (2 уровень)
+            user->site: альтернативная стрелка
+        else %lighten(orange, -30) 2 Условие (2 уровень)
+            autonumber 7
+            user->site: альтернативная стрелка
+        end
+    else #orange 2 Условие (1 уровень)
+        autonumber 6
+        user->site: альтернативная стрелка
+    end
+end
 
-1. addComponent($type="participant", $component, $as, $order=0)
-   Процедура добавления компонентов,
-   на вход приниматет заголовок и Alias компонента
+note across #yellow
+1. par, opt, group - не поднимают уровень, работают на том уровне, в котором вызываются
+2. Простая нумерация или сложная - нужно понять.
+3. есть четыре кейса: альт после донорской стрелки (донорская существует), альт до донорской стрелки (донорская существет),
+   альт до донорской стрелки (донорская не существет), альт вместо донорскй стрелки
+4. Альты должны работать без уровнезависимых счетчиков
 
-2. addBox($box, $colour, $dataSet="", $type="participant", $component="", $as="", $order=0)
-   Процедура добавления групп-компонентов (box), на вход принимает заголовок, цвет
-   и необязательнные параметры: $dataSet, $component и $as
-   Если указан $dataSet - будет создан box для указанного датасета,
-   иначе необходимо указать $component и $as для компонентов кастомного box
+endnote
 
-3. $data - json с компонентами и участниками на диаграмме
+== конец макетов ==
 '/
+ALT(Первый вызов, 0)
+    ACTION(site,front,++,первый вызов,комментарий)
+    ACTION(site,front,,первый вызов,комментарий)
+ELSE_ALT(первый альт вызов)
+    ACTION(site,front,,первый альт вызов,комментарий)
+    ACTION(site,front,,первый вызов,комментарий)
+    ACTION(site,front,,первый вызов,комментарий)
+    ACTION(site,front,,первый вызов,комментарий)
+$cashApi(get)
+END_ALT()
+$cashApi(get)
 
-!unquoted procedure addComponent($type="participant", $component, $as, $order=0)
-        $type "$component" as $as order $order
-!end procedure
+ACTION(front,site,--++,первый ответ,Комментарий к вызову)
 
-!procedure addBox($box, $colour, $dataSet="", $type="participant", $component="", $as="", $order=0)
-    !if $dataSet == participants
-        box "$box" #$colour
-            !foreach $item in $data.participants
-            addComponent($item.type, $item.name, $item.as, $item.order)
-            !endfor
-        end box
-    !elseif $dataSet == web
-        box "$box" #$colour
-            !foreach $item in $data.web
-            addComponent($item.type, $item.name, $item.as, $item.order)
-            !endfor
-        end box
-    !elseif $dataSet == ""
-        box "$box" #$colour
-            addComponent($item.type, $component, $as, $item.order)
-        end box
-    !endif
-!end procedure
-
-!$data={
-  "participants": [
-    {"type":"participant", "name": "front (id.vtb.ru)", "as": "front", "order":"10"},
-    {"type":"participant", "name": "pafp-partner-is", "as": "pafp", "order":"20"},
-    {"type":"database", "name": "redis", "as": "redis", "order":"30"},
-    {"type":"database", "name": "PostgreSql", "as": "psql", "order":"40"}
-    ],
-  "web": [
-    {"type":"actor", "name": "Пользователь", "as": "user", "order":"0"},
-    {"type":"participant", "name": "Сайт партнера", "as": "site", "order":"1"},
-    {"type":"participant", "name": "БЭК-сервис партнера", "as": "part", "order":"2"},
-    {"type":"participant", "name": "Анкеты", "as": "anketa", "order":"3"},
-    {"type":"participant", "name": "MOS.RU", "as": "mos", "order":"4"}
-    ]
-}
-
-
-'/ 4. ПЕРЕМЕННЫЕ, ИСПОЛЬЗУЕМЫЕ ВО ВСЕХ ФУНКЦИЯХ И ПРОЦЕДУРАХ - ГЛБАЛЬНЫЕ ПЕРЕМЕННЫЕ
-
-    '/Счетчик отображаемой (программной) автонумерации стрелок
-    !global $counter = 0
-
-    '/Счетчик сквозной автонумерации всех вызовов, технический
-    !global $techCounter = 0
-
-    '/Счетчик донорских стрелок в КЭШе
-    !global $donorCounter = 0
-
-    /'Дефолтны цвет для альта
-    '/
-    !global $altColor = "#chocolate"
-
-    '/Счетчик вложенности альтов
-    !global $altLevel = 0
-
-    '/Программный КЭШ донорских стрелок
-    !global $cash = ""
-
-    /'Буферная переменная для построения карты процесса в табличном виде и в виде текста с разделителем.
-     См. процедуры LEGEND, NOTE'/
-    !global $tableProcessDescription="| №\n | id | Инициатор\n | Исполнитель\n | Вызов/Метод\n | Комментарий\n |"
-    !global $csvProcessDescription="№;id;Инициатор;Исполнитель;Вызов/метод;Комментарий"
-
-
-/'5. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
-
-  1. $processDescriptionBuilder($bufferCounter, $initiator, $executor, ACTION $liveLine="", $comment="")
-     Процедура построения стрелок и описания в карте процессов NOTE() и LEGEND()
-
-  2. ACTION($initiator, $executor, ACTION, $liveLine="", $comment="")
-     Процедура для описания взаимодействия между участниками процесса, для добавления стрелок вызывает процедуру $processDescriptionBuilder
-     использует счетчик $counter для подсчета стрелок.
-
-  3. ALT($condition, $donor, $color="")
-     Процедура для описания альтернативного взаимодействия между участниками процесса,
-     Процедура рисует альтернативу указанной донорской стрелке
-     Максимальная глубина вложенности, при которой счетчики работают корректно равна 25 (В английском алфавите 25 символов).
-
-  4. ELSE_ALT($condition, $color="")
-     Процедура для описания еще одного альтернативного взаимодействия на текущем уровне альта.
-
-  5. END_ALT()
-     Процедура, закрывающая уровень альтернативного взаимодействия.
-
-  6. $cashApi($method, $level="", $donor="")
-     Процедура для создания, удаления, чтения КЭШ, принимает на вход параметр method,
-     который указывает что делаем с записью, уровень вложенности и номер донорской стрелки
-'/
-
-!unquoted procedure $processDescriptionBuilder($techCounter, $counter, $initiator, $executor, $action, $comment="")
-    !$csvProcessDescription = $csvProcessDescription + %newline() + $techCounter + ";" + $counter + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
-    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $techCounter + " | "+  $counter + " | " + $initiator + " | "+ $executor + " | " + $action + " | " + $comment + " |"
-!endprocedure
-
-/'TODO Пересмотреть вычисление счетчиков. Сейчас эта логика разбросана по 3 процедурам: action, alt, cashapi, что привело к баге подсчета стрелок'/
-!unquoted procedure ACTION($initiator, $executor, $liveLine="",$action, $comment="")
-    !$counter = $counter + 1
-    !$techCounter = $techCounter + 1
-    $initiator -> $executor $liveLine: <size:12>**$counter**</size> $action
-    %invoke_procedure("$processDescriptionBuilder", $techCounter, $counter, $initiator, $executor, $action, $comment)
-!endprocedure
-
-!unquoted procedure ALT($condition, $donor, $color="")
-    !$altLevel = $altLevel + 1
-    !if %intval($donor) > 0
-        %invoke_procedure("$cashApi", post, $altLevel, $donor)
-        !$counter = %intval($donor) - 1
-    !elseif %intval($donor) == 0
-        '/!$counter = %intval($donor) + 1
-        '/!$donor = $counter + 1
-        '/!$counter = $counter + 1
-        %invoke_procedure("$cashApi", post, $altLevel, $donor)
-    !endif
-
-    !if $color == ""
-        alt $altColor $condition
-    !elseif $color != ""
-        alt #$color $condition
-    !endif
-!endprocedure
-
-!unquoted procedure ELSE_ALT($condition, $color="")
-    %invoke_procedure("$cashApi", get, $altLevel)
-    !$donor = $donorCounter
-    !if %intval($donor) > 0
-        !$counter = %intval($donor) - 1
-    !elseif %intval($donor) == 0
-        !$counter = %intval($donor)
-    !endif
-
-    !if $color == ""
-        else $altColor $condition
-    !elseif $color != ""
-        else #$color $condition
-    !endif
-!endprocedure
-
-!unquoted procedure END_ALT()
-    %invoke_procedure("$cashApi",delete, $altLevel)
-    !$altLevel = $altLevel - 1
-    end alt
-!endprocedure
-
-'/Процедура, инициирующая КЭШ и методы работы с ним
-
-!unquoted procedure $cashApi($method, $level="", $donor="")
-    '/Определение длинн $counter и $donor
-    !$donorLength = %strlen(%intval($donor))
-    !$counterLength = %strlen(%intval($counter))
-
-    '/1. Создание объекта в КЭШе
-    !if $method == "post"
-        !$unicodeLevel = %chr($level + 64)
-        !if $altLevel == 1
-            !$cash = $cash + "{id:" + $unicodeLevel + ", " + "donor_length:"+ $donorLength + ", "+ "donor:" + $donor + ", " + "counter_length:" + $counterLength + ", " + "counter:" + $counter + ", " + "tech_counter:" + $techCounter + "}"
-        !elseif $altLevel > 1
-            !$cash = $cash + %newline() + "{id:" + $unicodeLevel + ", " + "donor_length:"+ $donorLength + ", "+ "donor:" + $donor + ", " + "counter_length:" + $counterLength + ", " + "counter:" + $counter + ", " + "tech_counter:" + $techCounter + "}"
-        !endif
-
-    '/2. Присвоение буферной переменной $donorCounter соответствующего запрашиваемому уровню альта значения из КЭШа
-    !elseif ($method == "get" && $level != "")
-        !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
-        !$donorLengthIndex = %intval($levelIndex+16)
-        !$donorLength = %intval(%substr($cash, %intval($donorLengthIndex), 1))
-        !$donorIndex = %intval($levelIndex+25)
-        !$donorCounter = %intval(%substr($cash, $donorIndex, $donorLength))
-
-    '/3. Получить все объекты из КЭШа
-    !elseif ($method == "get")
-
-note across
-$cash
-end note
-
-    '/4. Удаление объекта КЭШа
-    !elseif $method == "delete"
-        !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
-        !$counterLengthIndex = %intval($levelIndex+43)
-        !$counterLength = %intval(%substr($cash, %intval($counterLengthIndex), 1))
-        !$counterIndex = %intval($levelIndex+54)
-        !if %intval($donor) > 0
-            !$counter = %intval(%substr($cash, $counterIndex, $counterLength))
-        !elseif %intval($donor) == 0
-            !$counter = %intval(%substr($cash, $counterIndex, $counterLength)) + 1
-        !endif
-
-        !if $altLevel == 1
-            !$cash = ""
-        !elseif $altLevel > 1
-            !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
-            !$cash = %substr($cash, 0, (%intval($levelIndex)-5))
-        !endif
-    !endif
-!endprocedure
-
-
-'/ 6. ПАРАМЕТРЫ СТИЛЯ
-hide unlinked
-skinparam maxMessageSize 150
-skinparam backgroundColor LightGray
-skinparam sequence {
-ArrowColor blue
-LifeLineBorderColor blue
-LifeLineBackgroundColor White
-ParticipantBorderColor blue
-ParticipantBackgroundColor lightBlue-DodgerBlue
-ParticipantFontName Impact
-ParticipantFontSize 17
-ParticipantFontColor darkblue
-ActorBorderColor darkblue
-ActorBackgroundColor DodgerBlue
-ActorFontName Impact
-ActorFontColor DarkBlue
-ActorFontSize 17
-}
-
-<style>
-legend {
-FontSize 16
-FontColor white
-BackGroundColor black
-}
-</style>
+ALT(Альтернатива один,2)
+    ACTION(front,site,,первый alt ответ\n рецепиент,еще какой-токомментарий)
+    ALT(проверка вложенного альта, 3)
+        ACTION(site,user,,действие)
+    ELSE_ALT(проверка еще одного условия во вложенности)
+        ACTION(site,user,,действие)
+        ALT(проверка вложенного альта 3 уровня, 4)
+            ACTION(site,user,,действие)
+        END_ALT()
+        $cashApi(get)
+        ACTION(site,user,,действие)
+        ACTION(site,user,,действие)
+    END_ALT()
+    ACTION(front,site,,первый alt ответ,пояснение)
+ELSE_ALT(Альтернатива один)
+    ACTION(front,site,,второй alt ответ,другое пояснение)
+END_ALT()
+ACTION(front,site,,следующий шаг сценария,комментарий)
+LEGEND()
+NOTE(0)
 @enduml
