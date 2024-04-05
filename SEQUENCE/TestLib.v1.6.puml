@@ -1,5 +1,5 @@
 @startuml
-!include sequenceBuildingLib.v1.6.puml
+!include SequenseLib.v.1.6.puml
 
 addBox("queue","test box", "pink", "",test component, test, 5)
 DIAGRAMM_INIT(Отладка конфига для сиквенс-диаграммы)
