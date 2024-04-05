@@ -68,7 +68,7 @@ endnote
 
 == конец макетов ==
 '/
-ALT(Первый вызов, 0)
+ALT(Первый вызов, )
     ACTION(site,front,++,первый вызов,комментарий)
     ACTION(site,front,,первый вызов,комментарий)
 ELSE_ALT(первый альт вызов)
@@ -81,10 +81,11 @@ END_ALT()
 $cashApi(get)
 
 ACTION(front,site,--++,первый ответ,Комментарий к вызову)
-
 ALT(Альтернатива один,2)
+$cashApi(get)
     ACTION(front,site,,первый alt ответ\n рецепиент,еще какой-токомментарий)
     ALT(проверка вложенного альта, 3)
+    $cashApi(get)
         ACTION(site,user,,действие)
     ELSE_ALT(проверка еще одного условия во вложенности)
         ACTION(site,user,,действие)
@@ -98,7 +99,9 @@ ALT(Альтернатива один,2)
     ACTION(front,site,,первый alt ответ,пояснение)
 ELSE_ALT(Альтернатива один)
     ACTION(front,site,,второй alt ответ,другое пояснение)
+    $cashApi(get)
 END_ALT()
+note over site: $counter
 ACTION(front,site,,следующий шаг сценария,комментарий)
 LEGEND()
 NOTE(0)

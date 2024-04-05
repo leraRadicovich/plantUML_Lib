@@ -113,8 +113,8 @@ end note
     '/Программный КЭШ донорских стрелок
     !global $cash = ""
 
-    /'Буферная переменная для построения карты процесса в табличном виде и в виде текста с разделителем.
-     См. процедуры LEGEND, NOTE'/
+    '/Буферная переменная для построения карты процесса в табличном виде и в виде текста с разделителем.
+    '/См. процедуры LEGEND, NOTE
     !global $tableProcessDescription="| №\n | id | Инициатор\n | Исполнитель\n | Вызов/Метод\n | Комментарий\n |"
     !global $csvProcessDescription="№;id;Инициатор;Исполнитель;Вызов/метод;Комментарий"
 
@@ -128,6 +128,14 @@ end note
 
 '/Процедура для отрисовки взаимодействия между участниками
 '/TODO Пересмотреть вычисление счетчиков. Сейчас эта логика разбросана по 3 процедурам: action, alt, cashapi, что привело к баге подсчета стрелок'/
+
+!unquoted procedure $counterCalculator($altLevel,$donor="")
+    !if $altLevel == 0
+        !$counter = $counter + 1
+    '/!elseif $altLevel > 0
+    !endif
+!endprocedure
+
 !unquoted procedure ACTION($initiator, $executor, $liveLine="",$action, $comment="")
     !$counter = $counter + 1
     !$techCounter = $techCounter + 1
@@ -136,16 +144,11 @@ end note
 !endprocedure
 
 '/Процедура для отрисовки альтернативного взаимодействия между участниками
-!unquoted procedure ALT($condition, $donor, $color="")
+!unquoted procedure ALT($condition, $donor="", $color="")
     !$altLevel = $altLevel + 1
-    !if %intval($donor) > 0
-        %invoke_procedure("$cashApi", post, $altLevel, $donor)
+    %invoke_procedure("$cashApi", post, $altLevel, $donor)
+    !if $donor != ""
         !$counter = %intval($donor) - 1
-    !elseif %intval($donor) == 0
-        '/!$counter = %intval($donor) + 1
-        '/!$donor = $counter + 1
-        '/!$counter = $counter + 1
-        %invoke_procedure("$cashApi", post, $altLevel, $donor)
     !endif
 
     !if $color == ""
@@ -215,10 +218,9 @@ end note
         !$counterLengthIndex = %intval($levelIndex+43)
         !$counterLength = %intval(%substr($cash, %intval($counterLengthIndex), 1))
         !$counterIndex = %intval($levelIndex+54)
-        !if %intval($donor) > 0
-            !$counter = %intval(%substr($cash, $counterIndex, $counterLength))
-        !elseif %intval($donor) == 0
-            !$counter = %intval(%substr($cash, $counterIndex, $counterLength)) + 1
+        !$counter = %intval(%substr($cash, $counterIndex, $counterLength))  
+        !if $counter == 0
+            !$counter = $counter + 1
         !endif
 
         !if $altLevel == 1
