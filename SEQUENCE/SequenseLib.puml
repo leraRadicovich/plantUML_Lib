@@ -127,12 +127,10 @@ end note
 !endprocedure
 
 '/Процедура для отрисовки взаимодействия между участниками
-'/TODO Пересмотреть вычисление счетчиков. Сейчас эта логика разбросана по 3 процедурам: action, alt, cashapi, что привело к баге подсчета стрелок'/
 
 !unquoted procedure $counterCalculator($altLevel,$donor="")
     !if $altLevel == 0
         !$counter = $counter + 1
-    '/!elseif $altLevel > 0
     !endif
 !endprocedure
 
