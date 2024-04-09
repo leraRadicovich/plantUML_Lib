@@ -10,15 +10,15 @@
 '\TODO Написать библиотеки для UseCase и Activity диаграмм
 '\TODO Перенести библиотеку в GIT
 
-'/СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
-'/Процедура DIAGRAMM_INIT($title) инициирует создание заголовка, списка участников
+'СЛУЖЕБНЫЕ ПРОЦЕДУРЫ'
+'Процедура DIAGRAMM_INIT($title) инициирует создание заголовка, списка участников'
 !unquoted procedure DIAGRAMM_INIT($title)
     Title $title
     addBox("\nАУТЕНТИФИКАЦИЯ ПАРТНЕРОВ", lightblue, participants)
     addBox("\nWEB", lightgreen, web)
 !endprocedure
 
-'/Процедура LEGEND() инициирует отображение на диаграмме легенды с картой процесса, представленном на диаграмме, в табличном виде
+'Процедура LEGEND() инициирует отображение на диаграмме легенды с картой процесса, представленном на диаграмме, в табличном виде'
 !unquoted procedure LEGEND()
     legend left
     Карта процесса
@@ -27,8 +27,8 @@
     end legend
 !endprocedure
 
-'/Процедура NOTE($mode=0)  инициирует отображение на диаграмме заметки с картой процесса, представленном на диаграмме, в табличном виде (mode=0, дефолтное значение)
-'/и в виде текста с разделителем (mode=1)
+/'Процедура NOTE($mode=0)  инициирует отображение на диаграмме заметки с картой процесса, представленном на диаграмме, в табличном виде (mode=0, дефолтное значение)
+и в виде текста с разделителем (mode=1)'/
 !unquoted procedure NOTE($mode=0)
 
 !if $mode == 0
@@ -106,6 +106,7 @@ end note
     /'Дефолтны цвет для альта
     '/
     !global $altColor = "#chocolate"
+    !global $altColorStep = 15
 
     '/Счетчик вложенности альтов
     !global $altLevel = 0
@@ -150,9 +151,13 @@ end note
     !endif
 
     !if $color == ""
-        alt $altColor $condition
+        !if $altLevel == 1
+            alt $altColor $condition
+        !elseif $altLevel > 1
+            alt %lighten($altColor, %intval($altLevel*$altColorStep)) $condition
+        !endif
     !elseif $color != ""
-        alt #$color $condition
+        alt $color $condition
     !endif
 !endprocedure
 
@@ -167,9 +172,13 @@ end note
     !endif
 
     !if $color == ""
-        else $altColor $condition
+        !if $altLevel == 1
+            else %reverse_color($altColor) $condition
+        !elseif $altLevel > 1
+            else %reverse_color(%lighten($altColor, %intval($altLevel*$altColorStep))) $condition
+        !endif
     !elseif $color != ""
-        else #$color $condition
+        else $color $condition
     !endif
 !endprocedure
 
