@@ -9,101 +9,36 @@ note across
     27.02.2024
     by Patrushev Valery
 end note
-/'user -> site++:траляля
-site ->user--:траляля
-==Макеты для понимания==
-autonumber 1
 
-group#moccasin %lighten(lightgreen,-10) <size:15> положение альта (1 кейс): альт после донорской стрелки
-    user->site: донорская стрелка
-    alt#yellow #orange 1 Условие (1 уровень)
-        autonumber 1
-        user->site: альтернативная стрелка
-    else #orange 2 Условие (1 уровень)
-        autonumber 1
-        user->site: альтернативная стрелка
-    end
-else %lighten(lightgreen, -25) <size:15> положение альта (2 кейс): альт до донорской стрелки**
-    alt#yellow #orange 1 Условие (1 уровень)
-        site->user: альтернативная стрелка
-    else #orange 2 Условие (1 уровень)
-        autonumber 2
-        site->user: альтернативная стрелка
-    end
-    autonumber 2
-    site->user: донорская стрелка
-else %lighten(lightgreen, -40) <size:15> положение альта (3 кейс): альт является донором для самого себя
-    alt#yellow #orange 1 Условие (1 уровень)
-        site->user: альтернативная стрелка
-    else #orange 2 Условие (1 уровень)
-        autonumber 3
-        site->user: альтернативная стрелка
-    end
-end
-
-group#moccasin %lighten(lightgreen,-10) <size:15> вложенность альта (1 кейс) + 3 кейса на положение
-    user->site: донорская стрелка
-    alt#yellow #orange 1 Условие (1 уровень)
-        user->site: альтернативная стрелка
-        alt#yellow %lighten(orange, -30) 1 Условие (2 уровень)
-            user->site: альтернативная стрелка
-        else %lighten(orange, -30) 2 Условие (2 уровень)
-            autonumber 7
-            user->site: альтернативная стрелка
-        end
-    else #orange 2 Условие (1 уровень)
-        autonumber 6
-        user->site: альтернативная стрелка
-    end
-end
-
-note across #yellow
-1. par, opt, group - не поднимают уровень, работают на том уровне, в котором вызываются
-2. Простая нумерация или сложная - нужно понять.
-3. есть четыре кейса: альт после донорской стрелки (донорская существует), альт до донорской стрелки (донорская существет),
-   альт до донорской стрелки (донорская не существет), альт вместо донорскй стрелки
-4. Альты должны работать без уровнезависимых счетчиков
-
-endnote
-
-== конец макетов ==
-'/
-ALT(Первый вызов,,)
+ALT(Первый вызов)
     ACTION(site,front,++,первый вызов,комментарий)
+    ALT(Тест вложенного альта,,)
+        ACTION(site,front,,первый вызов вложенного нулевого альта,комментарий)
+    END_ALT()
 ELSE_ALT(первый альт вызов)
     ACTION(site,front,,первый альт вызов,комментарий)
     ACTION(front,site,--++,первый ответ,Комментарий к вызову)
-$cashApi(get)
 END_ALT()
-$cashApi(get)
     ACTION(front,site,,первый alt ответ\n рецепиент,еще какой-токомментарий)
-ALT(Альтернатива один,2)
-$cashApi(get)
+ALT(Альтернатива один)
     ACTION(front,site,,первый alt ответ\n рецепиент,еще какой-токомментарий)
     ALT(проверка вложенного альта, 3)
-    $cashApi(get)
         ACTION(site,user,,действие)
     ELSE_ALT(проверка еще одного условия во вложенности)
         ACTION(site,user,,действие)
         ALT(проверка вложенного альта 3 уровня, 4)
             ACTION(site,user,,действие)
-            $cashApi(get)
         ALT(проверка вложенного альта 3 уровня, 4)
             ACTION(site,user,,действие)
-            $cashApi(get)
         END_ALT()
-
         END_ALT()
-        $cashApi(get)
         ACTION(site,user,,действие)
         ACTION(site,user,,действие)
     END_ALT()
     ACTION(front,site,,первый alt ответ,пояснение)
 ELSE_ALT(Альтернатива один)
     ACTION(front,site,,второй alt ответ,другое пояснение)
-    $cashApi(get)
 END_ALT()
-note over site: $counter
 ACTION(front,site,,следующий шаг сценария,комментарий)
 LEGEND()
 NOTE(0)
