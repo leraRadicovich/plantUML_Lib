@@ -68,7 +68,7 @@ endnote
 
 == конец макетов ==
 '/
-ALT(Первый вызов, )
+ALT(Первый вызов,,)
     ACTION(site,front,++,первый вызов,комментарий)
 ELSE_ALT(первый альт вызов)
     ACTION(site,front,,первый альт вызов,комментарий)
@@ -87,6 +87,12 @@ $cashApi(get)
         ACTION(site,user,,действие)
         ALT(проверка вложенного альта 3 уровня, 4)
             ACTION(site,user,,действие)
+            $cashApi(get)
+        ALT(проверка вложенного альта 3 уровня, 4)
+            ACTION(site,user,,действие)
+            $cashApi(get)
+        END_ALT()
+
         END_ALT()
         $cashApi(get)
         ACTION(site,user,,действие)
