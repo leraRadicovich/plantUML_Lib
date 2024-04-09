@@ -1,15 +1,5 @@
 @startuml
 
-'\TODO Подумать над определением цвета для разных уровней
-'\TODO Добавить процедуру opt
-'\TODO Добавить процедуру group
-'\TODO Добавить процедуру par
-'\TODO Написать вспомогательные процедуры, которые будут рисовать код, спрятанный в процедурах библиотеки
-'\TODO Написать мануал, как пользоваться библиотекой
-'\TODO Подготовить митап
-'\TODO Написать библиотеки для UseCase и Activity диаграмм
-'\TODO Перенести библиотеку в GIT
-
 'СЛУЖЕБНЫЕ ПРОЦЕДУРЫ'
 'Процедура DIAGRAMM_INIT($title) инициирует создание заголовка, списка участников'
 !unquoted procedure DIAGRAMM_INIT($title)
@@ -27,8 +17,9 @@
     end legend
 !endprocedure
 
-/'Процедура NOTE($mode=0)  инициирует отображение на диаграмме заметки с картой процесса, представленном на диаграмме, в табличном виде (mode=0, дефолтное значение)
-и в виде текста с разделителем (mode=1)'/
+/'Процедура NOTE($mode=0)  инициирует отображение на диаграмме заметки с картой процесса,
+  представленном на диаграмме, в табличном виде (mode=0, дефолтное значение)
+  и в виде текста с разделителем (mode=1)'/
 !unquoted procedure NOTE($mode=0)
 
 !if $mode == 0
@@ -55,21 +46,21 @@ end note
 !end procedure
 
 '/Добавление группы участников
-!procedure addBox($box, $colour, $dataSet="", $type="participant", $component="", $as="", $order=0)
+!procedure addBox($box, $color, $dataSet="", $type="participant", $component="", $as="", $order=0)
     !if $dataSet == participants
-        box "$box" #$colour
+        box "$box" #$color
             !foreach $item in $data.participants
             addComponent($item.type, $item.name, $item.as, $item.order)
             !endfor
         end box
     !elseif $dataSet == web
-        box "$box" #$colour
+        box "$box" #$color
             !foreach $item in $data.web
             addComponent($item.type, $item.name, $item.as, $item.order)
             !endfor
         end box
     !elseif $dataSet == ""
-        box "$box" #$colour
+        box "$box" #$color
             addComponent($item.type, $component, $as, $item.order)
         end box
     !endif
@@ -93,31 +84,15 @@ end note
 }
 
 '/ 4. ПЕРЕМЕННЫЕ, ИСПОЛЬЗУЕМЫЕ ВО ВСЕХ ФУНКЦИЯХ И ПРОЦЕДУРАХ - ГЛБАЛЬНЫЕ ПЕРЕМЕННЫЕ
-
-    '/Счетчик отображаемой (программной) автонумерации стрелок
-    !global $counter = 0
-
-    '/Счетчик сквозной автонумерации всех вызовов, технический
-    !global $techCounter = 0
-
-    '/Счетчик донорских стрелок в КЭШе
-    !global $donorCounter = 0
-
-    /'Дефолтны цвет для альта
-    '/
-    !global $altColor = "#chocolate"
-    !global $altColorStep = 15
-
-    '/Счетчик вложенности альтов
-    !global $altLevel = 0
-
-    '/Программный КЭШ донорских стрелок
-    !global $cash = ""
-
-    '/Буферная переменная для построения карты процесса в табличном виде и в виде текста с разделителем.
-    '/См. процедуры LEGEND, NOTE
-    !global $tableProcessDescription="| №\n | id | Инициатор\n | Исполнитель\n | Вызов/Метод\n | Комментарий\n |"
-    !global $csvProcessDescription="№;id;Инициатор;Исполнитель;Вызов/метод;Комментарий"
+!global $counter = 0
+!global $techCounter = 0
+!global $donorCounter = 0
+!global $altColor = "#chocolate"
+!global $altColorStep = 15
+!global $altLevel = 0
+!global $cash = ""
+!global $tableProcessDescription="| №\n | id | Инициатор\n | Исполнитель\n | Вызов/Метод\n | Комментарий\n |"
+!global $csvProcessDescription="№;id;Инициатор;Исполнитель;Вызов/метод;Комментарий"
 
 
 '/5. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
