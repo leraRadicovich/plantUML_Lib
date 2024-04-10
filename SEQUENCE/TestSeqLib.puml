@@ -2,16 +2,22 @@
 
 !include SequenseLib.puml
 
-addBox("queue","test box", "pink", "",test component, test, 5)
+
 DIAGRAMM_INIT(Отладка конфига для сиквенс-диаграммы)
 note across
     %filename()
     27.02.2024
     by Patrushev Valery
 end note
-
+addBox("testBox","pink","","queue","Тестовая очередь","test")
+addBox("testBox","pink","","database","Тестовая бд","tdb")
+$cashApi(get)
+    ACTION(test,front,++,первый вызов,комментарий)
+    ACTION(test,tdb,++,первый вызов,комментарий)
 ALT(Первый вызов)
+    $cashApi(get)
     ACTION(site,front,++,первый вызов,комментарий)
+    $cashApi(get)
     ALT(Тест вложенного альта,,)
         ACTION(site,front,,первый вызов вложенного нулевого альта,комментарий)
     END_ALT()
@@ -20,23 +26,31 @@ ELSE_ALT(первый альт вызов)
     ACTION(front,site,--++,первый ответ,Комментарий к вызову)
 END_ALT()
     ACTION(front,site,,первый alt ответ\n рецепиент,еще какой-токомментарий)
-ALT(Альтернатива один)
+ALT(Альтернатива один,4)
+    note over site: $counter
+    $cashApi(get)
     ACTION(front,site,,первый alt ответ\n рецепиент,еще какой-токомментарий)
-    ALT(проверка вложенного альта, 3)
-        ACTION(site,user,,действие)
+    note over site: $counter
+    ALT(проверка вложенного альта, 5)
+        $cashApi(get)
+        note over site: $counter
+        ACTION(site,user,,действие 6)
     ELSE_ALT(проверка еще одного условия во вложенности)
         ACTION(site,user,,действие)
-        ALT(проверка вложенного альта 3 уровня, 4)
-            ACTION(site,user,,действие)
-        ALT(проверка вложенного альта 3 уровня, 4)
-            ACTION(site,user,,действие)
-        END_ALT()
-        END_ALT()
         ACTION(site,user,,действие)
+        note over site: $counter
         ACTION(site,user,,действие)
+        note over site: $counter
+        $cashApi(get)
     END_ALT()
+    $cashApi(get)
+    note over site: $counter
     ACTION(front,site,,первый alt ответ,пояснение)
+    ACTION(front,site,,первый alt ответ,пояснение)
+    $cashApi(get)
+    note over site: $counter
 ELSE_ALT(Альтернатива один)
+    note over site: $counter
     ACTION(front,site,,второй alt ответ,другое пояснение)
 END_ALT()
 ACTION(front,site,,следующий шаг сценария,комментарий)

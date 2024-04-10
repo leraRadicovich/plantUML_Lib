@@ -43,23 +43,24 @@ end note
         $type "$participantName" as $as order $order
 !end procedure
 
+'/TODO Переделать добавление боксов. Сейчас бокс без датасета создается с одним участником.
 '/Добавление группы участников
-!procedure addBox($box, $colour, $dataSet="", $type="participant", $component="", $as="", $order=0)
+!procedure addBox($box, $color, $dataSet="", $type="participant", $component="", $as="", $order=0)
     !if $dataSet == participants
-        box "$box" #$colour
+        box "$box" #$color
             !foreach $item in $data.participants
             addComponent($item.type, $item.name, $item.as, $item.order)
             !endfor
         end box
     !elseif $dataSet == web
-        box "$box" #$colour
+        box "$box" #$color
             !foreach $item in $data.web
             addComponent($item.type, $item.name, $item.as, $item.order)
             !endfor
         end box
     !elseif $dataSet == ""
-        box "$box" #$colour
-            addComponent($item.type, $component, $as, $item.order)
+        box "$box" #$color
+            addComponent($type, $component, $as, $order)
         end box
     !endif
 !end procedure
@@ -90,7 +91,7 @@ end note
     !global $techCounter = 0
 
     '/Счетчик донорских стрелок в КЭШе
-    !global $donorCounter = 0
+    !global $donor = 0
 
     /'Дефолтны цвет для альта
     '/
@@ -129,29 +130,43 @@ end note
     !$altLevel = $altLevel + 1
 
     !if $donor != ""
-        !$counter = %intval($donor) - 1
-    !endif
-
-    !if $donor == ""
-        !$donor = 0
-    !endif
-    %invoke_procedure("$cashApi", post, $altLevel, $donor)
-
-    !if $color == ""
-        !if $altLevel == 1
-            alt $altColor $condition
-        !elseif $altLevel > 1
-            alt %lighten($altColor, %intval($altLevel*$altColorStep)) $condition
+        !if $donor < $counter
+            alt #yellow <color:red><size:15>**!!!ОШИБКА!!!**
+            note over all: <color:red><size:15>**Указанный номер донорской стрелки не соотвествует текущему значению счетчиков**
+            end
+        !elseif $donor == $counter || $donor > $counter
+            %invoke_procedure("$cashApi", post, $altLevel, $donor)
+            !$counter = %intval($donor) - 1
+            !if $color == ""
+                !if $altLevel == 1
+                    alt $altColor $condition
+                !elseif $altLevel > 1
+                    alt %lighten($altColor, %intval($altLevel*$altColorStep)) $condition
+                !endif
+            !elseif $color != ""
+                alt $color $condition
+            !endif
         !endif
-    !elseif $color != ""
-        alt $color $condition
+
+    !elseif $donor == ""
+        !$donor = 0
+        %invoke_procedure("$cashApi", post, $altLevel, $donor)
+        !if $color == ""
+            !if $altLevel == 1
+                alt $altColor $condition
+            !elseif $altLevel > 1
+                alt %lighten($altColor, %intval($altLevel*$altColorStep)) $condition
+            !endif
+        !elseif $color != ""
+            alt $color $condition
+        !endif
     !endif
+
 !endprocedure
 
 '/Процедура для отрисовки еще одного альтернативного взаимодействия между участниками
 !unquoted procedure ELSE_ALT($condition, $color="")
     %invoke_procedure("$cashApi", get, $altLevel)
-    !$donor = $donorCounter
 
     !if $donor > 0
         !$counter = %intval($donor) - 1
@@ -170,6 +185,10 @@ end note
 
 '/Процедура для завершения отрисовки альтернативного взаимодействия между участниками
 !unquoted procedure END_ALT()
+    %invoke_procedure("$cashApi",get, $altLevel)
+    !if $donor == 0
+        !$counter = $counter + 1
+    !endif
     %invoke_procedure("$cashApi",delete, $altLevel)
     !$altLevel = $altLevel - 1
     end alt
@@ -196,7 +215,7 @@ end note
         !$donorLengthIndex = %intval($levelIndex+16)
         !$donorLength = %intval(%substr($cash, %intval($donorLengthIndex), 1))
         !$donorIndex = %intval($levelIndex+25)
-        !$donorCounter = %intval(%substr($cash, $donorIndex, $donorLength))
+        !$donor = %intval(%substr($cash, $donorIndex, $donorLength))
 
         !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
         !$counterLengthIndex = %intval($levelIndex+43)
@@ -213,15 +232,6 @@ end note
 
     '/4. Удаление объекта КЭШа
     !elseif $method == "delete"
-        !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
-        !$counterLengthIndex = %intval($levelIndex+43)
-        !$counterLength = %intval(%substr($cash, %intval($counterLengthIndex), 1))
-        !$counterIndex = %intval($levelIndex+54)
-        !$counter = %intval(%substr($cash, $counterIndex, $counterLength))  
-        !if $counter == 0
-            !$counter = $counter + 1
-        !endif
-
         !if $altLevel == 1
             !$cash = ""
         !elseif $altLevel > 1
