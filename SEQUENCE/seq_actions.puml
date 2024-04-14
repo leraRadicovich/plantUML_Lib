@@ -1,0 +1,132 @@
+@startuml
+'/5. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
+'/Процедура для создания карты процессов в табличном виде и в виде текста с разделителями
+!unquoted procedure $processDescriptionBuilder($techCounter, $counter, $initiator, $executor, $action, $comment="")
+    !$csvProcessDescription = $csvProcessDescription + %newline() + $techCounter + ";" + $counter + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
+    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $techCounter + " | "+  $counter + " | " + $initiator + " | "+ $executor + " | " + $action + " | " + $comment + " |"
+!endprocedure
+
+'/Процедура для отрисовки взаимодействия между участниками
+!unquoted procedure ACTION($initiator, $executor, $liveLine="",$action, $comment="")
+    !$counter = $counter + 1
+    !$techCounter = $techCounter + 1
+    $initiator -> $executor $liveLine: <size:12>**$counter**</size> $action
+    %invoke_procedure("$processDescriptionBuilder", $techCounter, $counter, $initiator, $executor, $action, $comment)
+!endprocedure
+
+'/Процедура для отрисовки альтернативного взаимодействия между участниками
+!unquoted procedure ALT($condition, $donor="", $color="")
+    !$altLevel = $altLevel + 1
+
+    !if $donor != ""
+        !if $donor < $counter
+            alt #yellow <color:red><size:15>**!!!ОШИБКА!!!**
+            note over all: <color:red><size:15>**Указанный номер донорской стрелки не соотвествует текущему значению счетчиков**
+            end
+        !elseif $donor == $counter || $donor > $counter
+            %invoke_procedure("$cashApi", post, $altLevel, $donor)
+            !$counter = %intval($donor) - 1
+            !if $color == ""
+                !if $altLevel == 1
+                    alt $altColor $condition
+                !elseif $altLevel > 1
+                    alt %lighten($altColor, %intval($altLevel*$altColorStep)) $condition
+                !endif
+            !elseif $color != ""
+                alt $color $condition
+            !endif
+        !endif
+
+    !elseif $donor == ""
+        !$donor = 0
+        %invoke_procedure("$cashApi", post, $altLevel, $donor)
+        !if $color == ""
+            !if $altLevel == 1
+                alt $altColor $condition
+            !elseif $altLevel > 1
+                alt %lighten($altColor, %intval($altLevel*$altColorStep)) $condition
+            !endif
+        !elseif $color != ""
+            alt $color $condition
+        !endif
+    !endif
+
+!endprocedure
+
+'/Процедура для отрисовки еще одного альтернативного взаимодействия между участниками
+!unquoted procedure ELSE_ALT($condition, $color="")
+    %invoke_procedure("$cashApi", get, $altLevel)
+
+    !if $donor > 0
+        !$counter = %intval($donor) - 1
+    !endif
+
+    !if $color == ""
+        !if $altLevel == 1
+            else %reverse_color($altColor) $condition
+        !elseif $altLevel > 1
+            else %reverse_color(%lighten($altColor, %intval($altLevel*$altColorStep))) $condition
+        !endif
+    !elseif $color != ""
+        else $color $condition
+    !endif
+!endprocedure
+
+'/Процедура для завершения отрисовки альтернативного взаимодействия между участниками
+!unquoted procedure END_ALT()
+    %invoke_procedure("$cashApi",get, $altLevel)
+    !if $donor == 0
+        !$counter = $counter + 1
+    !endif
+    %invoke_procedure("$cashApi",delete, $altLevel)
+    !$altLevel = $altLevel - 1
+    end alt
+!endprocedure
+
+'/Процедура, инициирующая КЭШ и методы работы с ним
+!unquoted procedure $cashApi($method, $level="", $donor="")
+    '/Определение длинн $counter и $donor
+    !$donorLength = %strlen(%intval($donor))
+    !$counterLength = %strlen(%intval($counter))
+
+    '/1. Создание объекта в КЭШе
+    !if $method == "post"
+        !$unicodeLevel = %chr($level + 64)
+        !if $altLevel == 1
+            !$cash = $cash + "{id:" + $unicodeLevel + ", " + "donor_length:"+ $donorLength + ", "+ "donor:" + $donor + ", " + "counter_length:" + $counterLength + ", " + "counter:" + $counter + ", " + "tech_counter:" + $techCounter + "}"
+        !elseif $altLevel > 1
+            !$cash = $cash + %newline() + "{id:" + $unicodeLevel + ", " + "donor_length:"+ $donorLength + ", "+ "donor:" + $donor + ", " + "counter_length:" + $counterLength + ", " + "counter:" + $counter + ", " + "tech_counter:" + $techCounter + "}"
+        !endif
+
+    '/2. Присвоение буферной переменной $donorCounter соответствующего запрашиваемому уровню альта значения из КЭШа
+    !elseif ($method == "get" && $level != "")
+        !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
+        !$donorLengthIndex = %intval($levelIndex+16)
+        !$donorLength = %intval(%substr($cash, %intval($donorLengthIndex), 1))
+        !$donorIndex = %intval($levelIndex+25)
+        !$donor = %intval(%substr($cash, $donorIndex, $donorLength))
+
+        !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
+        !$counterLengthIndex = %intval($levelIndex+43)
+        !$counterLength = %intval(%substr($cash, %intval($counterLengthIndex), 1))
+        !$counterIndex = %intval($levelIndex+54)
+        !$counter = %intval(%substr($cash, $counterIndex, $counterLength))
+
+    '/3. Получить все объекты из КЭШа
+    !elseif ($method == "get")
+
+note across
+$cash
+end note
+
+    '/4. Удаление объекта КЭШа
+    !elseif $method == "delete"
+        !if $altLevel == 1
+            !$cash = ""
+        !elseif $altLevel > 1
+            !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
+            !$cash = %substr($cash, 0, (%intval($levelIndex)-5))
+        !endif
+    !endif
+!endprocedure
+@enduml
