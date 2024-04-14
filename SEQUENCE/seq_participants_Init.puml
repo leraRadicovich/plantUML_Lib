@@ -1,0 +1,53 @@
+@startuml
+'/Процедура DIAGRAMM_INIT($title) инициирует создание заголовка и списка участников'
+!unquoted procedure DIAGRAMM_INIT($title)
+    Title $title
+    addBox("\nАУТЕНТИФИКАЦИЯ ПАРТНЕРОВ", lightblue, participants)
+    addBox("\nWEB", lightgreen, web)
+!endprocedure
+
+'/ПРОЦЕДУРЫ РАБОТЫ С УЧАСТНИКАМИ ПРОЦЕССА И СПИСОК УЧАСТНИКОВ
+'/Добавление участника'
+!unquoted procedure addComponent($type="participant", $participantName, $as, $order=0)
+        $type "$participantName" as $as order $order
+!end procedure
+
+'/TODO Переделать добавление боксов. Сейчас бокс без датасета создается с одним участником.
+'/Добавление группы участников
+!procedure addBox($box, $color, $dataSet="", $type="participant", $component="", $as="", $order=0)
+    !if $dataSet == participants
+        box "$box" #$color
+            !foreach $item in $data.participants
+            addComponent($item.type, $item.name, $item.as, $item.order)
+            !endfor
+        end box
+    !elseif $dataSet == web
+        box "$box" #$color
+            !foreach $item in $data.web
+            addComponent($item.type, $item.name, $item.as, $item.order)
+            !endfor
+        end box
+    !elseif $dataSet == ""
+        box "$box" #$color
+            addComponent($type, $component, $as, $order)
+        end box
+    !endif
+!end procedure
+
+'/JSON с дефолтными группами и участниками
+!$data={
+  "participants": [
+    {"type":"participant", "name": "front (id.vtb.ru)", "as": "front", "order":"10"},
+    {"type":"participant", "name": "pafp-partner-is", "as": "pafp", "order":"20"},
+    {"type":"database", "name": "redis", "as": "redis", "order":"30"},
+    {"type":"database", "name": "PostgreSql", "as": "psql", "order":"40"}
+    ],
+  "web": [
+    {"type":"actor", "name": "Пользователь", "as": "user", "order":"0"},
+    {"type":"participant", "name": "Сайт партнера", "as": "site", "order":"1"},
+    {"type":"participant", "name": "БЭК-сервис партнера", "as": "part", "order":"2"},
+    {"type":"participant", "name": "Анкеты", "as": "anketa", "order":"3"},
+    {"type":"participant", "name": "MOS.RU", "as": "mos", "order":"4"}
+    ]
+}
+@enduml
