@@ -1,5 +1,11 @@
 @startuml
 'СЛУЖЕБНЫЕ ПРОЦЕДУРЫ'
+'/Процедура для создания карты процессов в табличном виде и в виде текста с разделителями
+!unquoted procedure $processDescriptionBuilder($techCounter, $counter, $initiator, $executor, $action, $comment="")
+    !$csvProcessDescription = $csvProcessDescription + %newline() + $techCounter + ";" + $counter + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
+    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $techCounter + " | "+  $counter + " | " + $initiator + " | "+ $executor + " | " + $action + " | " + $comment + " |"
+!end procedure
+
 'Процедура LEGEND() инициирует отображение на диаграмме легенды с картой процесса, представленном на диаграмме, в табличном виде'
 !unquoted procedure LEGEND()
     legend left
@@ -7,7 +13,7 @@
     ====
     $tableProcessDescription
     end legend
-!endprocedure
+!end procedure
 
 /'Процедура NOTE($mode=0)  инициирует отображение на диаграмме заметки с картой процесса, представленном на диаграмме, в табличном виде (mode=0, дефолтное значение)
 и в виде текста с разделителем (mode=1)'/
@@ -27,5 +33,5 @@ note across
 $csvProcessDescription
 end note
 !endif
-!endprocedure
+!end procedure
 @enduml
