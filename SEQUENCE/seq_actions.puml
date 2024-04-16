@@ -1,10 +1,5 @@
 @startuml
 '/5. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
-'/Процедура для создания карты процессов в табличном виде и в виде текста с разделителями
-!unquoted procedure $processDescriptionBuilder($techCounter, $counter, $initiator, $executor, $action, $comment="")
-    !$csvProcessDescription = $csvProcessDescription + %newline() + $techCounter + ";" + $counter + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
-    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $techCounter + " | "+  $counter + " | " + $initiator + " | "+ $executor + " | " + $action + " | " + $comment + " |"
-!endprocedure
 
 '/Процедура для отрисовки взаимодействия между участниками
 !unquoted procedure ACTION($initiator, $executor, $liveLine="",$action, $comment="")
@@ -20,9 +15,16 @@
 
     !if $donor != ""
         !if $donor < $counter
-            alt #yellow <color:red><size:15>**!!!ОШИБКА!!!**
-            note over all: <color:red><size:15>**Указанный номер донорской стрелки не соотвествует текущему значению счетчиков**
+            alt  #yellow <size:20><color:red>**!!!В ДИАГРАММЕ ОБНАРУЖЕНА ОШИБКА!!!**
+                note over all
+                =<color:red><size:15>**Указан некорректный номер донорской стрелки**
+                Возможные значения счетчика для альтернативного взаимодействия: $counter и %intval($counter+1), -
+                вы указали - $donor. Если ошибка не будет исправлена, дальнейшие стрелки
+                будут пронумерованы некорректно.
+                =Да пребудет с вами сила!
+                end note
             end
+
         !elseif $donor == $counter || $donor > $counter
             %invoke_procedure("$cashApi", post, $altLevel, $donor)
             !$counter = %intval($donor) - 1
