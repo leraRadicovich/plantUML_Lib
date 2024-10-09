@@ -1,7 +1,118 @@
 @startuml
-!include seq_variables.puml
-!include seq_participants_Init.puml
-!include seq_style.puml
-!include seq_service_procedures.puml
-!include seq_actions.puml
+'1. ПАРАМЕТРЫ И РУБИЛЬНИКИ
+'=========================================================================================================================
+'Идентификатор взаимодействия, повторяет значение autonumber
+!$id = 0
+
+'Параметр, содержащий символ переноса строки \n в описании взаимодействия и комментария к нему,
+'необходим для формирования построчного отображения текста в ячейках таблицы
+!$textResult = ""
+
+'Параметры, ограничивающие длинну строк с описанием взаимодействия и комментария к нему в таблице
+!$actionLength = 20
+!$commentLength = 30
+
+'Параметры, задающие шаблон табличного описания процессов
+!$csvProcessDescription = "id;Инициатор;Получатель;Действие;Комментарий"
+!$tableProcessDescription = "| id | Инициатор | Получатель | Действие | Комментарий |"
+
+'2. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
+'=========================================================================================================================
+'Процедуры req и res необходимы для замены стандартного описания взаимодействия между участниками,
+'Вам необходимо вызвать процедуру в редакторе, передать ей параметры:
+'$initiator - участник-иницатор взаимодействия,
+'$executor - участник-исполнитель взаимодействия,
+'$liveLine - параметр управления линией жизни взаимодействия, подразумевается ++, --, --++, ++--
+'$action - описание взаимодействия
+'$comment - комментарий для данной операции
+'Процедура во время исполнения автоматически вызвает другую вспомогательную процедуру - $processDescriptionBuilder, для построения карты процесса в виде текста с разделителями.
+'Пример: req(Alice,Bob,++,Поздороваться,Alice всегда здоровается с Bob при встрече) заменяет строку вида Alice -> Bob ++: Поздороваться.
+'ВАЖНО: т.к. процедура принимает параметры через запятую, их использование в $action и $commentLength становится затруднительным. Приходится экранировать встроенной функцией %string(",")
+!unquoted procedure req($initiator, $executor, $liveLine="",$action, $comment="")
+    $initiator -> $executor $liveLine: $action
+    !$id = $id + 1
+    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
+!endprocedure
+
+!unquoted procedure res($executor, $initiator, $liveLine="",$action, $comment="")
+    $executor --> $initiator $liveLine: $action
+    !$id = $id + 1
+    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
+!endprocedure
+
+'3. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
+'=========================================================================================================================
+'Вспомогательная процедура, отвечает за построчное отображение текста в таблице
+!unquoted procedure $textNewLineCutter($text, $length)
+    !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
+        !$cutPosition = $length + %strpos(%substr($text,%intval($length)), " ") /'Поиск пробела'/
+        !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
+        !$text = %substr($text,%intval($cutPosition))
+    !endwhile
+    !$textResult = $textResult + $text
+!endprocedure
+
+'Процедура, отвечающая за формирование таблицы с описанием процесса
+'Процедура вызывается каждый раз с вызовом процедур взаимодействия.
+'Стоит обратить внимание на значение параметров $actionLength и $commentLength, - они
+'управляют длинной строки, отображаемой в ячейке таблицы. Это работает только для таблицы с
+'разделителем |, для ; перенос строк не работает
+!unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
+    %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
+    !$actionResult = $textResult
+    !$textResult = ""
+    %invoke_procedure("$textNewLineCutter", $comment, $commentLength) /'Форматирование текста построчно'/
+    !$commentResult = $textResult
+    !$textResult = ""
+    'Наполнение таблиц с разными разедлителями: | - для него нужно построчное форматирование текста, и ; - для него не нужно построчное форматирование текста
+    !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
+    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + initiator + " | "+ $executor + " | " + $actionResult + " | " + $commentResult + " |"
+!end procedure
+
+'Процедура, отвечающая за отображение таблицы с описанием процесса.
+'Процедура принимает на вход значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
+'а 1 - это отображение карты процесса в виде текста с разделителем ;
+'По умолчанию вызывается с 0.
+'Как использовать? Описание для IntelliJ IDEA - описываете свой процесс. Вызываете процедуру NOTE()
+'с любым параметром, далее кликаете правой кнопкой мыши по изображению и выбираете "Copy diagramm to clipbord as unicode ASCII",
+'в буфер скопируется изображение в формате markdoun, вставляйте в любой текстовый редактор. Копируйте таблицы с разделителем, и т.д. на свое
+'усмотрение.
+!unquoted procedure NOTE($mode=0)
+!if $mode == 0
+note across
+=Таблица: карта процесса
+====
+$tableProcessDescription
+end note
+
+!elseif $mode == 1
+note across
+=Текстовое описание процесса (текст с разделителем)
+====
+$csvProcessDescription
+end note
+!endif
+!end procedure
+
+'4. ПАРАМЕТРЫ СТИЛЯ
+'=========================================================================================================================
+autonumber
+skinparam dpi 75
+skinparam maxMessageSize 250
+skinparam backgroundColor LightGray
+skinparam sequence {
+ArrowColor blue
+ActorBorderColor blue
+LifeLineBorderColor blue
+LifeLineBackgroundColor #White
+ParticipantBorderColor blue
+ParticipantBackgroundColor DodgerBlue
+ParticipantFontName Impact
+ParticipantFontSize 17
+ParticipantFontColor #A9DCDF
+ActorBackgroundColor DodgerBlue
+ActorFontColor DeepSkyBlue
+ActorFontSize 17
+ActorFontName Aapex
+}
 @enduml

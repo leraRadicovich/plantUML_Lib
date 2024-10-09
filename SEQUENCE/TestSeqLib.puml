@@ -1,31 +1,18 @@
 @startuml
 
 !include SequenseLib.puml
+actor "Валера" as valera
+participant "InelliJ IDEA" as idea
+box "Телеграмм" #dodgerblue
+queue "Чат с коллегами" as chat
+end box
+actor "Коллега" as colleague
+participant "GiitHub" as git
 
-DIAGRAMM_INIT(Отладка конфига для сиквенс-диаграммы)
-note across
-    %filename()
-    27.02.2024
-    by Patrushev Valery
-end note
+req(valera,idea,++,Написание библиотеки, Библиотека изначально пишется под себя %string(",") после отладки и переиспользования в работе возникает решение поделиться с коллегами.)
+res(idea,valera,,Результат, Отображение библиотеки %string(",") способов ее применения)
+req(valera,idea,,Отправить в удаленный репозиторий, Удаленный репозиторий лежит по адресу [[]])
 
-addBox("testBox","pink","","queue","Тестовая очередь","test")
-addBox("testBox","pink","","database","Тестовая бд","tdb")
-$cashApi(get)
-    ACTION(test,front,++,первый вызов,комментарий)
-    ACTION(test,tdb,++,первый вызов,комментарий)
-ALT(Первый вызов)
-    ACTION(test,privet,, тестовый вызов, комментарий для тестового вызова)
-    $cashApi(get)
-ELSE_ALT(Еще один коментарий)
-    ACTION(test,privet,, тестовый вызов, комментарий для еще одного тестового вызова)
-END_ALT()
-    $cashApi(get)
-    ACTION(site,front,++,первый вызов,комментарий)
-    $cashApi(get)
-    ALT(Тест вложенного альта,,)
-        ACTION(site,front,,первый вызов вложенного нулевого альта,комментарий)
-    END_ALT()
 NOTE()
-LEGEND()
+
 @enduml
