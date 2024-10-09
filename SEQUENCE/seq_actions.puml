@@ -102,7 +102,7 @@
 
     '/2. Присвоение буферной переменной $donorCounter соответствующего запрашиваемому уровню альта значения из КЭШа
     !elseif ($method == "get" && $level != "")
-        !$levelIndex = %strpos($cash, %chr(%intval($level) + 64))
+        !$levelIndex =
         !$donorLengthIndex = %intval($levelIndex+16)
         !$donorLength = %intval(%substr($cash, %intval($donorLengthIndex), 1))
         !$donorIndex = %intval($levelIndex+25)
