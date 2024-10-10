@@ -1,0 +1,65 @@
+@startmindmap
+!global $count=0
+!unquoted function stepBuilder($step, $symbol)
+    !$result=""
+    !$i=0
+    !if $symbol=="_"
+        !while $i < $step
+            !$result = $result + "*"
+            !$i = $i + 1
+        !endwhile
+        !$result = $result+"_"
+    !else
+        !while $i < $step
+            !$result = $result + $symbol
+            !$i = $i + 1
+        !endwhile
+    !endif
+    !return %string($result)
+!endfunction
+
+!unquoted procedure step($text, $i, $s="*")
+    !$count = $count+1
+    %string(stepBuilder($i, $s)) <color:red>**$count**</color> $text
+!endprocedure
+
+!unquoted procedure case($text, $i, $s="*")
+    !$count = $count+1
+    stepBuilder($i, $s)[#lightgreen] <color:red>**$count**</color> $text
+!endprocedure
+
+!unquoted procedure link($text, $i, $s="*")
+    !$count = $count+1
+    stepBuilder($i, $s)[#moccasin] <color:red>**$count** <size:15><&share> gotostep $text</size>
+!endprocedure
+
+
+
+
+caption figure 1
+title My super title
+
+* <&flag>Debian
+** <&globe>Ubuntu
+*** Linux Mint
+*** Kubuntu
+*** Lubuntu
+*** KDE Neon
+** <&graph>LMDE
+** <&pulse>SolydXK
+** <&people>SteamOS
+** <&star>Raspbian with a very long name
+*** <s>Raspmbc</s> => OSMC
+*** <s>Raspyfi</s> => Volumio
+
+header
+My super header
+endheader
+
+center footer My super footer
+
+legend right
+  Short
+  legend
+endlegend
+@endmindmap
