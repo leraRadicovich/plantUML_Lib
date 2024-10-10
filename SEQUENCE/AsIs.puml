@@ -1,0 +1,11 @@
+@startuml
+autonumber
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+note across
+| columnName | columnName1 | columnName2 |
+| value | value | value |
+end note
+@enduml
