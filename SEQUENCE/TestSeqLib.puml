@@ -2,13 +2,13 @@
 
 !include SequenseLib.puml
 
-$parties(actor, Валера ,valera)
-$parties(participant,InelliJ IDEA,idea)
+parties(actor, Валера ,valera)
+parties(participant,InelliJ IDEA,idea)
 box "Телеграмм" #dodgerblue
-$parties(queue,Чат с коллегами,chat)
+parties(queue,Чат с коллегами,chat)
 end box
-$parties(actor,Коллега,colleague)
-$parties(participant,GiitHub,git)
+parties(actor,Коллега,colleague)
+parties(participant,GiitHub,git)
 
 req(valera,idea,++,Написание библиотеки, "Библиотека изначально пишется под себя, после отладки и переиспользования в работе возникает решение поделиться с коллегами.")
 res(idea,valera,,Результат, "Отображение библиотеки, способов ее применения")

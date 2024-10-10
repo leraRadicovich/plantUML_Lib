@@ -51,7 +51,7 @@ settings -> editor -> LiveTemplates
 =========================================================================================================================
 Вспомогательная процедура отрисовки участников: нужна только для формирования переменной с мапой имя-алиас
 она нужна для формирования карты процесса'/
-!unquoted procedure $parties($partyType="participant", $name, $alias, $order="")
+!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
     !if $order != ""
         $partyType "$name" as $alias order $order
     !else
