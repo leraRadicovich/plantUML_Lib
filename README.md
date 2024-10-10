@@ -7,7 +7,7 @@ sequence/SequenceLib.v3_lite
 Дата релиза 09.10.2024, Автор: Валерий Патрушев. 
 
 Пример отображения тестовой диаграммы в формате unicode ASCII
-![Пример отображения тестовой диаграммы в формате unicode ASCII] (https://github.com/leraRadicovich/plantUML_Lib/edit/main/SEQUENCE/examples/Diagramm unicode ASCII.jpg)
+![Пример отображения тестовой диаграммы в формате unicode ASCII] (https://github.com/leraRadicovich/plantUML_Lib/edit/main/SEQUENCE/examples/DiagrammunicodeASCII.jpg)
 
 
 Известные баги и идеи по улучшению
