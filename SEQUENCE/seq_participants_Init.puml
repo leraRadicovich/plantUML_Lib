@@ -1,3 +1,4 @@
+@startuml
 '/Процедура DIAGRAMM_INIT($title) инициирует создание заголовка и списка участников'
 !unquoted procedure DIAGRAMM_INIT($title)
     Title $title

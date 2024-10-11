@@ -1,3 +1,4 @@
+@startuml
 '/5. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
 '/Процедура для создания карты процессов в табличном виде и в виде текста с разделителями
 !unquoted procedure $processDescriptionBuilder($techCounter, $counter, $initiator, $executor, $action, $comment="")

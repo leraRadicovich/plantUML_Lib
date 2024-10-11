@@ -1,3 +1,4 @@
+@startuml
 '/ПАРАМЕТРЫ СТИЛЯ
 hide unlinked
 skinparam maxMessageSize 150
