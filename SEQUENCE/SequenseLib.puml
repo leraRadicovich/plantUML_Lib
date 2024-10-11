@@ -1,7 +1,6 @@
-@startuml
+
 !include seqVariables.puml
 !include seq_participants_Init.puml
 !include seq_style.puml
 !include seq_service_procedures.puml
 !include seq_actions.puml
-@enduml

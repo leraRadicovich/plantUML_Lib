@@ -1,4 +1,3 @@
-@startuml
 'СЛУЖЕБНЫЕ ПРОЦЕДУРЫ'
 'Процедура LEGEND() инициирует отображение на диаграмме легенды с картой процесса, представленном на диаграмме, в табличном виде'
 !unquoted procedure LEGEND()
@@ -28,4 +27,3 @@ $csvProcessDescription
 end note
 !endif
 !endprocedure
-@enduml

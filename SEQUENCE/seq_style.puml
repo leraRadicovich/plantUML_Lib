@@ -1,4 +1,3 @@
-@startuml
 '/ПАРАМЕТРЫ СТИЛЯ
 hide unlinked
 skinparam maxMessageSize 150
@@ -26,4 +25,3 @@ FontColor white
 BackGroundColor black
 }
 </style>
-@enduml
