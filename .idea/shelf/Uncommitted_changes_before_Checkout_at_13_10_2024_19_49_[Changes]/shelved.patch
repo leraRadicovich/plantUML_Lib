@@ -1,0 +1,505 @@
+Index: SEQUENCE/SequenseLib.puml
+===================================================================
+diff --git a/SEQUENCE/SequenseLib.puml b/SEQUENCE/Functions/ActionProcedures.puml
+rename from SEQUENCE/SequenseLib.puml
+rename to SEQUENCE/Functions/ActionProcedures.puml
+--- a/SEQUENCE/SequenseLib.puml	
++++ b/SEQUENCE/Functions/ActionProcedures.puml	
+@@ -1,30 +1,9 @@
+ @startuml
+-/'1. ПАРАМЕТРЫ И РУБИЛЬНИКИ
+-=========================================================================================================================
+-Идентификатор взаимодействия, повторяет значение autonumber'/
+-!$id = 0
+-
+-/'Параметр, содержащий символ переноса строки \n в описании взаимодействия и комментария к нему,
+-необходим для формирования построчного отображения текста в ячейках таблицы'/
+-!$textResult = ""
+-
+-/'араметры, ограничивающие длинну строк с описанием взаимодействия и комментария к нему в таблице'/
+-!$actionLength = 20
+-!$commentLength = 30
+-
+-/'Параметры, задающие шаблон табличного описания процессов'/
+-!$csvProcessDescription = "id;Инициатор;Получатель;Действие;Комментарий"
+-!$tableProcessDescription = "| id | Инициатор | Получатель | Действие | Комментарий |"
+-
+-/'Параметры, отвечающие за обработку имен и алиасов участников диаграммы'/
+-!$partiesMapper = ""
+-!$resultName = ""
+-
+ /'2. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
+ =========================================================================================================================
+ Процедуры req и res необходимы для замены стандартного описания взаимодействия между участниками,
+ Вам необходимо вызвать процедуру в редакторе, передать ей параметры:
+-$initiator - участник-иницатор взаимодействия,
++$initiator - участник-инициатор взаимодействия,
+ $executor - участник-исполнитель взаимодействия,
+ $liveLine - параметр управления линией жизни взаимодействия, подразумевается ++, --, --++, ++--
+ $action - описание взаимодействия
+@@ -46,108 +25,4 @@
+     !$id = $id + 1
+     %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
+ !endprocedure
+-
+-/'3. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
+-=========================================================================================================================
+-Вспомогательная процедура отрисовки участников: нужна только для формирования переменной с мапой имя-алиас
+-она нужна для формирования карты процесса'/
+-!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
+-    !if $order != ""
+-        $partyType "$name" as $alias order $order
+-    !else
+-        $partyType "$name" as $alias
+-    !endif
+-    !$partiesMapper = $partiesMapper + $alias + ":" + $name + ";"
+-!endprocedure
+-
+-/'Вспомогательная процедура получения имения участника по алиасу из маппера участников'/
+-!unquoted procedure $aliasToName($alias)
+-    !$resultName = %substr($partiesMapper, %strpos($partiesMapper, $alias))
+-    !$resultName = %substr($resultName, %strpos($resultName, ":"))
+-    !$resultName = %substr($resultName,1,%strpos($resultName,";")-1)
+-!endprocedure
+-
+-/'Вспомогательная процедура, отвечает за построчное отображение текста в таблице'/
+-!unquoted procedure $textNewLineCutter($text, $length)
+-    !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
+-        !$cutPosition = $length + %strpos(%substr($text,%intval($length)), " ") /'Поиск пробела'/
+-        !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
+-        !$text = %substr($text,%intval($cutPosition))
+-    !endwhile
+-    !$textResult = $textResult + $text
+-!endprocedure
+-
+-/'Процедура, отвечающая за формирование таблицы с описанием процесса
+-Процедура вызывается каждый раз с вызовом процедур взаимодействия.
+-Стоит обратить внимание на значение параметров $actionLength и $commentLength, - они
+-управляют длинной строки, отображаемой в ячейке таблицы. Это работает только для таблицы с
+-разделителем |, для ";" перенос строк не работает'/
+-!unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
+-    /'Форматируем текст действия в многострочный вид'/
+-    %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
+-    !$actionResult = $textResult
+-    !$textResult = ""
+-    /'Форматируем текст комментария в многострочный вид'/
+-    %invoke_procedure("$textNewLineCutter", $comment, $commentLength) /'Форматирование текста построчно'/
+-    !$commentResult = $textResult
+-    !$textResult = ""
+-    /'Получаем имя инициатора по его алиасу'/
+-    %invoke_procedure("$aliasToName", $initiator)
+-    !$initiatorName = $resultName
+-    !$resultName = ""
+-    /'Получаем имя исполнителя по его алиасу'/
+-    %invoke_procedure("$aliasToName", $executor)
+-    !$executorName = $resultName
+-    !$resultName = ""
+-    'Наполнение таблиц с разными разделителями: | - для него нужно построчное форматирование текста, и ; - для него не нужно построчное форматирование текста
+-    !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
+-    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
+-!end procedure
+-
+-/'Процедура, отвечающая за отображение таблицы с описанием процесса.
+-Процедура принимает на вход значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
+-а 1 - это отображение карты процесса в виде текста с разделителем ;
+-По умолчанию вызывается с 0.
+-Как использовать? Описание для IntelliJ IDEA - описываете свой процесс. Вызываете процедуру NOTE()
+-с любым параметром, далее кликаете правой кнопкой мыши по изображению и выбираете "Copy diagramm to clipbord as unicode ASCII",
+-в буфер скопируется изображение в формате markdown, вставляйте в любой текстовый редактор. Копируйте таблицы с разделителем, и т.д. на свое
+-усмотрение. Смотри отображение тестового примера в файле read.me'/
+-!unquoted procedure NOTE($mode=0)
+-!if $mode == 0
+-note across
+-=Таблица: карта процесса
+-====
+-$tableProcessDescription
+-end note
+-
+-!elseif $mode == 1
+-note across
+-=Текстовое описание процесса (текст с разделителем)
+-====
+-$csvProcessDescription
+-end note
+-!endif
+-!end procedure
+-
+-/'4. ПАРАМЕТРЫ СТИЛЯ
+-========================================================================================================================='/
+-autonumber
+-skinparam dpi 75
+-skinparam maxMessageSize 250
+-skinparam backgroundColor LightGray
+-skinparam sequence {
+-ArrowColor blue
+-ActorBorderColor blue
+-LifeLineBorderColor blue
+-LifeLineBackgroundColor #White
+-ParticipantBorderColor blue
+-ParticipantBackgroundColor DodgerBlue
+-ParticipantFontName Impact
+-ParticipantFontSize 17
+-ParticipantFontColor #A9DCDF
+-ActorBackgroundColor DodgerBlue
+-ActorFontColor DeepSkyBlue
+-ActorFontSize 17
+-ActorFontName Aapex
+-}
+ @enduml
+\ No newline at end of file
+Index: SEQUENCE/TestSeqLib.puml
+===================================================================
+diff --git a/SEQUENCE/TestSeqLib.puml b/SEQUENCE/examples/TestSeqLib.puml
+rename from SEQUENCE/TestSeqLib.puml
+rename to SEQUENCE/examples/TestSeqLib.puml
+--- a/SEQUENCE/TestSeqLib.puml	
++++ b/SEQUENCE/examples/TestSeqLib.puml	
+@@ -1,6 +1,6 @@
+ @startuml
+ 
+-!include SequenseLib.puml
++!include Functions/AllFunctionsLib.puml
+ 
+ parties(actor, Валера ,valera)
+ parties(participant,InelliJ IDEA,idea)
+Index: SEQUENCE/Functions/DiagramStyle.puml
+===================================================================
+diff --git a/SEQUENCE/Functions/DiagramStyle.puml b/SEQUENCE/Functions/DiagramStyle.puml
+new file mode 100644
+--- /dev/null	
++++ b/SEQUENCE/Functions/DiagramStyle.puml	
+@@ -0,0 +1,23 @@
++@startuml
++/'4. ПАРАМЕТРЫ СТИЛЯ
++========================================================================================================================='/
++autonumber
++skinparam dpi 75
++skinparam maxMessageSize 250
++skinparam backgroundColor LightGray
++skinparam sequence {
++ArrowColor blue
++ActorBorderColor blue
++LifeLineBorderColor blue
++LifeLineBackgroundColor #White
++ParticipantBorderColor blue
++ParticipantBackgroundColor DodgerBlue
++ParticipantFontName Impact
++ParticipantFontSize 17
++ParticipantFontColor #A9DCDF
++ActorBackgroundColor DodgerBlue
++ActorFontColor DeepSkyBlue
++ActorFontSize 17
++ActorFontName Aapex
++}
++@enduml
+\ No newline at end of file
+Index: SEQUENCE/Functions/ServiceProcedures.puml
+===================================================================
+diff --git a/SEQUENCE/Functions/ServiceProcedures.puml b/SEQUENCE/Functions/ServiceProcedures.puml
+new file mode 100644
+--- /dev/null	
++++ b/SEQUENCE/Functions/ServiceProcedures.puml	
+@@ -0,0 +1,84 @@
++@startuml
++/'3. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
++=========================================================================================================================
++Вспомогательная процедура отрисовки участников: нужна только для формирования переменной с мапой имя-алиас
++она нужна для формирования карты процесса'/
++!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
++    !if $order != ""
++        $partyType "$name" as $alias order $order
++    !else
++        $partyType "$name" as $alias
++    !endif
++    !$partiesMapper = $partiesMapper + $alias + ":" + $name + ";"
++!endprocedure
++
++/'Вспомогательная процедура получения имения участника по алиасу из маппера участников'/
++!unquoted procedure $aliasToName($alias)
++    !$resultName = %substr($partiesMapper, %strpos($partiesMapper, $alias))
++    !$resultName = %substr($resultName, %strpos($resultName, ":"))
++    !$resultName = %substr($resultName,1,%strpos($resultName,";")-1)
++!endprocedure
++
++/'Вспомогательная процедура, отвечает за построчное отображение текста в таблице'/
++!unquoted procedure $textNewLineCutter($text, $length)
++    !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
++        !$cutPosition = $length + %strpos(%substr($text,%intval($length)), " ") /'Поиск пробела'/
++        !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
++        !$text = %substr($text,%intval($cutPosition))
++    !endwhile
++    !$textResult = $textResult + $text
++!endprocedure
++
++/'Процедура, отвечающая за формирование таблицы с описанием процесса
++Процедура вызывается каждый раз с вызовом процедур взаимодействия.
++Стоит обратить внимание на значение параметров $actionLength и $commentLength, - они
++управляют длинной строки, отображаемой в ячейке таблицы. Это работает только для таблицы с
++разделителем |, для ";" перенос строк не работает'/
++!unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
++    /'Форматируем текст действия в многострочный вид'/
++    %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
++    !$actionResult = $textResult
++    !$textResult = ""
++    /'Форматируем текст комментария в многострочный вид'/
++    %invoke_procedure("$textNewLineCutter", $comment, $commentLength) /'Форматирование текста построчно'/
++    !$commentResult = $textResult
++    !$textResult = ""
++    /'Получаем имя инициатора по его алиасу'/
++    %invoke_procedure("$aliasToName", $initiator)
++    !$initiatorName = $resultName
++    !$resultName = ""
++    /'Получаем имя исполнителя по его алиасу'/
++    %invoke_procedure("$aliasToName", $executor)
++    !$executorName = $resultName
++    !$resultName = ""
++    'Наполнение таблиц с разными разделителями: | - для него нужно построчное форматирование текста, и ; - для него не нужно построчное форматирование текста
++    !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
++    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
++!end procedure
++
++/'Процедура, отвечающая за отображение таблицы с описанием процесса.
++Процедура принимает на вход значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
++а 1 - это отображение карты процесса в виде текста с разделителем ;
++По умолчанию вызывается с 0.
++Как использовать? Описание для IntelliJ IDEA - описываете свой процесс. Вызываете процедуру NOTE()
++с любым параметром, далее кликаете правой кнопкой мыши по изображению и выбираете "Copy diagramm to clipbord as unicode ASCII",
++в буфер скопируется изображение в формате markdown, вставляйте в любой текстовый редактор. Копируйте таблицы с разделителем, и т.д. на свое
++усмотрение. Смотри отображение тестового примера в файле read.me'/
++!unquoted procedure NOTE($mode=0)
++!if $mode == 0
++note across
++=Таблица: карта процесса
++====
++$tableProcessDescription
++end note
++
++!elseif $mode == 1
++note across
++=Текстовое описание процесса (текст с разделителем)
++====
++$csvProcessDescription
++end note
++!endif
++!end procedure
++
++@enduml
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"bdc5c010-72fc-4431-8aeb-9b8e24eb81ca\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/.gitignore\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/modules.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/modules.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/plantUML_Lib.iml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/vcs.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/README.md\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/README.md\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\"><![CDATA[{\r\n  \"associatedIndex\": 7\r\n}]]></component>\r\n  <component name=\"ProjectId\" id=\"2nIArqU4jEcXbAtBK3HF1DBLDAG\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollToSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"showMembers\" value=\"true\" />\r\n    <option name=\"showVisibilityIcons\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"sequence/SequenceLib.v3__lite\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"onboarding.tips.debug.path\": \"C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/src/Main.java\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"bdc5c010-72fc-4431-8aeb-9b8e24eb81ca\" name=\"Changes\" comment=\"\" />\r\n      <created>1728650420846</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1728650420846</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/Main.java</url>\r\n          <line>12</line>\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,27 +1,31 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/plantUML_Lib.iml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+-    </list>
++    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="Восстановление проекта" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="sequence/SequenceLib.v3_lite" />
++        <entry key="$PROJECT_DIR$" value="sequence/SequenceLib.v2" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="RESET_MODE" value="MIXED" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+   </component>
+-  <component name="ProjectColorInfo"><![CDATA[{
+-  "associatedIndex": 7
+-}]]></component>
++  <component name="ProjectColorInfo">{
++  &quot;associatedIndex&quot;: 7
++}</component>
+   <component name="ProjectId" id="2nIArqU4jEcXbAtBK3HF1DBLDAG" />
+   <component name="ProjectViewState">
+     <option name="autoscrollToSource" value="true" />
+@@ -34,7 +38,7 @@
+   "keyToString": {
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "sequence/SequenceLib.v3__lite",
++    "git-widget-placeholder": "f7a036b8",
+     "kotlin-language-version-configured": "true",
+     "onboarding.tips.debug.path": "C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/src/Main.java"
+   }
+@@ -48,28 +52,82 @@
+       <option name="presentableId" value="Default" />
+       <updated>1728650420846</updated>
+     </task>
++    <task id="LOCAL-00001" summary="Восставновление проекта">
++      <option name="closed" value="true" />
++      <created>1728650594907</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1728650594907</updated>
++    </task>
++    <task id="LOCAL-00002" summary="Восставновление проекта">
++      <option name="closed" value="true" />
++      <created>1728650608523</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1728650608523</updated>
++    </task>
++    <task id="LOCAL-00003" summary="Восставновление проекта">
++      <option name="closed" value="true" />
++      <created>1728678554048</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1728678554048</updated>
++    </task>
++    <task id="LOCAL-00004" summary="Восстановление проекта">
++      <option name="closed" value="true" />
++      <created>1728678973631</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1728678973631</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
++    <option name="RECENT_FILTERS">
++      <map>
++        <entry key="Branch">
++          <value>
++            <list>
++              <RecentGroup>
++                <option name="FILTER_VALUES">
++                  <option value="HEAD" />
++                </option>
++              </RecentGroup>
++            </list>
++          </value>
++        </entry>
++      </map>
++    </option>
+     <option name="TAB_STATES">
+       <map>
+         <entry key="MAIN">
+           <value>
+-            <State />
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="branch">
++                    <value>
++                      <list>
++                        <option value="sequence/SequenceLib.v2" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
+           </value>
+         </entry>
+       </map>
+     </option>
+   </component>
+-  <component name="XDebuggerManager">
+-    <breakpoint-manager>
+-      <breakpoints>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/Main.java</url>
+-          <line>12</line>
+-          <option name="timeStamp" value="1" />
+-        </line-breakpoint>
+-      </breakpoints>
+-    </breakpoint-manager>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="Восставновление проекта" />
++    <MESSAGE value="Восстановление проекта" />
++    <option name="LAST_COMMIT_MESSAGE" value="Восстановление проекта" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: SEQUENCE/Functions/ParametresAndSwitchers.puml
+===================================================================
+diff --git a/SEQUENCE/Functions/ParametresAndSwitchers.puml b/SEQUENCE/Functions/ParametresAndSwitchers.puml
+new file mode 100644
+--- /dev/null	
++++ b/SEQUENCE/Functions/ParametresAndSwitchers.puml	
+@@ -0,0 +1,23 @@
++@startuml
++/'1. ПАРАМЕТРЫ И РУБИЛЬНИКИ
++=========================================================================================================================
++Идентификатор взаимодействия, повторяет значение autonumber'/
++!$id = 0
++
++/'Параметр, содержащий символ переноса строки \n в описании взаимодействия и комментария к нему,
++необходим для формирования построчного отображения текста в ячейках таблицы'/
++!$textResult = ""
++
++/'араметры, ограничивающие длинну строк с описанием взаимодействия и комментария к нему в таблице'/
++!$actionLength = 20
++!$commentLength = 30
++
++/'Параметры, задающие шаблон табличного описания процессов'/
++!$csvProcessDescription = "id;Инициатор;Получатель;Действие;Комментарий"
++!$tableProcessDescription = "| id | Инициатор | Получатель | Действие | Комментарий |"
++
++/'Параметры, отвечающие за обработку имен и алиасов участников диаграммы'/
++!$partiesMapper = ""
++!$resultName = ""
++
++@enduml
+\ No newline at end of file
+Index: SEQUENCE/Functions/AllFunctionsLib.puml
+===================================================================
+diff --git a/SEQUENCE/Functions/AllFunctionsLib.puml b/SEQUENCE/Functions/AllFunctionsLib.puml
+new file mode 100644
+--- /dev/null	
++++ b/SEQUENCE/Functions/AllFunctionsLib.puml	
+@@ -0,0 +1,6 @@
++@startuml
++!include ActionProcedures.puml
++!include ParametresAndSwitchers.puml
++!include ServiceProcedures.puml
++!include DiagramStyle.puml
++@enduml
+\ No newline at end of file
+Index: SEQUENCE/ToBe.puml
+===================================================================
+diff --git a/SEQUENCE/ToBe.puml b/SEQUENCE/examples/ToBe.puml
+rename from SEQUENCE/ToBe.puml
+rename to SEQUENCE/examples/ToBe.puml
+--- a/SEQUENCE/ToBe.puml	
++++ b/SEQUENCE/examples/ToBe.puml	
+@@ -1,5 +1,5 @@
+ @startuml
+-!include SequenseLib.puml
++!include Functions/AllFunctionsLib.puml
+ 
+ parties(actor,Alice,a)
+ parties(actor,Bob,b)
+diff --git a/SEQUENCE/AsIs.puml b/SEQUENCE/examples/AsIs.puml
+rename from SEQUENCE/AsIs.puml
+rename to SEQUENCE/examples/AsIs.puml

@@ -1,52 +1,4 @@
 @startuml
-/'1. ПАРАМЕТРЫ И РУБИЛЬНИКИ
-=========================================================================================================================
-Идентификатор взаимодействия, повторяет значение autonumber'/
-!$id = 0
-
-/'Параметр, содержащий символ переноса строки \n в описании взаимодействия и комментария к нему,
-необходим для формирования построчного отображения текста в ячейках таблицы'/
-!$textResult = ""
-
-/'араметры, ограничивающие длинну строк с описанием взаимодействия и комментария к нему в таблице'/
-!$actionLength = 20
-!$commentLength = 30
-
-/'Параметры, задающие шаблон табличного описания процессов'/
-!$csvProcessDescription = "id;Инициатор;Получатель;Действие;Комментарий"
-!$tableProcessDescription = "| id | Инициатор | Получатель | Действие | Комментарий |"
-
-/'Параметры, отвечающие за обработку имен и алиасов участников диаграммы'/
-!$partiesMapper = ""
-!$resultName = ""
-
-/'2. ПРОЦЕДУРЫ ВЗАИМОДЕЙСТИЯ
-=========================================================================================================================
-Процедуры req и res необходимы для замены стандартного описания взаимодействия между участниками,
-Вам необходимо вызвать процедуру в редакторе, передать ей параметры:
-$initiator - участник-иницатор взаимодействия,
-$executor - участник-исполнитель взаимодействия,
-$liveLine - параметр управления линией жизни взаимодействия, подразумевается ++, --, --++, ++--
-$action - описание взаимодействия
-$comment - комментарий для данной операции
-Процедура во время исполнения автоматически вызвает другую вспомогательную процедуру - $processDescriptionBuilder,
-для построения карты процесса в виде текста с разделителями.
-Пример: req(Alice,Bob,++,Поздороваться,Alice всегда здоровается с Bob при встрече) заменяет строку вида Alice -> Bob ++: Поздороваться.
-Для удобства использования необходимо создать шаблон автоподстановки в используемой вами среде разработке. В IDEA это находится в меню
-settings -> editor -> LiveTemplates
-'/
-!unquoted procedure req($initiator, $executor, $liveLine="",$action, $comment="")
-    $initiator -> $executor $liveLine: $action
-    !$id = $id + 1
-    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
-!endprocedure
-
-!unquoted procedure res($executor, $initiator, $liveLine="",$action, $comment="")
-    $executor --> $initiator $liveLine: $action
-    !$id = $id + 1
-    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
-!endprocedure
-
 /'3. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
 =========================================================================================================================
 Вспомогательная процедура отрисовки участников: нужна только для формирования переменной с мапой имя-алиас
@@ -128,26 +80,4 @@ $csvProcessDescription
 end note
 !endif
 !end procedure
-
-/'4. ПАРАМЕТРЫ СТИЛЯ
-========================================================================================================================='/
-autonumber
-skinparam dpi 75
-skinparam maxMessageSize 250
-skinparam backgroundColor LightGray
-skinparam sequence {
-ArrowColor blue
-ActorBorderColor blue
-LifeLineBorderColor blue
-LifeLineBackgroundColor #White
-ParticipantBorderColor blue
-ParticipantBackgroundColor DodgerBlue
-ParticipantFontName Impact
-ParticipantFontSize 17
-ParticipantFontColor #A9DCDF
-ActorBackgroundColor DodgerBlue
-ActorFontColor DeepSkyBlue
-ActorFontSize 17
-ActorFontName Aapex
-}
 @enduml

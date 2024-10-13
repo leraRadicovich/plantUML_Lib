@@ -1,0 +1,6 @@
+@startuml
+!include ParametresAndSwitchers.puml
+!include ActionProcedures.puml
+!include ServiceProcedures.puml
+!include SequenseStyle.puml
+@enduml
