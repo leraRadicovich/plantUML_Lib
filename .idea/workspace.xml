@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="1. Разделение библиотеки на несколько отдельных файлов">
-      <change afterPath="$PROJECT_DIR$/SEQUENCE/Functions/TableBuilder/TableBuilderLib.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/ProcedureDependencies.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_36__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_49__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_49__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ActionProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/TableBuilder/ActionProcedures.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/TableBuilder/ParametresAndSwitchers.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/SequenseLib.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/SequenseStyle.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/SequenseStyle.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/TableBuilder/ServiceProcedures.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/TestSeqLib.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту">
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/ProcedureDependencies.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/ProcedureDependencies.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="UML Sequence" />
         <option value="UML Class" />
+        <option value="UML Sequence" />
       </list>
     </option>
   </component>
@@ -56,7 +47,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultPlantUmlFileTemplate": "UML Class",
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "sequence/alt__autonumeration",
@@ -70,10 +61,10 @@
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions\TableBuilder" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\examples" />
-      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -141,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728840951092</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту">
+      <option name="closed" value="true" />
+      <created>1728850770830</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1728850770830</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +185,7 @@
     <MESSAGE value="Восставновление проекта" />
     <MESSAGE value="Восстановление проекта" />
     <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Разделение библиотеки на несколько отдельных файлов" />
+    <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту" />
   </component>
 </project>

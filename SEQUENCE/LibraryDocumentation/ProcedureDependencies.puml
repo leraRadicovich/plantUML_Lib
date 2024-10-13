@@ -1,27 +1,17 @@
 @startuml
-'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+abstract SEQUENCE.Functions.SequenceLib_v3
+class SEQUENCE.Functions.SequenceStyle
+class SEQUENCE.Functions.ParametresAndSwitchers
+class SEQUENCE.Functions.ActionProcedures
+class SEQUENCE.Functions.ServiceProcedures
+class SEQUENCE.Functions.TableBuilder
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
+class SEQUENCE.LibraryDocumentation.ProcedureDependencies
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
+class SEQUENCE.examples.ToBe
+class SEQUENCE.examples.AsIs
 
-class ArrayList {
-Object [0..1] elementData
-size()
-}
-
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
+class SEQUENCE.DemoSequence
 
 @enduml
