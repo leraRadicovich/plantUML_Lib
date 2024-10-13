@@ -1,6 +1,7 @@
 @startuml
+!include SequenseStyle.puml
 !include ParametresAndSwitchers.puml
 !include ActionProcedures.puml
 !include ServiceProcedures.puml
-!include SequenseStyle.puml
+!include TableBuilder.puml
 @enduml
