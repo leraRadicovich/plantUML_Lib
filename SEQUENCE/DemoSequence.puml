@@ -1,5 +1,5 @@
 @startuml
-!include Functions/SequenceLib.v3
+!include Functions/SequenceLib.v3.puml
 
 parties(actor, Валера ,valera)
 parties(participant,InelliJ IDEA,idea)

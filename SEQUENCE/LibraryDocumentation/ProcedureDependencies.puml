@@ -1,17 +1,39 @@
 @startuml
-
-abstract SEQUENCE.Functions.SequenceLib_v3
-class SEQUENCE.Functions.SequenceStyle
-class SEQUENCE.Functions.ParametresAndSwitchers
-class SEQUENCE.Functions.ActionProcedures
-class SEQUENCE.Functions.ServiceProcedures
-class SEQUENCE.Functions.TableBuilder
-
+skinparam linetype ortho
+'left to right direction
+package SEQUENCE {
+    package Functions {
+        abstract "SequenceLib_v3" as lib
+        class "SequenceStyle" as style
+        class "ParametresAndSwitchers" as params
+        class "ActionProcedures" as act
+        class "ServiceProcedures" as serv
+        class "processDescriptionBuilder" as procMap
+    }
+}
 class SEQUENCE.LibraryDocumentation.ProcedureDependencies
-
-class SEQUENCE.examples.ToBe
-class SEQUENCE.examples.AsIs
-
+class SEQUENCE.LibraryDocumentation.examples.ToBe
+class SEQUENCE.LibraryDocumentation.examples.AsIs
 class SEQUENCE.DemoSequence
 
-@enduml
+style *..|> lib
+lib <|..* params
+lib <|.* act
+lib <|.* serv
+lib <|..* procMap
+
+act --> params
+act --> procMap
+
+procMap --> serv
+procMap --> params
+
+serv --> params
+
+SEQUENCE.LibraryDocumentation -right- SEQUENCE.Functions
+
+SEQUENCE.LibraryDocumentation.ProcedureDependencies -[hidden]- SEQUENCE.LibraryDocumentation.examples
+
+SEQUENCE.DemoSequence --> SEQUENCE.Functions
+
+@enduml0
