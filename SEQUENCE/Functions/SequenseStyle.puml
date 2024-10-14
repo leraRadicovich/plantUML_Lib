@@ -1,0 +1,22 @@
+@startuml
+/'4. ПАРАМЕТРЫ СТИЛЯ
+========================================================================================================================='/
+autonumber
+skinparam dpi 75
+skinparam maxMessageSize 250
+skinparam backgroundColor LightGray
+skinparam sequence {
+ArrowColor blue
+ActorBorderColor blue
+LifeLineBorderColor blue
+LifeLineBackgroundColor #White
+ParticipantBorderColor blue
+ParticipantBackgroundColor DodgerBlue
+ParticipantFontName Impact
+ParticipantFontSize 17
+ParticipantFontColor #A9DCDF
+ActorBackgroundColor DodgerBlue
+ActorFontColor DeepSkyBlue
+ActorFontSize 17
+ActorFontName Aapex
+}

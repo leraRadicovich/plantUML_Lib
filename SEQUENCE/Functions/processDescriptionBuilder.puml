@@ -1,0 +1,27 @@
+@startuml
+/'Процедура, отвечающая за формирование таблицы с описанием процесса
+Процедура вызывается каждый раз с вызовом процедур взаимодействия.
+Стоит обратить внимание на значение параметров $actionLength и $commentLength, - они
+управляют длинной строки, отображаемой в ячейке таблицы. Это работает только для таблицы с
+разделителем |, для ";" перенос строк не работает'/
+!unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
+    /'Форматируем текст действия в многострочный вид'/
+    %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
+    !$actionResult = $textResult
+    !$textResult = ""
+    /'Форматируем текст комментария в многострочный вид'/
+    %invoke_procedure("$textNewLineCutter", $comment, $commentLength) /'Форматирование текста построчно'/
+    !$commentResult = $textResult
+    !$textResult = ""
+    /'Получаем имя инициатора по его алиасу'/
+    %invoke_procedure("$aliasToName", $initiator)
+    !$initiatorName = $resultName
+    !$resultName = ""
+    /'Получаем имя исполнителя по его алиасу'/
+    %invoke_procedure("$aliasToName", $executor)
+    !$executorName = $resultName
+    !$resultName = ""
+    'Наполнение таблиц с разными разделителями: | - для него нужно построчное форматирование текста, и ; - для него не нужно построчное форматирование текста
+    !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
+    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
+!end procedure

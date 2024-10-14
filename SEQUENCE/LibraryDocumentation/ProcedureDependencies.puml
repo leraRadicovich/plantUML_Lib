@@ -1,0 +1,39 @@
+@startuml
+skinparam linetype ortho
+'left to right direction
+package SEQUENCE {
+    package Functions {
+        abstract "SequenceLib_v3" as lib
+        class "SequenceStyle" as style
+        class "ParametresAndSwitchers" as params
+        class "ActionProcedures" as act
+        class "ServiceProcedures" as serv
+        class "processDescriptionBuilder" as procMap
+    }
+}
+class SEQUENCE.LibraryDocumentation.ProcedureDependencies
+class SEQUENCE.LibraryDocumentation.examples.ToBe
+class SEQUENCE.LibraryDocumentation.examples.AsIs
+class SEQUENCE.DemoSequence
+
+style *..|> lib
+lib <|..* params
+lib <|.* act
+lib <|.* serv
+lib <|..* procMap
+
+act --> params
+act --> procMap
+
+procMap --> serv
+procMap --> params
+
+serv --> params
+
+SEQUENCE.LibraryDocumentation -right- SEQUENCE.Functions
+
+SEQUENCE.LibraryDocumentation.ProcedureDependencies -[hidden]- SEQUENCE.LibraryDocumentation.examples
+
+SEQUENCE.DemoSequence --> SEQUENCE.Functions
+
+@enduml0
