@@ -23,5 +23,5 @@
 !unquoted procedure res($executor, $initiator, $liveLine="",$action, $comment="")
     $executor --> $initiator $liveLine: $action
     !$id = $id + 1
-    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
+    %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
 !endprocedure
