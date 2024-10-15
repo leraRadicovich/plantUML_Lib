@@ -1,0 +1,112 @@
+@startuml
+/'3. ФУНКЦИОНАЛЬНЫЕ ПРОЦЕДУРЫ
+========================================================================================
+
+Процедуры, заменяющие штатные средства plantUml, например: создание участников,
+отрисовка стрелок, отрисовка таблиц и т.д.
+
+Процедура отрисовки участников: нужна только для формирования переменной с мапой имя-алиас
+она нужна для формирования карты процесса'/
+!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
+    !if $order != ""
+        $partyType "$name" as $alias order $order
+    !else
+        $partyType "$name" as $alias
+    !endif
+    !$partiesMapper = $partiesMapper + $alias + ":" + $name + ";"
+!endprocedure
+
+/'Процедуры rq и rs необходимы для замены стандартного описания взаимодействия между участниками,
+Вам необходимо вызвать процедуру в редакторе, передать ей параметры:
+$initiator - участник-инициатор взаимодействия,
+$executor - участник-исполнитель взаимодействия,
+$liveLine - параметр управления линией жизни взаимодействия, подразумевается ++, --, --++, ++--
+$action - описание взаимодействия
+$comment - комментарий для данной операции
+Процедура во время исполнения автоматически вызывает другую вспомогательную процедуру - $processDescriptionBuilder,
+для построения карты процесса в виде текста с разделителями.
+Пример: rq(Alice,Bob,++,Поздороваться,Alice всегда здоровается с Bob при встрече) заменяет строку вида Alice -> Bob ++: Поздороваться.
+Для удобства использования необходимо создать шаблон автоподстановки в используемой вами среде разработке. В IDEA это находится в меню
+settings -> editor -> LiveTemplates'/
+
+!unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
+    $initiator -> $executor $liveLine: $action
+    !$id = $id + 1
+    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
+!endprocedure
+
+!unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
+    $executor --> $initiator $liveLine: $action
+    !$id = $id + 1
+    %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+!endprocedure
+
+!unquoted procedure autorq($initiator, $executor, $liveLine="",$action, $comment="")
+    $initiator -> $executor $liveLine: $action
+    !$id = $id + 1
+    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
+    !$requestHistory = $initiator + ":" + $executor + ";" + $requestHistory
+!endprocedure
+
+!unquoted procedure autors($liveLine="",$action, $comment="")
+    !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
+    !$requestHistory = %substr($requestHistory,%strpos($requestHistory,":")+1)
+    !$aexecutor = %substr($requestHistory, 0,%strpos($requestHistory,";"))
+    !$requestHistory = %substr($requestHistory,%strpos($requestHistory,";")+1)
+
+    %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
+
+    !$ainitiator = ""
+    !$aexecutor = ""
+!endprocedure
+
+/'Процедура, отвечающая за формирование таблицы с описанием процесса
+Процедура вызывается каждый раз с вызовом процедур взаимодействия.
+Параметры $actionLength и $commentLength управляют длинной строки,
+отображаемой в ячейке таблицы.'/
+!unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
+    /'Форматируем текст действия в многострочный вид'/
+    %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
+    !$actionrsult = $textrsult
+    !$textrsult = ""
+    /'Форматируем текст комментария в многострочный вид'/
+    %invoke_procedure("$textNewLineCutter", $comment, $commentLength) /'Форматирование текста построчно'/
+    !$commentrsult = $textrsult
+    !$textrsult = ""
+    /'Получаем имя инициатора по его алиасу'/
+    %invoke_procedure("$aliasToName", $initiator)
+    !$initiatorName = $resultName
+    !$resultName = ""
+    /'Получаем имя исполнителя по его алиасу'/
+    %invoke_procedure("$aliasToName", $executor)
+    !$executorName = $resultName
+    !$resultName = ""
+    'Наполнение таблиц с разными разделителями: | - для него нужно построчное форматирование текста, и ; - для него не нужно построчное форматирование текста
+    !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiatorName + ";"+ $executorName + ";" + $action + ";" + $comment
+    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionrsult + " | " + $commentrsult + " |"
+!end procedure
+
+/'Процедура, отвечающая за отображение таблицы с описанием процесса.
+Процедура принимает на вход значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
+а 1 - это отображение карты процесса в виде текста с разделителем ;
+По умолчанию вызывается с 0.
+Как использовать? Описание для IntelliJ IDEA - описываете свой процесс. Вызываете процедуру NOTE()
+с любым параметром, далее клик по правой кнопкой мыши по изображению и выбираете "Copy diagramm to clipbord as unicode ASCII",
+в буфер копируется изображение в формате markdown, вставляйте в любой текстовый редактор. Копируйте таблицы с разделителем, и т.д. на свое
+усмотрение. Смотри отображение тестового примера в файле read.me'/
+!unquoted procedure NOTE($mode=0)
+!if $mode == 0
+note across
+=Таблица: карта процесса
+====
+$tableProcessDescription
+end note
+
+!elseif $mode == 1
+note across
+=Текстовое описание процесса (текст с разделителем)
+====
+$csvProcessDescription
+end note
+!endif
+!end procedure

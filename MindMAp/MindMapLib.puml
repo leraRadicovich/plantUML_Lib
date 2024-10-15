@@ -1,21 +1,21 @@
 @startmindmap
 !global $count=0
 !unquoted function stepBuilder($step, $symbol)
-    !$result=""
+    !$rsult=""
     !$i=0
     !if $symbol=="_"
         !while $i < $step
-            !$result = $result + "*"
+            !$rsult = $rsult + "*"
             !$i = $i + 1
         !endwhile
-        !$result = $result+"_"
+        !$rsult = $rsult+"_"
     !else
         !while $i < $step
-            !$result = $result + $symbol
+            !$rsult = $rsult + $symbol
             !$i = $i + 1
         !endwhile
     !endif
-    !return %string($result)
+    !return %string($rsult)
 !endfunction
 
 !unquoted procedure step($text, $i, $s="*")

@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="1.Добавлена страница со списком задач">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_36__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_49__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_49__Changes_.xml" afterDir="false" />
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ActionProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ActionProcedures.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/SequenseStyle.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/SequenseStyle.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/processDescriptionBuilder.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/processDescriptionBuilder.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODOLIST.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODOLIST.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,17 +44,19 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;sequence/alt__autonumeration&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/src/Main.java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ToolWindowPlantUML.ShowToolbar": "false",
+    "git-widget-placeholder": "sequence/alt__autonumeration",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib",
+    "onboarding.tips.debug.path": "C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/src/Main.java",
+    "settings.editor.selected.configurable": "editing.templates"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib" />
@@ -203,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728988407703</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу">
+      <option name="closed" value="true" />
+      <created>1729017681151</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1729017681151</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,6 +244,7 @@
     <MESSAGE value="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке" />
     <MESSAGE value="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке" />
     <MESSAGE value="1.Добавлена страница со списком задач" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.Добавлена страница со списком задач" />
+    <MESSAGE value="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу" />
   </component>
 </project>

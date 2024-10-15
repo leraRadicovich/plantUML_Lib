@@ -1,9 +1,9 @@
 @startuml
 autonumber
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+Alice -> Bob: Authentication rquest
+Bob --> Alice: Authentication rsponse
+Alice -> Bob: Another authentication rquest
+Alice <-- Bob: another authentication rsponse
 note across
 | columnName | columnName1 | columnName2 |
 | value | value | value |
