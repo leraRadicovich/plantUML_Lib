@@ -2,6 +2,6 @@
 !include SequenceStyle.puml
 !include ParametresAndSwitchers.puml
 !include ServiceProcedures.puml
-!include functionalProcedures.puml
+!include FunctionalProcedures.puml
 !include AltProcedures.puml
 @enduml

@@ -19,3 +19,12 @@
     !endwhile
     !$textResult = $textResult + $text
 !endprocedure
+
+/'Процедура создания списка дел'/
+!unquoted procedure todo($td)
+    !$todoId = $todoId + 1
+    %invoke_procedure("$textNewLineCutter", $td,$commentLength) /'Форматирование текста построчно'/
+    !$tdresult = $textResult
+    !$textResult = ""
+    !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
+!endprocedure

@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправлены последствия автопереименования" />
+    <list default="true" id="9ebee2fb-f244-4ac3-b864-9d6e04ec09a6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_36__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_49__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_49__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/AltProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/AltProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/SequenceLib.v3.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/SequenceLib.v3.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/functionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/ProcedureDependencies.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/ProcedureDependencies.puml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +23,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="UML Class" />
         <option value="UML Sequence" />
       </list>
     </option>
@@ -21,62 +30,39 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="sequence/SequenceLib.v3_lite" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="MIXED" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="2nIArqU4jEcXbAtBK3HF1DBLDAG" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2nUQOWgynxRIEU9sKc6nWHsJkiL" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
-    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
-    <option name="showMembers" value="true" />
-    <option name="showVisibilityIcons" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultPlantUmlFileTemplate": "UML Sequence",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ToolWindowPlantUML.ShowToolbar": "false",
     "git-widget-placeholder": "sequence/alt__autonumeration",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib",
-    "onboarding.tips.debug.path": "C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/src/Main.java",
     "settings.editor.selected.configurable": "editing.templates"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib" />
-      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation" />
-      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions" />
-      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions\TableBuilder" />
-      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE" />
-      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\examples" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
-      <module name="plantUML_Lib" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="plantUML_Lib" />
       <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -86,159 +72,15 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="" />
-      <created>1728650420846</created>
+      <changelist id="9ebee2fb-f244-4ac3-b864-9d6e04ec09a6" name="Changes" comment="" />
+      <created>1729025142664</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1728650420846</updated>
+      <updated>1729025142664</updated>
     </task>
-    <task id="LOCAL-00001" summary="Восставновление проекта">
-      <option name="closed" value="true" />
-      <created>1728650594907</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1728650594907</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Восставновление проекта">
-      <option name="closed" value="true" />
-      <created>1728650608523</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1728650608523</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Восставновление проекта">
-      <option name="closed" value="true" />
-      <created>1728678554048</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1728678554048</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Восстановление проекта">
-      <option name="closed" value="true" />
-      <created>1728678973631</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1728678973631</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Восстановление проекта">
-      <option name="closed" value="true" />
-      <created>1728679190557</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1728679190557</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Восстановление проекта">
-      <option name="closed" value="true" />
-      <created>1728679362905</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1728679362905</updated>
-    </task>
-    <task id="LOCAL-00007" summary="1. Разделение библиотеки на несколько отдельных файлов">
-      <option name="closed" value="true" />
-      <created>1728840951092</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1728840951092</updated>
-    </task>
-    <task id="LOCAL-00008" summary="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту">
-      <option name="closed" value="true" />
-      <created>1728850770830</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1728850770830</updated>
-    </task>
-    <task id="LOCAL-00009" summary="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту">
-      <option name="closed" value="true" />
-      <created>1728851505444</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1728851505444</updated>
-    </task>
-    <task id="LOCAL-00010" summary="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту&#10;4. Добавлена диаграмма классов с описанием зависимостей внутри проекта">
-      <option name="closed" value="true" />
-      <created>1728896514739</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1728896514739</updated>
-    </task>
-    <task id="LOCAL-00011" summary="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке">
-      <option name="closed" value="true" />
-      <created>1728914413085</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1728914413085</updated>
-    </task>
-    <task id="LOCAL-00012" summary="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке">
-      <option name="closed" value="true" />
-      <created>1728914521770</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1728914521770</updated>
-    </task>
-    <task id="LOCAL-00013" summary="1.Добавлена страница со списком задач">
-      <option name="closed" value="true" />
-      <created>1728988407703</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1728988407703</updated>
-    </task>
-    <task id="LOCAL-00014" summary="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу">
-      <option name="closed" value="true" />
-      <created>1729017681151</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1729017681151</updated>
-    </task>
-    <task id="LOCAL-00015" summary="* Переструктурированы процедуры по файлам">
-      <option name="closed" value="true" />
-      <created>1729022007240</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1729022007240</updated>
-    </task>
-    <task id="LOCAL-00016" summary="* Исправлены последствия автопереименования">
-      <option name="closed" value="true" />
-      <created>1729022310491</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1729022310491</updated>
-    </task>
-    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="HEAD" />
-                </option>
-              </RecentGroup>
-            </list>
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -248,19 +90,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Восставновление проекта" />
-    <MESSAGE value="Восстановление проекта" />
-    <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов" />
-    <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту" />
-    <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту&#10;4. Добавлена диаграмма классов с описанием зависимостей внутри проекта" />
-    <MESSAGE value="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке" />
-    <MESSAGE value="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке" />
-    <MESSAGE value="1.Добавлена страница со списком задач" />
-    <MESSAGE value="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу" />
-    <MESSAGE value="* Переструктурированы процедуры по файлам" />
-    <MESSAGE value="* Исправлены последствия автопереименования" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Исправлены последствия автопереименования" />
   </component>
 </project>

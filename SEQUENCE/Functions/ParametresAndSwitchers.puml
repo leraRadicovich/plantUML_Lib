@@ -25,4 +25,8 @@
 !$requestHistory = ""
 !$ainitiator = ""
 !$ainitiator = ""
+
+/'Переменнаые, используемые для создания списка дел'/
+!$todoList = "| id | Где нашел | Суть/что надо сделать |"
+!$todoId = 0
 @enduml
