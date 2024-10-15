@@ -22,6 +22,6 @@
     !$executorName = $resultName
     !$resultName = ""
     'Наполнение таблиц с разными разделителями: | - для него нужно построчное форматирование текста, и ; - для него не нужно построчное форматирование текста
-    !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiator + ";"+ $executor + ";" + $action + ";" + $comment
+    !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiatorName + ";"+ $executorName + ";" + $action + ";" + $comment
     !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
 !end procedure

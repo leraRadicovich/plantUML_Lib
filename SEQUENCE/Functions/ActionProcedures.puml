@@ -26,18 +26,18 @@
     %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
 !endprocedure
 
-!unquoted procedure areq($initiator, $executor, $liveLine="",$action, $comment="")
+!unquoted procedure autorq($initiator, $executor, $liveLine="",$action, $comment="")
     $initiator -> $executor $liveLine: $action
     !$id = $id + 1
     %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
-    !$actionHistory = $initiator + ":" + $executor + ";" + $actionHistory
+    !$requestHistory = $initiator + ":" + $executor + ";" + $requestHistory
 !endprocedure
 
-!unquoted procedure ares($liveLine="",$action, $comment="")
-    !$ainitiator = %substr($actionHistory, 0, %strpos($actionHistory, ":"))
-    !$actionHistory = %substr($actionHistory,%strpos($actionHistory,":")+1)
-    !$aexecutor = %substr($actionHistory, 0,%strpos($actionHistory,";"))
-    !$actionHistory = %substr($actionHistory,%strpos($actionHistory,";")+1)
+!unquoted procedure autors($liveLine="",$action, $comment="")
+    !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
+    !$requestHistory = %substr($requestHistory,%strpos($requestHistory,":")+1)
+    !$aexecutor = %substr($requestHistory, 0,%strpos($requestHistory,";"))
+    !$requestHistory = %substr($requestHistory,%strpos($requestHistory,";")+1)
 
     %invoke_procedure("res", $aexecutor, $ainitiator, $liveLine, $action, $comment)
 

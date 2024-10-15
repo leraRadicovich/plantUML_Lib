@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="1.Добавлена страница со списком задач">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_36__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_49__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_10_2024_19_49__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ActionProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ActionProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/SequenseStyle.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/SequenseStyle.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/processDescriptionBuilder.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/processDescriptionBuilder.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODOLIST.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODOLIST.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="sequence/SequenceLib.v2" />
+        <entry key="$PROJECT_DIR$" value="sequence/SequenceLib.v3_lite" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -36,6 +43,7 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2nIArqU4jEcXbAtBK3HF1DBLDAG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -66,6 +74,21 @@
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\examples" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="plantUML_Lib" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="plantUML_Lib" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -203,19 +226,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="sequence/alt_autonumeration" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>

@@ -21,6 +21,6 @@
 !$resultName = ""
 
 /'Переменные, необходимые для функционирования автоответов'/
-!$actionHistory = ""
+!$requestHistory = ""
 !$ainitiator = ""
 !$aexecutor = ""

@@ -4,6 +4,7 @@
 autonumber
 skinparam dpi 75
 skinparam maxMessageSize 250
+
 skinparam backgroundColor LightGray
 skinparam sequence {
 ArrowColor blue
