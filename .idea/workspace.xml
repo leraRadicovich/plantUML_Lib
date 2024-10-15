@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="1.Добавлена страница со списком задач">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODOLIST.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODOLIST.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728914521770</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="1.Добавлена страница со списком задач">
+      <option name="closed" value="true" />
+      <created>1728988407703</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728988407703</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -222,6 +229,7 @@
     <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту&#10;4. Добавлена диаграмма классов с описанием зависимостей внутри проекта" />
     <MESSAGE value="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке" />
     <MESSAGE value="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке" />
+    <MESSAGE value="1.Добавлена страница со списком задач" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.Добавлена страница со списком задач" />
   </component>
 </project>
