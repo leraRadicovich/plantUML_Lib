@@ -67,12 +67,12 @@ settings -> editor -> LiveTemplates'/
 !unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
     /'Форматируем текст действия в многострочный вид'/
     %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
-    !$actionrsult = $textrsult
-    !$textrsult = ""
+    !$actionresult = $textresult
+    !$textresult = ""
     /'Форматируем текст комментария в многострочный вид'/
     %invoke_procedure("$textNewLineCutter", $comment, $commentLength) /'Форматирование текста построчно'/
-    !$commentrsult = $textrsult
-    !$textrsult = ""
+    !$commentresult = $textresult
+    !$textresult = ""
     /'Получаем имя инициатора по его алиасу'/
     %invoke_procedure("$aliasToName", $initiator)
     !$initiatorName = $resultName
@@ -83,7 +83,7 @@ settings -> editor -> LiveTemplates'/
     !$resultName = ""
     'Наполнение таблиц с разными разделителями: | - для него нужно построчное форматирование текста, и ; - для него не нужно построчное форматирование текста
     !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiatorName + ";"+ $executorName + ";" + $action + ";" + $comment
-    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionrsult + " | " + $commentrsult + " |"
+    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionresult + " | " + $commentresult + " |"
 !end procedure
 
 /'Процедура, отвечающая за отображение таблицы с описанием процесса.

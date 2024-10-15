@@ -5,9 +5,9 @@ package SEQUENCE {
     package Functions {
         abstract "SequenceLib_v3" as lib
         class "SequenceStyle" as style
-        class "ParametrsAndSwitchers" as params
-        class "ActionProcedurs" as act
-        class "ServiceProcedurs" as serv
+        class "ParametresAndSwitchers" as params
+        class "ActionProcedures" as act
+        class "ServiceProcedures" as serv
         class "processDescriptionBuilder" as procMap
     }
 }
