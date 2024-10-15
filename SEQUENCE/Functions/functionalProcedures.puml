@@ -67,12 +67,12 @@ settings -> editor -> LiveTemplates'/
 !unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
     /'Форматируем текст действия в многострочный вид'/
     %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
-    !$actionresult = $textresult
-    !$textresult = ""
+    !$actionresult = $textResult
+    !$textResult = ""
     /'Форматируем текст комментария в многострочный вид'/
     %invoke_procedure("$textNewLineCutter", $comment, $commentLength) /'Форматирование текста построчно'/
-    !$commentresult = $textresult
-    !$textresult = ""
+    !$commentresult = $textResult
+    !$textResult = ""
     /'Получаем имя инициатора по его алиасу'/
     %invoke_procedure("$aliasToName", $initiator)
     !$initiatorName = $resultName

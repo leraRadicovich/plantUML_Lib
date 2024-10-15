@@ -14,8 +14,8 @@
 !unquoted procedure $textNewLineCutter($text, $length)
     !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
         !$cutPosition = $length + %strpos(%substr($text,%intval($length)), " ") /'Поиск пробела'/
-        !$textresult = $textresult + %substr($text, 0, $cutPosition) + " " + "\n"
+        !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
         !$text = %substr($text,%intval($cutPosition))
     !endwhile
-    !$textresult = $textresult + $text
+    !$textResult = $textResult + $text
 !endprocedure
