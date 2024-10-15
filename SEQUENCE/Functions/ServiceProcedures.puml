@@ -1,0 +1,21 @@
+@startuml
+/'3. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
+=========================================================================================================================
+Процедуры, выполняющие служебные функции и операции с параметрами
+
+Вспомогательная процедура получения имения участника по алиасу из маппера участников'/
+!unquoted procedure $aliasToName($alias)
+    !$resultName = %substr($partiesMapper, %strpos($partiesMapper, $alias))
+    !$resultName = %substr($resultName, %strpos($resultName, ":"))
+    !$resultName = %substr($resultName,1,%strpos($resultName,";")-1)
+!endprocedure
+
+/'Вспомогательная процедура, отвечает за построчное отображение текста'/
+!unquoted procedure $textNewLineCutter($text, $length)
+    !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
+        !$cutPosition = $length + %strpos(%substr($text,%intval($length)), " ") /'Поиск пробела'/
+        !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
+        !$text = %substr($text,%intval($cutPosition))
+    !endwhile
+    !$textResult = $textResult + $text
+!endprocedure

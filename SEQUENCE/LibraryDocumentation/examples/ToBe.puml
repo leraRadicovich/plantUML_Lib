@@ -1,0 +1,12 @@
+@startuml
+!include SequenseLib.puml
+
+parties(actor,Alice,a)
+parties(actor,Bob,b)
+rq("a","b","","Authenticationrequest","Запрос аутентификации")
+rs("b","a","","Authenticationrssponnse","Ответ аутентификации")
+rq("a","b","","AnotherAuthenticationrequest","Еще один запрос аутентификации")
+rs("b","a","","AnotherAuthenticationrssponnse","Еще один ответ аутентификации")
+
+NOTE()
+@enduml
