@@ -3,10 +3,10 @@
 
 parties(actor,Alice,a)
 parties(actor,Bob,b)
-req("a","b","","AuthenticationRequest","Запрос аутентификации")
-res("b","a","","AuthenticationRessponnse","Ответ аутентификации")
-req("a","b","","AnotherAuthenticationRequest","Еще один запрос аутентификации")
-res("b","a","","AnotherAuthenticationRessponnse","Еще один ответ аутентификации")
+rq("a","b","","Authenticationrequest","Запрос аутентификации")
+rs("b","a","","Authenticationrssponnse","Ответ аутентификации")
+rq("a","b","","AnotherAuthenticationrequest","Еще один запрос аутентификации")
+rs("b","a","","AnotherAuthenticationrssponnse","Еще один ответ аутентификации")
 
 NOTE()
 @enduml

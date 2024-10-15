@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/ProcedureDependencies.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/ProcedureDependencies.puml" afterDir="false" />
-    </list>
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправлены последствия автопереименования" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="sequence/SequenceLib.v2" />
+        <entry key="$PROJECT_DIR$" value="sequence/SequenceLib.v3_lite" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,6 +34,7 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2nIArqU4jEcXbAtBK3HF1DBLDAG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -44,27 +42,46 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;sequence/alt__autonumeration&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/SEQUENCE/Functions&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/src/Main.java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ToolWindowPlantUML.ShowToolbar": "false",
+    "git-widget-placeholder": "sequence/alt__autonumeration",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib",
+    "onboarding.tips.debug.path": "C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/src/Main.java",
+    "settings.editor.selected.configurable": "editing.templates"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\Functions\TableBuilder" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\examples" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="plantUML_Lib" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="plantUML_Lib" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -147,7 +164,63 @@
       <option name="project" value="LOCAL" />
       <updated>1728851505444</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту&#10;4. Добавлена диаграмма классов с описанием зависимостей внутри проекта">
+      <option name="closed" value="true" />
+      <created>1728896514739</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1728896514739</updated>
+    </task>
+    <task id="LOCAL-00011" summary="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке">
+      <option name="closed" value="true" />
+      <created>1728914413085</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1728914413085</updated>
+    </task>
+    <task id="LOCAL-00012" summary="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке">
+      <option name="closed" value="true" />
+      <created>1728914521770</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1728914521770</updated>
+    </task>
+    <task id="LOCAL-00013" summary="1.Добавлена страница со списком задач">
+      <option name="closed" value="true" />
+      <created>1728988407703</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728988407703</updated>
+    </task>
+    <task id="LOCAL-00014" summary="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу">
+      <option name="closed" value="true" />
+      <created>1729017681151</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1729017681151</updated>
+    </task>
+    <task id="LOCAL-00015" summary="* Переструктурированы процедуры по файлам">
+      <option name="closed" value="true" />
+      <created>1729022007240</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1729022007240</updated>
+    </task>
+    <task id="LOCAL-00016" summary="* Исправлены последствия автопереименования">
+      <option name="closed" value="true" />
+      <created>1729022310491</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1729022310491</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -170,19 +243,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="sequence/alt_autonumeration" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -193,6 +254,13 @@
     <MESSAGE value="Восстановление проекта" />
     <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов" />
     <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту" />
+    <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту&#10;4. Добавлена диаграмма классов с описанием зависимостей внутри проекта" />
+    <MESSAGE value="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке" />
+    <MESSAGE value="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке" />
+    <MESSAGE value="1.Добавлена страница со списком задач" />
+    <MESSAGE value="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу" />
+    <MESSAGE value="* Переструктурированы процедуры по файлам" />
+    <MESSAGE value="* Исправлены последствия автопереименования" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Исправлены последствия автопереименования" />
   </component>
 </project>
