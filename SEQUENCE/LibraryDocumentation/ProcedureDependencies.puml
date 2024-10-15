@@ -6,9 +6,9 @@ package SEQUENCE {
         abstract "SequenceLib_v3" as lib
         class "SequenceStyle" as style
         class "ParametresAndSwitchers" as params
-        class "ActionProcedures" as act
+        class "AltProcedures" as alt
         class "ServiceProcedures" as serv
-        class "processDescriptionBuilder" as procMap
+        class "FunctionalProcedures" as function
     }
 }
 class SEQUENCE.LibraryDocumentation.ProcedureDependencies
@@ -18,15 +18,15 @@ class SEQUENCE.DemoSequence
 
 style *..|> lib
 lib <|..* params
-lib <|.* act
+lib <|.* alt
 lib <|.* serv
-lib <|..* procMap
+lib <|..* function
 
-act --> params
-act --> procMap
+alt --> params
+alt *-- function
 
-procMap --> serv
-procMap --> params
+function --> serv
+function --> params
 
 serv --> params
 
