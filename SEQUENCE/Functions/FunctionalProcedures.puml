@@ -60,6 +60,16 @@ settings -> editor -> LiveTemplates'/
     !$aexecutor = ""
 !endprocedure
 
+!unquoted procedure altrs($liveLine="", $action, $comment="")
+    !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
+    !$altRequestHistory = %substr($requestHistory, %strpos($requestHistory, ":")+1)
+    !$aexecutor = %substr($altRequestHistory, 0, %strpos($altRequestHistory,";"))
+
+    %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
+    !$ainitiator = ""
+    !$aexecutor = ""
+!endprocedure
+
 /'Процедура, отвечающая за формирование таблицы с описанием процесса
 Процедура вызывается каждый раз с вызовом процедур взаимодействия.
 Параметры $actionLength и $commentLength управляют длинной строки,
