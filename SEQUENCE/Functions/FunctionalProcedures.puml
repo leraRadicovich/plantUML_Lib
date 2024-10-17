@@ -33,21 +33,33 @@ settings -> editor -> LiveTemplates'/
     $initiator -> $executor $liveLine: $action
     !$id = $id + 1
     %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
+    !if $initiator != $executor
+        !$requestHistory = $initiator + ":" + $executor + ";" + $requestHistory
+    !endif
 !endprocedure
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
-    $executor --> $initiator $liveLine: $action
-    !$id = $id + 1
-    %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+    !if $liveLine == "..."
+        $executor --> $initiator: $action
+        ...
+        !$id = $id + 1
+        %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+    !else
+        $executor --> $initiator $liveLine: $action
+        !$id = $id + 1
+        %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+    !endif
 !endprocedure
 
-!unquoted procedure autorq($initiator, $executor, $liveLine="",$action, $comment="")
+/'!unquoted procedure autorq($initiator, $executor, $liveLine="",$action, $comment="")
     $initiator -> $executor $liveLine: $action
     !$id = $id + 1
     %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
     !$requestHistory = $initiator + ":" + $executor + ";" + $requestHistory
-!endprocedure
+!endprocedure'/
 
+/'Процедура для формирования автоответа, берет из истории вызовов последний и инвертирует его,
+удаляя из истории'/
 !unquoted procedure autors($liveLine="",$action, $comment="")
     !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
     !$requestHistory = %substr($requestHistory,%strpos($requestHistory,":")+1)
@@ -60,6 +72,8 @@ settings -> editor -> LiveTemplates'/
     !$aexecutor = ""
 !endprocedure
 
+/'Процедура для формирования автоответа, берет из истории вызовов последний и инвертирует его,
+НО не удаляя его из истории'/
 !unquoted procedure altrs($liveLine="", $action, $comment="")
     !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
     !$altRequestHistory = %substr($requestHistory, %strpos($requestHistory, ":")+1)
@@ -128,4 +142,14 @@ note across
 $csvProcessDescription
 end note
 !endif
+!end procedure
+
+!$patTableProcessDescription = ""
+!$number = 0
+!unquoted procedure partnote($number)
+!$patTableProcessDescription = %substr($tableProcessDescription, %strpos($tableProcessDescription, $number)-2)
+
+note across
+$patTableProcessDescription
+end note
 !end procedure
