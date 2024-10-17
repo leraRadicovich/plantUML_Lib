@@ -144,9 +144,9 @@ end note
 !endif
 !end procedure
 
-!$patTableProcessDescription = ""
-!$number = 0
-!unquoted procedure partnote($number)
+/'Процедура рисует строку из карты процесса для последней нарисованной стрелки'/
+!unquoted procedure partnote()
+!$number = $id
 !$patTableProcessDescription = %substr($tableProcessDescription, %strpos($tableProcessDescription, $number)-2)
 
 note across
