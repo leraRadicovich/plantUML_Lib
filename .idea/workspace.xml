@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Тюнинг процедур взаимодействия и автоответов">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Добавлена процедура partnote">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -204,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729174573123</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="* Добавлена процедура partnote">
+      <option name="closed" value="true" />
+      <created>1729175308327</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1729175308327</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -257,6 +265,7 @@
     <MESSAGE value="* Реализована процедура автоответов" />
     <MESSAGE value="* Реализована процедура автоответов для альтов, не удаляет последний реквест" />
     <MESSAGE value="* Тюнинг процедур взаимодействия и автоответов" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Тюнинг процедур взаимодействия и автоответов" />
+    <MESSAGE value="* Добавлена процедура partnote" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Добавлена процедура partnote" />
   </component>
 </project>

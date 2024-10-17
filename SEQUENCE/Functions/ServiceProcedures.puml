@@ -13,7 +13,7 @@
 /'Вспомогательная процедура, отвечает за построчное отображение текста'/
 !unquoted procedure $textNewLineCutter($text, $length)
     !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
-        !$cutPosition = $length + %strpos(%substr($text,%intval($length)), " ") /'Поиск пробела'/
+        !$cutPosition = $length + %strpos(%substr($text, $length), " ") /'Поиск пробела'/
         !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
         !$text = %substr($text,%intval($cutPosition))
     !endwhile
