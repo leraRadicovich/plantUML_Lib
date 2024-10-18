@@ -38,7 +38,15 @@ settings -> editor -> LiveTemplates'/
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
     /'Это условие позволяет использовать процедуру для автоответов без отдельного вызова autorq(,,"","","")'/
     !if $executor == "" && $initiator == ""
-        %invoke_procedure("autors",$liveLine,$action,$comment)
+        !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
+        !$requestHistory = %substr($requestHistory,%strpos($requestHistory,":")+1)
+        !$aexecutor = %substr($requestHistory, 0,%strpos($requestHistory,";"))
+        !$requestHistory = %substr($requestHistory,%strpos($requestHistory,";")+1)
+
+        %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
+
+        !$ainitiator = ""
+        !$aexecutor = ""
     !else
         !if $liveLine == "..."
             $executor --> $initiator: $action
@@ -51,19 +59,6 @@ settings -> editor -> LiveTemplates'/
             %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
         !endif
     !endif
-!endprocedure
-
-/'Процедура для формирования автоответа, ищет участников последней сохраненной стрелки, передает их в rs и удаляет из истории'/
-!unquoted procedure autors($liveLine="",$action, $comment="")
-    !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
-    !$requestHistory = %substr($requestHistory,%strpos($requestHistory,":")+1)
-    !$aexecutor = %substr($requestHistory, 0,%strpos($requestHistory,";"))
-    !$requestHistory = %substr($requestHistory,%strpos($requestHistory,";")+1)
-
-    %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
-
-    !$ainitiator = ""
-    !$aexecutor = ""
 !endprocedure
 
 /'Процедура аналогичная autors, НО не удаляет последний реквест из истории'/
