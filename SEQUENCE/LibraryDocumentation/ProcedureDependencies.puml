@@ -5,10 +5,38 @@ package SEQUENCE {
     package Functions {
         abstract "SequenceLib_v3" as lib
         class "SequenceStyle" as style
-        class "ParametresAndSwitchers" as params
+        class "ParametresAndSwitchers" as params {
+            id
+            actionLength
+            commentLength
+            csvProcessDescription
+            tableProcessDescription
+            partiesMapper
+            resultName
+            requestHistory
+            ainitiator
+            aexecutor
+            todoList
+            todoId
+        }
         class "AltProcedures" as alt
-        class "ServiceProcedures" as serv
-        class "FunctionalProcedures" as function
+        class "ServiceProcedures" as serv {
+            aliasToName
+            textNewLineCutter
+            todo
+            }
+        class "FunctionalProcedures" as function {
+            parties - создание участников
+            rq
+            rs
+            autors
+            altrs
+            proccessDescriptionBuilder
+            todoNote
+            NOTE
+            partnote
+            ----
+            }
     }
 }
 class SEQUENCE.LibraryDocumentation.ProcedureDependencies

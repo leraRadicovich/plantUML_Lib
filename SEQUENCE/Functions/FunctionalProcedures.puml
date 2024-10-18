@@ -1,7 +1,6 @@
 @startuml
 /'3. ФУНКЦИОНАЛЬНЫЕ ПРОЦЕДУРЫ
 ========================================================================================
-
 Процедуры, заменяющие штатные средства plantUml, например: создание участников,
 отрисовка стрелок, отрисовка таблиц и т.д.
 
@@ -16,16 +15,14 @@
     !$partiesMapper = $partiesMapper + $alias + ":" + $name + ";"
 !endprocedure
 
-/'Процедуры rq и rs необходимы для замены стандартного описания взаимодействия между участниками,
-Вам необходимо вызвать процедуру в редакторе, передать ей параметры:
+/'Процедуры rq и rs заменяют синтаксис рисования стрелок. Нужно вызвать процедуру в редакторе, передать ей параметры:
 $initiator - участник-инициатор взаимодействия,
 $executor - участник-исполнитель взаимодействия,
-$liveLine - параметр управления линией жизни взаимодействия, подразумевается ++, --, --++, ++--
-$action - описание взаимодействия
-$comment - комментарий для данной операции
+$liveLine - параметр управления линией жизни взаимодействия, подразумевается ++, --, --++, ++--, ...,
+$action - описание взаимодействия,
+$comment - комментарий для данной операции.
 Процедура во время исполнения автоматически вызывает другую вспомогательную процедуру - $processDescriptionBuilder,
 для построения карты процесса в виде текста с разделителями.
-Пример: rq(Alice,Bob,++,Поздороваться,Alice всегда здоровается с Bob при встрече) заменяет строку вида Alice -> Bob ++: Поздороваться.
 Для удобства использования необходимо создать шаблон автоподстановки в используемой вами среде разработке. В IDEA это находится в меню
 settings -> editor -> LiveTemplates'/
 
@@ -39,27 +36,24 @@ settings -> editor -> LiveTemplates'/
 !endprocedure
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
-    !if $liveLine == "..."
-        $executor --> $initiator: $action
-        ...
-        !$id = $id + 1
-        %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+    /'Это условие позволяет использовать процедуру для автоответов без отдельного вызова autorq(,,"","","")'/
+    !if $executor == "" && $initiator == ""
+        %invoke_procedure("autors",$liveLine,$action,$comment)
     !else
-        $executor --> $initiator $liveLine: $action
-        !$id = $id + 1
-        %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+        !if $liveLine == "..."
+            $executor --> $initiator: $action
+            ...
+            !$id = $id + 1
+            %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+        !else
+            $executor --> $initiator $liveLine: $action
+            !$id = $id + 1
+            %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+        !endif
     !endif
 !endprocedure
 
-/'!unquoted procedure autorq($initiator, $executor, $liveLine="",$action, $comment="")
-    $initiator -> $executor $liveLine: $action
-    !$id = $id + 1
-    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
-    !$requestHistory = $initiator + ":" + $executor + ";" + $requestHistory
-!endprocedure'/
-
-/'Процедура для формирования автоответа, берет из истории вызовов последний и инвертирует его,
-удаляя из истории'/
+/'Процедура для формирования автоответа, ищет участников последней сохраненной стрелки, передает их в rs и удаляет из истории'/
 !unquoted procedure autors($liveLine="",$action, $comment="")
     !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
     !$requestHistory = %substr($requestHistory,%strpos($requestHistory,":")+1)
@@ -72,8 +66,7 @@ settings -> editor -> LiveTemplates'/
     !$aexecutor = ""
 !endprocedure
 
-/'Процедура для формирования автоответа, берет из истории вызовов последний и инвертирует его,
-НО не удаляя его из истории'/
+/'Процедура аналогичная autors, НО не удаляет последний реквест из истории'/
 !unquoted procedure altrs($liveLine="", $action, $comment="")
     !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
     !$altRequestHistory = %substr($requestHistory, %strpos($requestHistory, ":")+1)
@@ -84,10 +77,8 @@ settings -> editor -> LiveTemplates'/
     !$aexecutor = ""
 !endprocedure
 
-/'Процедура, отвечающая за формирование таблицы с описанием процесса
-Процедура вызывается каждый раз с вызовом процедур взаимодействия.
-Параметры $actionLength и $commentLength управляют длинной строки,
-отображаемой в ячейке таблицы.'/
+/'Процедура, отвечающая за формирование таблицы с описанием процесса, использует $actionLength и $commentLength
+для управления длинной строки, отображаемой в ячейке таблицы.'/
 !unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
     /'Форматируем текст действия в многострочный вид'/
     %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
@@ -110,7 +101,7 @@ settings -> editor -> LiveTemplates'/
     !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionresult + " | " + $commentresult + " |"
 !end procedure
 
-/'Процедура создания списка дел'/
+/'Процедура создания списка задач и заметок'/
 !unquoted procedure todoNote()
 legend top left
 Список изменений
@@ -119,10 +110,9 @@ $todoList
 end legend
 !end procedure
 
-/'Процедура, отвечающая за отображение таблицы с описанием процесса.
-Процедура принимает на вход значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
-а 1 - это отображение карты процесса в виде текста с разделителем ;
-По умолчанию вызывается с 0.
+/'Процедура, отвечающая за отображение карты процесса в виде текста с разделителем или таблицы.
+Принимает на вход значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
+а 1 - это отображение карты процесса в виде текста с разделителем. По умолчанию вызывается с 0.
 Как использовать? Описание для IntelliJ IDEA - описываете свой процесс. Вызываете процедуру NOTE()
 с любым параметром, далее клик по правой кнопкой мыши по изображению и выбираете "Copy diagramm to clipbord as unicode ASCII",
 в буфер копируется изображение в формате markdown, вставляйте в любой текстовый редактор. Копируйте таблицы с разделителем, и т.д. на свое
