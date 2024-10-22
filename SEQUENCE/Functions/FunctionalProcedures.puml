@@ -24,6 +24,15 @@ $comment - комментарий для данной операции.
 для построения карты процесса в виде текста с разделителями.
 Для удобства использования необходимо создать шаблон автоподстановки в используемой вами среде разработке. В IDEA это находится в меню
 settings -> editor -> LiveTemplates'/
+!unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
+    $initiator -> $executor $liveLine: $action
+    !$id = $id + 1
+    %invoke_procedure("proccessMapBuilder",$id, $initiator, $executor, $action, $comment)
+    !if $initiator != $executor
+        !$requestHistory = $initiator + ":" + $executor + ";" + $requestHistory
+    !endif
+!endprocedure
+
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
     /'Это условие позволяет использовать процедуру для автоответов без отдельного вызова autorq(,,"","","")'/
