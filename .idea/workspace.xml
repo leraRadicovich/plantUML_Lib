@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением">
       <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +238,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729236141358</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением">
+      <option name="closed" value="true" />
+      <created>1729590263752</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1729590263752</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,6 +303,7 @@
     <MESSAGE value="* Исправлена ошибка в textNewLineCutter" />
     <MESSAGE value="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей" />
     <MESSAGE value="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема" />
+    <MESSAGE value="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением" />
   </component>
 </project>
