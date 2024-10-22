@@ -126,15 +126,18 @@ end note
 !unquoted procedure NOTE()
     /'Строим крату процесса'/
     !$i = 0
+    !$r = ""
     !$table = ""
     !while $i < $id || $i == $id
-        !$table = $table + %get_variable_value($i)
+        !$r = "leg" + $i
+        !$table = $table + %get_variable_value($r)
         !$i = $i + 1
     !endwhile
     note across
     $table
     end note
 !end procedure
+
 
 /'Процедура рисует строку из карты процесса для последней нарисованной стрелки'/
 !unquoted procedure partnote()
@@ -143,13 +146,15 @@ note across
 end note
 !end procedure
 
-/'Альтернативный способ построения карты процесса'/
+/'Отображение легенды диаграммы'/
 !unquoted procedure LEGEND()
     /'Строим крату процесса'/
     !$i = 0
+    !$r = ""
     !$table = ""
     !while $i < $id || $i == $id
-        !$table = $table + %get_variable_value($i)
+        !$r = "leg" + $i
+        !$table = $table + %get_variable_value($r)
         !$i = $i + 1
     !endwhile
     !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + $table + %newline()
