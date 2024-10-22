@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729234671377</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема">
+      <option name="closed" value="true" />
+      <created>1729236141358</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1729236141358</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,6 +294,7 @@
     <MESSAGE value="* Добавлена процедура partnote" />
     <MESSAGE value="* Исправлена ошибка в textNewLineCutter" />
     <MESSAGE value="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей" />
+    <MESSAGE value="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема" />
   </component>
 </project>

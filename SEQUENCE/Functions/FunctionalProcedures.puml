@@ -4,8 +4,7 @@
 Процедуры, заменяющие штатные средства plantUml, например: создание участников,
 отрисовка стрелок, отрисовка таблиц и т.д.
 
-Процедура отрисовки участников: нужна только для формирования переменной с мапой имя-алиас
-она нужна для формирования карты процесса'/
+Вспомогательная процедура отрисовки участников: формирует мапу имя:алиас'/
 !unquoted procedure parties($partyType="participant", $name, $alias, $order="")
     !if $order != ""
         $partyType "$name" as $alias order $order
@@ -26,15 +25,6 @@ $comment - комментарий для данной операции.
 Для удобства использования необходимо создать шаблон автоподстановки в используемой вами среде разработке. В IDEA это находится в меню
 settings -> editor -> LiveTemplates'/
 
-!unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
-    $initiator -> $executor $liveLine: $action
-    !$id = $id + 1
-    %invoke_procedure("$processDescriptionBuilder", $id, $initiator, $executor, $action, $comment)
-    !if $initiator != $executor
-        !$requestHistory = $initiator + ":" + $executor + ";" + $requestHistory
-    !endif
-!endprocedure
-
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
     /'Это условие позволяет использовать процедуру для автоответов без отдельного вызова autorq(,,"","","")'/
     !if $executor == "" && $initiator == ""
@@ -52,16 +42,17 @@ settings -> editor -> LiveTemplates'/
             $executor --> $initiator: $action
             ...
             !$id = $id + 1
-            %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+            %invoke_procedure("proccessMapBuilder",$id, $executor, $initiator, $action, $comment)
         !else
             $executor --> $initiator $liveLine: $action
             !$id = $id + 1
-            %invoke_procedure("$processDescriptionBuilder", $id, $executor, $initiator, $action, $comment)
+            %invoke_procedure("proccessMapBuilder",$id, $executor, $initiator, $action, $comment)
         !endif
     !endif
 !endprocedure
 
-/'Процедура аналогичная autors, НО не удаляет последний реквест из истории'/
+/'Процедура для формирования автоответа, берет из истории вызовов последний и инвертирует его,
+НО не удаляя его из истории'/
 !unquoted procedure altrs($liveLine="", $action, $comment="")
     !$ainitiator = %substr($requestHistory, 0, %strpos($requestHistory, ":"))
     !$altRequestHistory = %substr($requestHistory, %strpos($requestHistory, ":")+1)
@@ -72,69 +63,96 @@ settings -> editor -> LiveTemplates'/
     !$aexecutor = ""
 !endprocedure
 
-/'Процедура, отвечающая за формирование таблицы с описанием процесса, использует $actionLength и $commentLength
-для управления длинной строки, отображаемой в ячейке таблицы.'/
-!unquoted procedure $processDescriptionBuilder($int, $initiator, $executor, $action, $comment="")
+/'Новая процедура построения карты процесса'/
+!unquoted procedure proccessMapBuilder($id, $initiator, $executor, $action, $comment="")
+    !$legendId = $legendId + 1
     /'Форматируем текст действия в многострочный вид'/
     %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
-    !$actionresult = $textResult
+    !$actionResult = $textResult
     !$textResult = ""
+
     /'Форматируем текст комментария в многострочный вид'/
     %invoke_procedure("$textNewLineCutter", $comment, $commentLength) /'Форматирование текста построчно'/
-    !$commentresult = $textResult
+    !$commentResult = $textResult
     !$textResult = ""
+
     /'Получаем имя инициатора по его алиасу'/
     %invoke_procedure("$aliasToName", $initiator)
     !$initiatorName = $resultName
     !$resultName = ""
+
     /'Получаем имя исполнителя по его алиасу'/
     %invoke_procedure("$aliasToName", $executor)
     !$executorName = $resultName
     !$resultName = ""
-    'Наполнение таблиц с разными разделителями: | - для него нужно построчное форматирование текста, и ; - для него не нужно построчное форматирование текста
-    !$csvProcessDescription = $csvProcessDescription + %newline() + $int + ";" + $initiatorName + ";"+ $executorName + ";" + $action + ";" + $comment
-    !$tableProcessDescription = $tableProcessDescription + %newline() + "| " +  $int + " | " + $initiatorName + " | "+ $executorName + " | " + $actionresult + " | " + $commentresult + " |"
-!end procedure
 
-/'Процедура создания списка задач и заметок'/
+    /'Текст в таблице для легенды'/
+    !$legendValue = %newline() + "| " +  $id + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
+    %set_variable_value($legendId,$legendValue)
+!endprocedure
+
+/'Процедуры создания заметок в виде легенды в начале диаграммы'/
+!unquoted procedure todo($td)
+    !$todoId = $todoId + 1
+    %invoke_procedure("$textNewLineCutter", $td,$commentLength) /'Форматирование текста построчно'/
+    !$tdresult = $textResult
+    !$textResult = ""
+    !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
+!endprocedure
+
+/'Процедура, отображающая таблицу с заметками'/
 !unquoted procedure todoNote()
-legend top left
-Список изменений
+note across
+Список доработок
 ====
 $todoList
-end legend
+end note
 !end procedure
 
-/'Процедура, отвечающая за отображение карты процесса в виде текста с разделителем или таблицы.
-Принимает на вход значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
+/'Процедура, отвечающая за отображение таблицы с описанием процесса.
+Принимает значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
 а 1 - это отображение карты процесса в виде текста с разделителем. По умолчанию вызывается с 0.
-Как использовать? Описание для IntelliJ IDEA - описываете свой процесс. Вызываете процедуру NOTE()
-с любым параметром, далее клик по правой кнопкой мыши по изображению и выбираете "Copy diagramm to clipbord as unicode ASCII",
-в буфер копируется изображение в формате markdown, вставляйте в любой текстовый редактор. Копируйте таблицы с разделителем, и т.д. на свое
-усмотрение. Смотри отображение тестового примера в файле read.me'/
-!unquoted procedure NOTE($mode=0)
-!if $mode == 0
-note across
-=Таблица: карта процесса
-====
-$tableProcessDescription
-end note
-
-!elseif $mode == 1
-note across
-=Текстовое описание процесса (текст с разделителем)
-====
-$csvProcessDescription
-end note
-!endif
+В IntelliJ IDEA: Вызываете процедуру NOTE(), с любым параметром, далее клик правой кнопкой мыши по изображению и выбираете "Copy diagramm to clipbord as unicode ASCII",
+вставляйте в любой текстовый редактор, сохраняете в виде txt. Теперь сохраненный файл можно открыть в excell в виде текста с разделителями'/
+!unquoted procedure NOTE()
+    /'Строим крату процесса'/
+    !$i = 0
+    !$table = ""
+    !while $i < $id || $i == $id
+        !$table = $table + %get_variable_value($i)
+        !$i = $i + 1
+    !endwhile
+    note across
+    $table
+    end note
 !end procedure
 
 /'Процедура рисует строку из карты процесса для последней нарисованной стрелки'/
 !unquoted procedure partnote()
-!$number = $id
-!$patTableProcessDescription = %substr($tableProcessDescription, %strpos($tableProcessDescription, $number)-2)
-
 note across
-$patTableProcessDescription
+%get_variable_value($legendId)
 end note
+!end procedure
+
+/'Альтернативный способ построения карты процесса'/
+!unquoted procedure LEGEND()
+    /'Строим крату процесса'/
+    !$i = 0
+    !$table = ""
+    !while $i < $id || $i == $id
+        !$table = $table + %get_variable_value($i)
+        !$i = $i + 1
+    !endwhile
+    !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + $table + %newline()
+    /'Строим таблицу аудита'/
+    !if %strpos($auditEventList,1) > 0
+        !$diagramLegend = $diagramLegend + %newline() + "**СОБЫТИЯ АУДИТА**" + %newline() + "====" + %newline()  + $auditEventList + %newline()
+    !endif
+    /'Строим таблицу со списком доработок'/
+    !if %strpos($todoList,1) > 0
+        !$diagramLegend = $diagramLegend + %newline() + "**СПИСОК ДОРАБОТОК**" + %newline() + "====" + %newline()  + $todoList + %newline()
+    !endif
+legend  left
+$diagramLegend
+end legend
 !end procedure
