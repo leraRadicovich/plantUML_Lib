@@ -31,5 +31,4 @@
 !$aexecutor = ""
 
 /'Переменная для событий аудита'/
-!$auditEventList = "| № | Код события | start event | end event | Статус | Описание |"
 !$auditId = 0

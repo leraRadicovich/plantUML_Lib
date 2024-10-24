@@ -2,7 +2,6 @@
 /'3. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
 =========================================================================================================================
 Процедуры, выполняющие служебные функции и операции с параметрами
-
 /'Вспомогательная процедура получения имения участника из мапы имя:алиас'/
 !unquoted procedure $aliasToName($alias)
     !if %strpos($partiesMapper,$alias) > 0 || %strpos($partiesMapper,$alias) == 0
@@ -17,10 +16,10 @@
 
 /'Вспомогательная процедура, отвечает за построчное отображение текста'/
 !unquoted procedure $textNewLineCutter($text, $length)
-    !while %strpos(%substr($text,$length), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
+    !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
         !$cutPosition = $length + %strpos(%substr($text, $length), " ") /'Поиск пробела'/
         !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
-        !$text = %substr($text,$cutPosition)
+        !$text = %substr($text,%intval($cutPosition))
     !endwhile
     !$textResult = $textResult + $text
 !endprocedure
