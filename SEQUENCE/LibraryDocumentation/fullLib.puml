@@ -21,10 +21,6 @@
 !$todoList = "| № | id обнаружения | Суть доработки|"
 !$todoId = 0
 
-/'Параметры, отвечающие за обработку имен и алиасов участников диаграммы'/
-!$partiesMapper = ""
-!$resultName = ""
-
 /'Переменные, необходимые для функционирования автоответов'/
 !$requestHistory = ""
 
@@ -43,7 +39,8 @@
     !else
         $partyType "$name" as $alias
     !endif
-    !$partiesMapper = $partiesMapper + $alias + ":" + $name + ";"
+    !$aliasName = "name" + $alias
+    %set_variable_value($aliasName,$name)
 !endprocedure
 
 /'Процедуры rq и rs заменяют синтаксис рисования стрелок. Нужно вызвать процедуру в редакторе, передать ей параметры:
@@ -58,6 +55,8 @@ $comment - комментарий для данной операции.
 settings -> editor -> LiveTemplates'/
 !unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
     !$id = $id + 1
+    %invoke_procedure("aliasCheck",$initiator)
+    %invoke_procedure("aliasCheck",$executor)
     $initiator -> $executor $liveLine: $action
     %invoke_procedure("proccessMapBuilder",$id, $initiator, $executor, $action, $comment)
     !if $initiator != $executor
@@ -71,7 +70,8 @@ settings -> editor -> LiveTemplates'/
 !endprocedure
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
-    /'Это условие позволяет использовать процедуру для автоответов без отдельного вызова autorq(,,"","","")'/
+    /'Это условие позволяет использовать процедуру для автоответов без явного указания инициатора и исполнителя,
+    по requestHistory определяются участники последнего вызова. После отрисовки взаимодействия, значение requestHistory сбрасывается'/
     !if $executor == "" && $initiator == ""
         !$i = %get_variable_value($requestHistory)
         !$idInitiator = $i + "initiator"
@@ -81,7 +81,6 @@ settings -> editor -> LiveTemplates'/
         !$aexecutor = %get_variable_value($idExecutor)
         %set_variable_value($requestHistory,"")
         %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
-
     !else
         !if $liveLine == "..."
             $executor --> $initiator: $action
@@ -105,7 +104,6 @@ settings -> editor -> LiveTemplates'/
     !$requestHistory = $i + "req"
     !$ainitiator = %get_variable_value($idInitiator)
     !$aexecutor = %get_variable_value($idExecutor)
-
     %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
 !endprocedure
 
@@ -147,14 +145,12 @@ settings -> editor -> LiveTemplates'/
     !$textResult = ""
 
     /'Получаем имя инициатора по его алиасу'/
-    %invoke_procedure("$aliasToName", $initiator)
-    !$initiatorName = $resultName
-    !$resultName = ""
+    !$keyInitiator = "name" + $initiator
+    !$initiatorName = %get_variable_value($keyInitiator)
 
     /'Получаем имя исполнителя по его алиасу'/
-    %invoke_procedure("$aliasToName", $executor)
-    !$executorName = $resultName
-    !$resultName = ""
+    !$keyExecutor = "name" + $executor
+    !$executorName = %get_variable_value($keyExecutor)
 
     /'Текст в таблице для легенды'/
     !$legendValue = %newline() + "| " +  $id + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
@@ -202,9 +198,8 @@ note across
 end note
 !end procedure
 
-/'Альтернативный способ построения карты процесса'/
+/'Строим крату процесса, таблицу событий аудита и список доработок'/
 !unquoted procedure LEGEND()
-    /'Строим крату процесса'/
     !$i = 0
     !$r = ""
     !$ii = 0
@@ -221,7 +216,7 @@ end note
         !$auditTable = $auditTable + %get_variable_value($rr)
         !$ii = $ii + 1
     !endwhile
-
+    /'Отображаем построенные таблицы при их наличии'/
     !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + "| # | Инициатор | Исполнитель | Действие | Комментарий |" + $table + %newline()
     /'Строим таблицу аудита'/
     !if %strpos($auditTable,1) > 0
@@ -259,20 +254,22 @@ end legend
     !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
 !endprocedure
 
-/'Вспомогательная процедура получения имения участника из мапы имя:алиас'/
-!unquoted procedure $aliasToName($alias)
-    /'Алиас найден в мапе'/
-    !if %strpos($partiesMapper,$alias) > 0 || %strpos($partiesMapper,$alias) == 0
-        !$resultName = %substr($partiesMapper, %strpos($partiesMapper, $alias))
-        !$resultName = %substr($resultName, %strpos($resultName, ":"))
-        !$resultName = %substr($resultName,1,%strpos($resultName,";")-1)
-    /'Алиас не найден в мапе'/
-    !else
+/'Вспомогательная процедура для проверки существования участника по его алиасу'/
+!unquoted procedure aliasCheck($alias)
+    !$key = "name" + $alias
+    !if %not(%variable_exists($key))
         !$a = %substr($alias,0,1)
         !$a = %upper($a)
         !$b = %substr($alias,1)
         !$resultName = $a + $b
-        !$partiesMapper = $partiesMapper + $alias + ":" + $resultName + ";"
+        !if $alias == "user" || $alias == "client"
+            %invoke_procedure("parties",actor,$resultName,$alias)
+        !elseif $alias == "redis"
+            %invoke_procedure("parties",database,$resultName,$alias)
+        !elseif $alias == "kafka"
+            %invoke_procedure("parties",queue,$resultName,$alias)
+        !else
+            %invoke_procedure("parties",participant,$resultName,$alias)
     !endif
 !endprocedure
 
