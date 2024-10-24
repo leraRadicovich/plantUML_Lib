@@ -5,13 +5,23 @@
 отрисовка стрелок, отрисовка таблиц и т.д.
 
 Вспомогательная процедура отрисовки участников: формирует мапу имя:алиас'/
-!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
+/'!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
     !if $order != ""
         $partyType "$name" as $alias order $order
     !else
         $partyType "$name" as $alias
     !endif
     !$partiesMapper = $partiesMapper + $alias + ":" + $name + ";"
+!endprocedure'/
+
+!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
+    !if $order != ""
+        $partyType "$name" as $alias order $order
+    !else
+        $partyType "$name" as $alias
+    !endif
+    !$aliasName = "name" + $alias
+    %set_variable_value($aliasName,$name)
 !endprocedure
 
 /'Процедуры rq и rs заменяют синтаксис рисования стрелок. Нужно вызвать процедуру в редакторе, передать ей параметры:
@@ -26,6 +36,8 @@ $comment - комментарий для данной операции.
 settings -> editor -> LiveTemplates'/
 !unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
     !$id = $id + 1
+    %invoke_procedure("aliasCheck",$initiator)
+    %invoke_procedure("aliasCheck",$executor)
     $initiator -> $executor $liveLine: $action
     %invoke_procedure("proccessMapBuilder",$id, $initiator, $executor, $action, $comment)
     !if $initiator != $executor
@@ -49,7 +61,6 @@ settings -> editor -> LiveTemplates'/
         !$aexecutor = %get_variable_value($idExecutor)
         %set_variable_value($requestHistory,"")
         %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
-
     !else
         !if $liveLine == "..."
             $executor --> $initiator: $action
@@ -115,14 +126,12 @@ settings -> editor -> LiveTemplates'/
     !$textResult = ""
 
     /'Получаем имя инициатора по его алиасу'/
-    %invoke_procedure("$aliasToName", $initiator)
-    !$initiatorName = $resultName
-    !$resultName = ""
+    !$keyInitiator = "name" + $initiator
+    !$initiatorName = %get_variable_value($keyInitiator)
 
     /'Получаем имя исполнителя по его алиасу'/
-    %invoke_procedure("$aliasToName", $executor)
-    !$executorName = $resultName
-    !$resultName = ""
+    !$keyExecutor = "name" + $executor
+    !$executorName = %get_variable_value($keyExecutor)
 
     /'Текст в таблице для легенды'/
     !$legendValue = %newline() + "| " +  $id + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
