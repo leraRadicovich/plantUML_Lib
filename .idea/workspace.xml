@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправление дефекта с потвором событий аудита&#10;* Новая версия сборки таблицы с событиями аудита">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Правка алиасТуНейм - результирующее имя теперь с заглавной букувы">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODOLIST.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODOLIST.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729766693384</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="* Правка алиасТуНейм - результирующее имя теперь с заглавной букувы">
+      <option name="closed" value="true" />
+      <created>1729769988261</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1729769988261</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -334,6 +338,7 @@
     <MESSAGE value="* Фиксация дефекта с экранирование цифр - переменных для построения карты процесса" />
     <MESSAGE value="* Исправление дефекта с экранированием цифр в тексте" />
     <MESSAGE value="* Исправление дефекта с потвором событий аудита&#10;* Новая версия сборки таблицы с событиями аудита" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Исправление дефекта с потвором событий аудита&#10;* Новая версия сборки таблицы с событиями аудита" />
+    <MESSAGE value="* Правка алиасТуНейм - результирующее имя теперь с заглавной букувы" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Правка алиасТуНейм - результирующее имя теперь с заглавной букувы" />
   </component>
 </project>
