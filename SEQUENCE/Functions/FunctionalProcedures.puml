@@ -5,15 +5,6 @@
 отрисовка стрелок, отрисовка таблиц и т.д.
 
 Вспомогательная процедура отрисовки участников: формирует мапу имя:алиас'/
-/'!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
-    !if $order != ""
-        $partyType "$name" as $alias order $order
-    !else
-        $partyType "$name" as $alias
-    !endif
-    !$partiesMapper = $partiesMapper + $alias + ":" + $name + ";"
-!endprocedure'/
-
 !unquoted procedure parties($partyType="participant", $name, $alias, $order="")
     !if $order != ""
         $partyType "$name" as $alias order $order
@@ -51,7 +42,8 @@ settings -> editor -> LiveTemplates'/
 !endprocedure
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
-    /'Это условие позволяет использовать процедуру для автоответов без отдельного вызова autorq(,,"","","")'/
+    /'Это условие позволяет использовать процедуру для автоответов без явного указания инициатора и исполнителя,
+    по requestHistory определяются участники последнего вызова. После отрисовки взаимодействия, значение requestHistory сбрасывается'/
     !if $executor == "" && $initiator == ""
         !$i = %get_variable_value($requestHistory)
         !$idInitiator = $i + "initiator"
@@ -84,7 +76,6 @@ settings -> editor -> LiveTemplates'/
     !$requestHistory = $i + "req"
     !$ainitiator = %get_variable_value($idInitiator)
     !$aexecutor = %get_variable_value($idExecutor)
-
     %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
 !endprocedure
 
@@ -179,9 +170,8 @@ note across
 end note
 !end procedure
 
-/'Альтернативный способ построения карты процесса'/
+/'Строим крату процесса, таблицу событий аудита и список доработок'/
 !unquoted procedure LEGEND()
-    /'Строим крату процесса'/
     !$i = 0
     !$r = ""
     !$ii = 0
@@ -198,7 +188,7 @@ end note
         !$auditTable = $auditTable + %get_variable_value($rr)
         !$ii = $ii + 1
     !endwhile
-
+    /'Отображаем построенные таблицы при их наличии'/
     !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + "| # | Инициатор | Исполнитель | Действие | Комментарий |" + $table + %newline()
     /'Строим таблицу аудита'/
     !if %strpos($auditTable,1) > 0

@@ -22,7 +22,7 @@
     !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
 !endprocedure
 
-/'Вспомогательная процедура для проверки сущестования участника по его алиасу'/
+/'Вспомогательная процедура для проверки существования участника по его алиасу'/
 !unquoted procedure aliasCheck($alias)
     !$key = "name" + $alias
     !if %not(%variable_exists($key))
