@@ -1,4 +1,36 @@
 @startuml
+/'1. ПАРАМЕТРЫ И РУБИЛЬНИКИ
+=========================================================================================================================
+Идентификатор взаимодействия, повторяет значение autonumber'/
+!$id = 0
+
+/'Параметр для формирования построчного отображения текста в ячейках таблицы'/
+!$textResult = ""
+
+/'Параметры, ограничивающие длину строк в ячейках в таблице'/
+!$actionLength = 40
+!$commentLength = 65
+
+/'Счетчики для построения карты процессов'/
+!$legendId = ""
+
+/'Переменная с легендой диаграммы'/
+!$diagramLegend = ""
+
+/'Выявленные в процессе моделирования доработки'/
+!$todoList = "| № | id обнаружения | Суть доработки|"
+!$todoId = 0
+
+/'Параметры, отвечающие за обработку имен и алиасов участников диаграммы'/
+!$partiesMapper = ""
+!$resultName = ""
+
+/'Переменные, необходимые для функционирования автоответов'/
+!$requestHistory = ""
+
+/'Переменная для событий аудита'/
+!$auditId = 0
+
 /'2. ФУНКЦИОНАЛЬНЫЕ ПРОЦЕДУРЫ
 ========================================================================================
 Процедуры, заменяющие штатные средства plantUml, например: создание участников,
@@ -205,3 +237,67 @@ legend  left
 $diagramLegend
 end legend
 !end procedure
+
+/'3. СЛУЖЕБНЫЕ ПРОЦЕДУРЫ
+=========================================================================================================================
+Процедуры, выполняющие служебные функции и операции с параметрами
+
+/'Вспомогательная процедура, отвечает за построчное отображение текста'/
+!unquoted procedure $textNewLineCutter($text, $length)
+    !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
+        !$cutPosition = $length + %strpos(%substr($text, $length), " ") /'Поиск пробела'/
+        !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
+        !$text = %substr($text,%intval($cutPosition))
+    !endwhile
+    !$textResult = $textResult + $text
+!endprocedure
+
+/'Процедура создания списка дел'/
+!unquoted procedure todo($td)
+    !$todoId = $todoId + 1
+    %invoke_procedure("$textNewLineCutter", $td,$commentLength) /'Форматирование текста построчно'/
+    !$tdresult = $textResult
+    !$textResult = ""
+    !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
+!endprocedure
+
+/'Вспомогательная процедура получения имения участника из мапы имя:алиас'/
+!unquoted procedure $aliasToName($alias)
+    /'Алиас найден в мапе'/
+    !if %strpos($partiesMapper,$alias) > 0 || %strpos($partiesMapper,$alias) == 0
+        !$resultName = %substr($partiesMapper, %strpos($partiesMapper, $alias))
+        !$resultName = %substr($resultName, %strpos($resultName, ":"))
+        !$resultName = %substr($resultName,1,%strpos($resultName,";")-1)
+    /'Алиас не найден в мапе'/
+    !else
+        !$a = %substr($alias,0,1)
+        !$a = %upper($a)
+        !$b = %substr($alias,1)
+        !$resultName = $a + $b
+        !$partiesMapper = $partiesMapper + $alias + ":" + $resultName + ";"
+    !endif
+!endprocedure
+
+/'4. ПАРАМЕТРЫ СТИЛЯ
+========================================================================================================================='/
+autonumber
+!pragma teoz true
+!theme cloudscape-design
+skinparam dpi 70
+skinparam maxMessageSize 400
+skinparam backgroundColor LightGray
+skinparam sequence {
+ArrowColor blue
+ActorBorderColor blue
+LifeLineBorderColor blue
+LifeLineBackgroundColor #White
+ParticipantBorderColor blue
+ParticipantBackgroundColor DodgerBlue
+ParticipantFontName Impact
+ParticipantFontSize 17
+ParticipantFontColor #A9DCDF
+ActorBackgroundColor DodgerBlue
+ActorFontColor DeepSkyBlue
+ActorFontSize 17
+ActorFontName Aapex
+}
