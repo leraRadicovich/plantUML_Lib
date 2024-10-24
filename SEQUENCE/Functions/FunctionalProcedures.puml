@@ -33,7 +33,6 @@ settings -> editor -> LiveTemplates'/
     !endif
 !endprocedure
 
-
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
     /'Это условие позволяет использовать процедуру для автоответов без отдельного вызова autorq(,,"","","")'/
     !if $executor == "" && $initiator == ""
@@ -72,9 +71,35 @@ settings -> editor -> LiveTemplates'/
     !$aexecutor = ""
 !endprocedure
 
+/'Процедура для обработки событий Аудит'/
+!unquoted procedure audit($event, $status = "", $description = "", $source = "pafp")
+    !if $status == ""
+        !$eventStartValue = $event + ":" + $id
+        !$eventStart = "start" + $event
+        %set_variable_value($eventStart,$eventStartValue)
+        hnote over $source #lightyellow/lightgreen: <color:red><&media-play> <color:black>$event
+    !else
+        %invoke_procedure("$textNewLineCutter",$description,$commentLength)
+        !$auditDescription = $textResult
+        !$textResult = ""
+        !$auditId = $auditId + 1
+        !$eventId = "aud" + $auditId
+        !$key = "start" + $event
+        !$startEvent = %get_variable_value($key)
+        !$startEvent = %substr($startEvent,%strpos($startEvent,":")+1)
+        !$eventValue = %newline() + "| " + $auditId + " | " + $event + " | " + $startEvent + " | " + $id + " | " + $status + " | " + $auditDescription + " |"
+        %set_variable_value($eventId,$eventValue)
+        !if $status == "FAILURE"
+            hnote over $source #orange/red: <color:red><&media-stop> <color:black>$event
+        !else
+            hnote over $source #lightyellow/lightgreen: <color:red><&media-stop> <color:black>$event
+        !endif
+    !endif
+!end procedure
+
 /'Новая процедура построения карты процесса'/
 !unquoted procedure proccessMapBuilder($id, $initiator, $executor, $action, $comment="")
-    !$legendId = $legendId + 1
+    !$legendId = "leg" + $id
     /'Форматируем текст действия в многострочный вид'/
     %invoke_procedure("$textNewLineCutter", $action,$actionLength) /'Форматирование текста построчно'/
     !$actionResult = $textResult
@@ -118,11 +143,7 @@ $todoList
 end note
 !end procedure
 
-/'Процедура, отвечающая за отображение таблицы с описанием процесса.
-Принимает значения 0 или 1, где 0 - табличное отображение карты процесса с переносом строк в ячейках,
-а 1 - это отображение карты процесса в виде текста с разделителем. По умолчанию вызывается с 0.
-В IntelliJ IDEA: Вызываете процедуру NOTE(), с любым параметром, далее клик правой кнопкой мыши по изображению и выбираете "Copy diagramm to clipbord as unicode ASCII",
-вставляйте в любой текстовый редактор, сохраняете в виде txt. Теперь сохраненный файл можно открыть в excell в виде текста с разделителями'/
+/'Процедура, отвечающая за отображение таблицы с описанием процесса.'/
 !unquoted procedure NOTE()
     /'Строим крату процесса'/
     !$i = 0
@@ -138,29 +159,37 @@ end note
     end note
 !end procedure
 
-
 /'Процедура рисует строку из карты процесса для последней нарисованной стрелки'/
 !unquoted procedure partnote()
 note across
-%get_variable_value($legendId)
+%substr(%get_variable_value($legendId),1)
 end note
 !end procedure
 
-/'Отображение легенды диаграммы'/
+/'Альтернативный способ построения карты процесса'/
 !unquoted procedure LEGEND()
     /'Строим крату процесса'/
     !$i = 0
     !$r = ""
+    !$ii = 0
+    !$rr = ""
     !$table = ""
+    !$auditTable = ""
     !while $i < $id || $i == $id
         !$r = "leg" + $i
         !$table = $table + %get_variable_value($r)
         !$i = $i + 1
     !endwhile
-    !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + $table + %newline()
+    !while $ii < $auditId || $ii == $auditId
+        !$rr = "aud" + $ii
+        !$auditTable = $auditTable + %get_variable_value($rr)
+        !$ii = $ii + 1
+    !endwhile
+
+    !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + "| # | Инициатор | Исполнитель | Действие | Комментарий |" + $table + %newline()
     /'Строим таблицу аудита'/
-    !if %strpos($auditEventList,1) > 0
-        !$diagramLegend = $diagramLegend + %newline() + "**СОБЫТИЯ АУДИТА**" + %newline() + "====" + %newline()  + $auditEventList + %newline()
+    !if %strpos($auditTable,1) > 0
+        !$diagramLegend = $diagramLegend + %newline() + "**СОБЫТИЯ АУДИТА**" + %newline() + "====" + %newline()  + "| # | name | start | finish | status | description |" + $auditTable + %newline()
     !endif
     /'Строим таблицу со списком доработок'/
     !if %strpos($todoList,1) > 0

@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Фиксация дефекта с экранирование цифр - переменных для построения карты процесса" />
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправление дефекта с экранированием цифр в тексте">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/alt test.puml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -251,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729590903138</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="* Исправление дефекта с экранированием цифр в тексте">
+      <option name="closed" value="true" />
+      <created>1729592408645</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1729592408645</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -310,6 +325,7 @@
     <MESSAGE value="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема" />
     <MESSAGE value="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением" />
     <MESSAGE value="* Фиксация дефекта с экранирование цифр - переменных для построения карты процесса" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Фиксация дефекта с экранирование цифр - переменных для построения карты процесса" />
+    <MESSAGE value="* Исправление дефекта с экранированием цифр в тексте" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Исправление дефекта с экранированием цифр в тексте" />
   </component>
 </project>
