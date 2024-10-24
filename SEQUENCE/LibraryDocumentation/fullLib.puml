@@ -112,9 +112,8 @@ settings -> editor -> LiveTemplates'/
 /'Процедура для обработки событий Аудит'/
 !unquoted procedure audit($event, $status = "", $description = "", $source = "pafp")
     !if $status == ""
-        !$eventStartValue = $event + ":" + $id
         !$eventStart = "start" + $event
-        %set_variable_value($eventStart,$eventStartValue)
+        %set_variable_value($eventStart,$id)
         hnote over $source #lightyellow/lightgreen: <color:red><&media-play> <color:black>$event
     !else
         %invoke_procedure("$textNewLineCutter",$description,$commentLength)
@@ -124,7 +123,6 @@ settings -> editor -> LiveTemplates'/
         !$eventId = "aud" + $auditId
         !$key = "start" + $event
         !$startEvent = %get_variable_value($key)
-        !$startEvent = %substr($startEvent,%strpos($startEvent,":")+1)
         !$eventValue = %newline() + "| " + $auditId + " | " + $event + " | " + $startEvent + " | " + $id + " | " + $status + " | " + $auditDescription + " |"
         %set_variable_value($eventId,$eventValue)
         !if $status == "FAILURE"
