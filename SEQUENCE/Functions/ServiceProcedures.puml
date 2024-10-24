@@ -22,3 +22,20 @@
     !$textResult = ""
     !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
 !endprocedure
+
+/'Вспомогательная процедура получения имения участника из мапы имя:алиас'/
+!unquoted procedure $aliasToName($alias)
+    /'Алиас найден в мапе'/
+    !if %strpos($partiesMapper,$alias) > 0 || %strpos($partiesMapper,$alias) == 0
+        !$resultName = %substr($partiesMapper, %strpos($partiesMapper, $alias))
+        !$resultName = %substr($resultName, %strpos($resultName, ":"))
+        !$resultName = %substr($resultName,1,%strpos($resultName,";")-1)
+    /'Алиас не найден в мапе'/
+    !else
+        !$a = %substr($alias,0,1)
+        !$a = %upper($a)
+        !$b = %substr($alias,1)
+        !$resultName = $a + $b
+        !$partiesMapper = $partiesMapper + $alias + ":" + $resultName + ";"
+    !endif
+!endprocedure
