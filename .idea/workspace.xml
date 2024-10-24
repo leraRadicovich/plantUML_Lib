@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправлены последствия автопереименования" />
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Оптимизирована переменная с аудитом">
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="sequence/SequenceLib.v3_lite" />
+        <entry key="$PROJECT_DIR$" value="sequence/alt_autonumeration" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -47,7 +51,6 @@
     "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ToolWindowPlantUML.ShowToolbar": "false",
     "git-widget-placeholder": "sequence/alt__autonumeration",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib",
@@ -67,21 +70,6 @@
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE" />
       <recent name="C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\examples" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="plantUML_Lib" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="plantUML_Lib" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -196,31 +184,119 @@
       <option name="project" value="LOCAL" />
       <updated>1728988407703</updated>
     </task>
-    <task id="LOCAL-00014" summary="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу">
+    <task id="LOCAL-00014" summary="* Реализована процедура автоответов">
       <option name="closed" value="true" />
-      <created>1729017681151</created>
+      <created>1728996891862</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1729017681151</updated>
+      <updated>1728996891862</updated>
     </task>
-    <task id="LOCAL-00015" summary="* Переструктурированы процедуры по файлам">
+    <task id="LOCAL-00015" summary="* Реализована процедура автоответов для альтов, не удаляет последний реквест">
       <option name="closed" value="true" />
-      <created>1729022007240</created>
+      <created>1729083163115</created>
       <option name="number" value="00015" />
       <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1729022007240</updated>
+      <updated>1729083163115</updated>
     </task>
-    <task id="LOCAL-00016" summary="* Исправлены последствия автопереименования">
+    <task id="LOCAL-00016" summary="* Тюнинг процедур взаимодействия и автоответов">
       <option name="closed" value="true" />
-      <created>1729022310491</created>
+      <created>1729174573123</created>
       <option name="number" value="00016" />
       <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
-      <updated>1729022310491</updated>
+      <updated>1729174573123</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="* Добавлена процедура partnote">
+      <option name="closed" value="true" />
+      <created>1729175308327</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1729175308327</updated>
+    </task>
+    <task id="LOCAL-00018" summary="* Исправлена ошибка в textNewLineCutter">
+      <option name="closed" value="true" />
+      <created>1729177953299</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1729177953299</updated>
+    </task>
+    <task id="LOCAL-00019" summary="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей">
+      <option name="closed" value="true" />
+      <created>1729234671377</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1729234671377</updated>
+    </task>
+    <task id="LOCAL-00020" summary="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема">
+      <option name="closed" value="true" />
+      <created>1729236141358</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1729236141358</updated>
+    </task>
+    <task id="LOCAL-00021" summary="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением">
+      <option name="closed" value="true" />
+      <created>1729590263752</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1729590263752</updated>
+    </task>
+    <task id="LOCAL-00022" summary="* Фиксация дефекта с экранирование цифр - переменных для построения карты процесса">
+      <option name="closed" value="true" />
+      <created>1729590903138</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1729590903138</updated>
+    </task>
+    <task id="LOCAL-00023" summary="* Исправление дефекта с экранированием цифр в тексте">
+      <option name="closed" value="true" />
+      <created>1729592408645</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1729592408645</updated>
+    </task>
+    <task id="LOCAL-00024" summary="* Исправление дефекта с потвором событий аудита&#10;* Новая версия сборки таблицы с событиями аудита">
+      <option name="closed" value="true" />
+      <created>1729766693383</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1729766693384</updated>
+    </task>
+    <task id="LOCAL-00025" summary="* Правка алиасТуНейм - результирующее имя теперь с заглавной букувы">
+      <option name="closed" value="true" />
+      <created>1729769988261</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1729769988261</updated>
+    </task>
+    <task id="LOCAL-00026" summary="* Правка автоответов - теперь создаются переменные для автоответа">
+      <option name="closed" value="true" />
+      <created>1729799712496</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1729799712496</updated>
+    </task>
+    <task id="LOCAL-00027" summary="* Оптимизирована переменная с аудитом">
+      <option name="closed" value="true" />
+      <created>1729800777000</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1729800777000</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,6 +305,21 @@
         <entry key="Branch">
           <value>
             <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="sequence/alt_autonumeration" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="HEAD" />
@@ -243,7 +334,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -258,9 +361,21 @@
     <MESSAGE value="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке" />
     <MESSAGE value="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке" />
     <MESSAGE value="1.Добавлена страница со списком задач" />
-    <MESSAGE value="* Переименованы процедуры и параметры автоответа&#10;* Исправлено построение таблицы с разделителями - для ; также вызывается функция получения имени по алиасу" />
-    <MESSAGE value="* Переструктурированы процедуры по файлам" />
-    <MESSAGE value="* Исправлены последствия автопереименования" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Исправлены последствия автопереименования" />
+    <MESSAGE value="* Реализована процедура автоответов" />
+    <MESSAGE value="* Реализована процедура автоответов для альтов, не удаляет последний реквест" />
+    <MESSAGE value="* Тюнинг процедур взаимодействия и автоответов" />
+    <MESSAGE value="* Добавлена процедура partnote" />
+    <MESSAGE value="* Исправлена ошибка в textNewLineCutter" />
+    <MESSAGE value="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей" />
+    <MESSAGE value="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема" />
+    <MESSAGE value="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением" />
+    <MESSAGE value="* Фиксация дефекта с экранирование цифр - переменных для построения карты процесса" />
+    <MESSAGE value="* Исправление дефекта с экранированием цифр в тексте" />
+    <MESSAGE value="* Исправление дефекта с потвором событий аудита&#10;* Новая версия сборки таблицы с событиями аудита" />
+    <MESSAGE value="* Правка алиасТуНейм - результирующее имя теперь с заглавной букувы" />
+    <MESSAGE value="* Добавлены процедуры и переменные для создания списка дел&#10;* Добавлен файлик с кейсами для реализации автонумерации в альтах" />
+    <MESSAGE value="* Правка автоответов - теперь создаются переменные для автоответа" />
+    <MESSAGE value="* Оптимизирована переменная с аудитом" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Оптимизирована переменная с аудитом" />
   </component>
 </project>

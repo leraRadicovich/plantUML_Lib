@@ -2,9 +2,10 @@
 /'4. ПАРАМЕТРЫ СТИЛЯ
 ========================================================================================================================='/
 autonumber
-skinparam dpi 75
-skinparam maxMessageSize 250
-
+!pragma teoz true
+!theme cloudscape-design
+skinparam dpi 70
+skinparam maxMessageSize 400
 skinparam backgroundColor LightGray
 skinparam sequence {
 ArrowColor blue

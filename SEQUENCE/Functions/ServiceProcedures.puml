@@ -3,19 +3,40 @@
 =========================================================================================================================
 Процедуры, выполняющие служебные функции и операции с параметрами
 
-Вспомогательная процедура получения имения участника по алиасу из маппера участников'/
-!unquoted procedure $aliasToName($alias)
-    !$resultName = %substr($partiesMapper, %strpos($partiesMapper, $alias))
-    !$resultName = %substr($resultName, %strpos($resultName, ":"))
-    !$resultName = %substr($resultName,1,%strpos($resultName,";")-1)
-!endprocedure
-
 /'Вспомогательная процедура, отвечает за построчное отображение текста'/
 !unquoted procedure $textNewLineCutter($text, $length)
     !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
-        !$cutPosition = $length + %strpos(%substr($text,%intval($length)), " ") /'Поиск пробела'/
+        !$cutPosition = $length + %strpos(%substr($text, $length), " ") /'Поиск пробела'/
         !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
         !$text = %substr($text,%intval($cutPosition))
     !endwhile
     !$textResult = $textResult + $text
+!endprocedure
+
+/'Процедура создания списка дел'/
+!unquoted procedure todo($td)
+    !$todoId = $todoId + 1
+    %invoke_procedure("$textNewLineCutter", $td,$commentLength) /'Форматирование текста построчно'/
+    !$tdresult = $textResult
+    !$textResult = ""
+    !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
+!endprocedure
+
+/'Вспомогательная процедура для проверки существования участника по его алиасу'/
+!unquoted procedure aliasCheck($alias)
+    !$key = "name" + $alias
+    !if %not(%variable_exists($key))
+        !$a = %substr($alias,0,1)
+        !$a = %upper($a)
+        !$b = %substr($alias,1)
+        !$resultName = $a + $b
+        !if $alias == "user" || $alias == "client"
+            %invoke_procedure("parties",actor,$resultName,$alias)
+        !elseif $alias == "redis"
+            %invoke_procedure("parties",database,$resultName,$alias)
+        !elseif $alias == "kafka"
+            %invoke_procedure("parties",queue,$resultName,$alias)
+        !else
+            %invoke_procedure("parties",participant,$resultName,$alias)
+    !endif
 !endprocedure
