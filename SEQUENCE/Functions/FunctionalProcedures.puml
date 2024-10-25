@@ -32,12 +32,11 @@ settings -> editor -> LiveTemplates'/
     $initiator -> $executor $liveLine: $action
     %invoke_procedure("proccessMapBuilder",$id, $initiator, $executor, $action, $comment)
     !if $initiator != $executor
-        !$idInitiator = $id + "initiator"
-        !$idExecutor = $id + "executor"
-        !$requestHistory = $id + "req"
+        !$requestId = $requestId + 1
+        !$idInitiator = $requestId + "initiator"
+        !$idExecutor = $requestId + "executor"
         %set_variable_value($idInitiator,$initiator)
         %set_variable_value($idExecutor,$executor)
-        %set_variable_value($requestHistory,$id)
     !endif
 !endprocedure
 
@@ -45,13 +44,11 @@ settings -> editor -> LiveTemplates'/
     /'Это условие позволяет использовать процедуру для автоответов без явного указания инициатора и исполнителя,
     по requestHistory определяются участники последнего вызова. После отрисовки взаимодействия, значение requestHistory сбрасывается'/
     !if $executor == "" && $initiator == ""
-        !$i = %get_variable_value($requestHistory)
-        !$idInitiator = $i + "initiator"
-        !$idExecutor = $i + "executor"
-        !$requestHistory = $i + "req"
+        !$idInitiator = $requestId + "initiator"
+        !$idExecutor = $requestId + "executor"
         !$ainitiator = %get_variable_value($idInitiator)
         !$aexecutor = %get_variable_value($idExecutor)
-        %set_variable_value($requestHistory,"")
+        !$requestId = $requestId - 1
         %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
     !else
         !if $liveLine == "..."
@@ -70,12 +67,10 @@ settings -> editor -> LiveTemplates'/
 /'Процедура для формирования автоответа, берет из истории вызовов последний и инвертирует его,
 НО не удаляя его из истории'/
 !unquoted procedure altrs($liveLine="", $action, $comment="")
-    !$i = %get_variable_value($requestHistory)
-    !$idInitiator = $i + "initiator"
-    !$idExecutor = $i + "executor"
-    !$requestHistory = $i + "req"
-    !$ainitiator = %get_variable_value($idInitiator)
-    !$aexecutor = %get_variable_value($idExecutor)
+        !$idInitiator = $requestId + "initiator"
+        !$idExecutor = $requestId + "executor"
+        !$ainitiator = %get_variable_value($idInitiator)
+        !$aexecutor = %get_variable_value($idExecutor)
     %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
 !endprocedure
 

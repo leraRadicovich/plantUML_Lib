@@ -1,12 +1,10 @@
 @startuml
-!include SequenseLib.puml
-
-parties(actor,Alice,a)
-parties(actor,Bob,b)
-rq("a","b","","Authenticationrequest","Запрос аутентификации")
-rs("b","a","","Authenticationrssponnse","Ответ аутентификации")
-rq("a","b","","AnotherAuthenticationrequest","Еще один запрос аутентификации")
-rs("b","a","","AnotherAuthenticationrssponnse","Еще один ответ аутентификации")
-
+!include C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation\fullLib.puml
+todo("Нужно обновить репозиторий")
+rq(user,git,++,"PUSH PlantUML.LIB.v3.lite","Библиотека для автоматизации моделирования процессов с помощью PlantUML")
+audit(ОБНОВЛЕНИЕ_РЕПОЗИТОРИЯ,,"",git)
+rs(,,--,"200OK","Следи за обновлениями в моем репозитории")
+audit(ОБНОВЛЕНИЕ_РЕПОЗИТОРИЯ,SUCCESS,"Библиотека в репоизитории успешно обновлена",git)
 NOTE()
+LEGEND()
 @enduml
