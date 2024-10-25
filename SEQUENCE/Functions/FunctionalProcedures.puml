@@ -5,7 +5,7 @@
 отрисовка стрелок, отрисовка таблиц и т.д.
 
 Вспомогательная процедура отрисовки участников: формирует мапу имя:алиас'/
-!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
+!unquoted procedure parties($partyType, $name, $alias, $order="")
     !if $order != ""
         $partyType "$name" as $alias order $order
     !else

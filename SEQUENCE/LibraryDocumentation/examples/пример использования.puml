@@ -1,0 +1,32 @@
+@startuml
+!include C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation\fullLib.puml
+/'Объявляем участника Тестовая система'/
+parties(participant,"Тестовая система",system1)
+
+/'Моделируем взаимодействие'/
+rq(user,system1,++,"GET/someEndpoint","Тест комментария для первого вызова")
+
+/'Аудируем взаимодействие'/
+audit(AUDIT_EVENT_1,,"",system1)
+rq(system1,redis,++,"select key/value","Поиск записиа")
+alt 404 not_found
+    rs(,,,"NULL","Ничего не найдено")
+    todo("Добавляем заметку для разработчика, что эту ситуацию нужно автоматизировать")
+    /'Два altr подряд здесь использовать нельзя - библиотека подумает,что они относятся к одному вызову, который еще не закрыт.
+    Тут без человека не обойтись;)'/
+    todoNote()
+    altrs(...,"404 not_found","Система 1 недоступна в данный момент")
+    rq(kafka,system1,,"Слушает события","Нужно подключить кафку журналирования для логирования ошибок")
+    activate kafka
+    audit(AUDIT_EVENT_1,FAILURE,"Система 1 недоступна в данный момент",system1)
+    rs(,,,"eventError","Был запрос с идентификатором, который не найден в системе")
+    deactivate kafka
+    partnote()
+end
+rs(redis,system1,--,"data","Информация найдена")
+rs(,,--,"200OK","Ваш запрос принят")
+audit(AUDIT_EVENT_1,SUCCESS,"Данные найдены",system1)
+
+NOTE()
+LEGEND()
+@enduml
