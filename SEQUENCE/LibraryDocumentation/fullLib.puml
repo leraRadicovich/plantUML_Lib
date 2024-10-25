@@ -11,7 +11,7 @@
 !$actionLength = 40
 !$commentLength = 65
 
-/'Счетчики для построения карты процессов'/
+/'Переменная для построения карты процессов'/
 !$legendId = ""
 
 /'Переменная с легендой диаграммы'/
@@ -33,7 +33,7 @@
 отрисовка стрелок, отрисовка таблиц и т.д.
 
 Вспомогательная процедура отрисовки участников: формирует мапу имя:алиас'/
-!unquoted procedure parties($partyType="participant", $name, $alias, $order="")
+!unquoted procedure parties($partyType, $name, $alias, $order="")
     !if $order != ""
         $partyType "$name" as $alias order $order
     !else
@@ -49,8 +49,6 @@ $executor - участник-исполнитель взаимодействия
 $liveLine - параметр управления линией жизни взаимодействия, подразумевается ++, --, --++, ++--, ...,
 $action - описание взаимодействия,
 $comment - комментарий для данной операции.
-Процедура во время исполнения автоматически вызывает другую вспомогательную процедуру - $processDescriptionBuilder,
-для построения карты процесса в виде текста с разделителями.
 Для удобства использования необходимо создать шаблон автоподстановки в используемой вами среде разработке. В IDEA это находится в меню
 settings -> editor -> LiveTemplates'/
 !unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
@@ -258,11 +256,11 @@ end legend
         !$b = %substr($alias,1)
         !$resultName = $a + $b
         !if $alias == "user" || $alias == "client"
-            %invoke_procedure("parties",actor,$resultName,$alias)
+            %invoke_procedure("parties",actor,$resultName,$alias,-1)
         !elseif $alias == "redis"
-            %invoke_procedure("parties",database,$resultName,$alias)
+            %invoke_procedure("parties",database,$resultName,$alias,10)
         !elseif $alias == "kafka"
-            %invoke_procedure("parties",queue,$resultName,$alias)
+            %invoke_procedure("parties",queue,$resultName,$alias,10)
         !else
             %invoke_procedure("parties",participant,$resultName,$alias)
     !endif

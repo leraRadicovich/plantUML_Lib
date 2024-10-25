@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Обнаружен и исправлен дефект автоответо. При выполнении рс затиралось значение реквестХистори - в итоге от реквест хитори вообще отказали, перейдя на реквестАйди">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Обновил картинки">
+      <change afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/examples/пример использования.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/examples/ToBe.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/examples/ToBe.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729849188557</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="* Обновил картинки">
+      <option name="closed" value="true" />
+      <created>1729884322494</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1729884322494</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -358,6 +369,7 @@
     <MESSAGE value="* Правка алиасТуНейм - результирующее имя теперь с заглавной букувы" />
     <MESSAGE value="* косметика" />
     <MESSAGE value="* Обнаружен и исправлен дефект автоответо. При выполнении рс затиралось значение реквестХистори - в итоге от реквест хитори вообще отказали, перейдя на реквестАйди" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Обнаружен и исправлен дефект автоответо. При выполнении рс затиралось значение реквестХистори - в итоге от реквест хитори вообще отказали, перейдя на реквестАйди" />
+    <MESSAGE value="* Обновил картинки" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Обновил картинки" />
   </component>
 </project>
