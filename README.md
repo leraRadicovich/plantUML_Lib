@@ -12,7 +12,8 @@ sequence/SequenceLib.v3_lite
 вместе с картинкой табличное представление процесса. А среда разработки позволяет экспортировать полученные таблицы в виде текста с разделителями.
 
 Моделирование диаграмм и рисование таблиц штатными средствами PlantUml AS IS
-![(Текст)](https://github.com/leraRadicovich/plantUML_Lib/blob/sequence/alt_autonumeration/SEQUENCE/LibraryDocumentation/examples/AsIs.jpg)
+Моделирование диаграмм и рисование таблиц штатными средствами PlantUml AS IS
+![(Текст)](https://github.com/leraRadicovich/plantUML_Lib/blob/main/SEQUENCE/LibraryDocumentation/examples/AsIs.jpg)
 
 Моделирование диаграмм средствами PlantUml и данной библиотекой
 ![(Текст)](https://github.com/leraRadicovich/plantUML_Lib/blob/sequence/alt_autonumeration/SEQUENCE/LibraryDocumentation/examples/ToBe.jpg)
