@@ -3,21 +3,22 @@ sequence/SequenceLib.v3_lite
 Привет!
 
 Меня зовут Валерий Патрушев, я системный аналитик, тружусь на проектах нашего финтеха.
-В своей работе мы - системные аналитики - постоянно применяем язык моделирования UML для проектирования и анализа всевозможных бизнес процессов.
-Зачастую, помимо диаграммы, мне нужно табличное представление процесса, а рисование таблицы - отдельная процедура, занимающая время.
-Чтобы упростить эту задачу, я задал вопрос: можно ли рисовать диаграмму и таблицу одновременно, решение было найдено в PlantUml и его встроенном препроцессоре Си.
+В своей работе мы - системные аналитики - постоянно применяем язык моделирования UML для моделирования и анализа всевозможных бизнес процессов,
+а также проэктирования информационных систем, приложений, их взаимодействий. Зачастую, помимо диаграммы, мне нужно табличное представление процесса,
+а рисование таблицы - отдельная процедура, занимающая время. Чтобы упростить эту задачу, я задал вопрос: можно ли рисовать диаграмму и таблицу одновременно, 
+решение было найдено в PlantUml и его встроенном препроцессоре, очень похожем на испольлзуемый в языке Си.
 
-Библиотека для построения сиквенс-диаграмм. Версия 3.0 Лайт позволяет при помощи двух процедур изменить описание диаграмм, но на выходе получать вместе с картинкой
-табличное представление процесса. А среда разработки позволяет экспортировать полученные таблицы в виде текста с разделителями.
+Библиотека для построения сиквенс-диаграмм. Версия 3.0 Лайт позволяет при помощи нескольких процедур изменить процесс создания диаграмм, при этом на выходе получать
+вместе с картинкой табличное представление процесса. А среда разработки позволяет экспортировать полученные таблицы в виде текста с разделителями.
 
 Моделирование диаграмм и рисование таблиц штатными средствами PlantUml AS IS
-![(Текст)]([https://github.com/leraRadicovich/plantUML_Lib/blob/main/SEQUENCE/examples/AsIs.jpg](https://github.com/leraRadicovich/plantUML_Lib/blob/sequence/SequenceLib.v3_lite/SEQUENCE/LibraryDocumentation/examples/AsIs.jpg))
+![(Текст)](https://github.com/leraRadicovich/plantUML_Lib/blob/sequence/alt_autonumeration/SEQUENCE/LibraryDocumentation/examples/AsIs.jpg)
 
-Моделирование диаграмм и авторисование таблиц с описанием процесса средствами PlantUml и данной библиотекой
-![(Текст)]([https://github.com/leraRadicovich/plantUML_Lib/blob/main/SEQUENCE/examples/AsIs.jpg](https://github.com/leraRadicovich/plantUML_Lib/blob/sequence/SequenceLib.v3_lite/SEQUENCE/LibraryDocumentation/examples/ToBe.jpg)
+Моделирование диаграмм средствами PlantUml и данной библиотекой
+![(Текст)](https://github.com/leraRadicovich/plantUML_Lib/blob/sequence/alt_autonumeration/SEQUENCE/LibraryDocumentation/examples/ToBe.jpg)
 
-Пример отображения тестовой диаграммы в формате unicode ASCII
-![(Текст)]([https://github.com/leraRadicovich/plantUML_Lib/blob/main/SEQUENCE/examples/AsIs.jpg](https://github.com/leraRadicovich/plantUML_Lib/blob/sequence/SequenceLib.v3_lite/SEQUENCE/LibraryDocumentation/examples/DiagrammunicodeASCII.jpg)
+Пример отображения тестовой диаграммы в формате unicode ASCII (своеобразный путь для экспорта таблиц)
+![(Текст)](https://github.com/leraRadicovich/plantUML_Lib/blob/sequence/alt_autonumeration/SEQUENCE/LibraryDocumentation/examples/DiagrammunicodeASCII.jpg)
 
 Дата релиза 10.10.2024, Автор: Валерий Патрушев.
 
