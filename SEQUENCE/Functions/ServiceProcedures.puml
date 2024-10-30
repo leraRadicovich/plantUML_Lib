@@ -32,9 +32,9 @@
         !$resultName = $a + $b
         !if $alias == "user" || $alias == "client"
             %invoke_procedure("parties",actor,$resultName,$alias)
-        !elseif $alias == "redis" || $alias == "PostgreSql" || $alias == "postgre"
+        !elseif $alias == "redis" || $alias == "PostgreSql" || $alias == "postgre" || $alias == "postgreSQL"
             %invoke_procedure("parties",database,$resultName,$alias)
-        !elseif $alias == "kafka"
+        !elseif $alias == "kafka" || $alias == "rabbit" $alias == "MQ"
             %invoke_procedure("parties",queue,$resultName,$alias)
         !else
             %invoke_procedure("parties",participant,$resultName,$alias)
@@ -44,3 +44,40 @@
 !unquoted procedure anchor($name)
         %set_variable_value($name,$id)
 !end procedure
+
+/'Процедура для получения информации по шагу процесса'/
+!unquoted procedure getMetadataByStep($i)
+    /'Форматируем текст действия и комментария в многострочный вид'/
+    !$idAction = $i + "action"
+    !$keyAction = %get_variable_value($idAction)
+    %invoke_procedure("$textNewLineCutter", $keyAction,$actionLength) /'Форматирование текста построчно'/
+    !$actionResult = $textResult
+    !$textResult = ""
+
+    !$idComment = $i + "comment"
+    !$keyComment = %get_variable_value($idComment)
+    %invoke_procedure("$textNewLineCutter", $keyComment, $commentLength) /'Форматирование текста построчно'/
+    !$commentResult = $textResult
+    !$textResult = ""
+
+    /'Получаем алиасы иницатора и исполнителя на каждом шаге,
+    затем получаем их имена по полученным алиасам'/
+    !$idInitiator = $i + "initiator"
+    !$keyInitiator = %get_variable_value($idInitiator)
+    !$keyInitiator = "name" + $keyInitiator
+    !$initiatorName = %get_variable_value($keyInitiator)
+
+    !$idExecutor = $i + "executor"
+    !$keyExecutor = %get_variable_value($idExecutor)
+    !$keyExecutor = "name" + $keyExecutor
+    !$executorName = %get_variable_value($keyExecutor)
+!endprocedure
+
+/'Процедура для очистки буфферных переменных'/
+!unquoted procedure bufferVariableCleaner()
+    !$actionResult = ""
+    !$commentResult = ""
+    !$initiatorName = ""
+    !$executorName = ""
+    !$textResult = ""
+!endprocedure
