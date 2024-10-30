@@ -32,7 +32,7 @@
         !$resultName = $a + $b
         !if $alias == "user" || $alias == "client"
             %invoke_procedure("parties",actor,$resultName,$alias)
-        !elseif $alias == "redis"
+        !elseif $alias == "redis" || $alias == "PostgreSql" || $alias == "postgre"
             %invoke_procedure("parties",database,$resultName,$alias)
         !elseif $alias == "kafka"
             %invoke_procedure("parties",queue,$resultName,$alias)
@@ -40,3 +40,7 @@
             %invoke_procedure("parties",participant,$resultName,$alias)
     !endif
 !endprocedure
+
+!unquoted procedure anchor($name)
+        %set_variable_value($name,$id)
+!end procedure
