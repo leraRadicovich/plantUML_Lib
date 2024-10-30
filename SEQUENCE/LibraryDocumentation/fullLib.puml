@@ -27,6 +27,9 @@
 /'Переменная для событий аудита'/
 !$auditId = 0
 
+/'Переменная для последовательного расположения участников'/
+!$orderId = 0
+
 /'2. ФУНКЦИОНАЛЬНЫЕ ПРОЦЕДУРЫ
 ========================================================================================
 Процедуры, заменяющие штатные средства plantUml, например: создание участников,
@@ -39,6 +42,7 @@
     !else
         $partyType "$name" as $alias
     !endif
+    %set_variable_value($aliasId,$alias)
     !$aliasName = "name" + $alias
     %set_variable_value($aliasName,$name)
 !endprocedure
@@ -256,15 +260,19 @@ end legend
         !$b = %substr($alias,1)
         !$resultName = $a + $b
         !if $alias == "user" || $alias == "client"
-            %invoke_procedure("parties",actor,$resultName,$alias,-1)
-        !elseif $alias == "redis"
-            %invoke_procedure("parties",database,$resultName,$alias,10)
+            %invoke_procedure("parties",actor,$resultName,$alias)
+        !elseif $alias == "redis" || $alias == "PostgreSql" || $alias == "postgre"
+            %invoke_procedure("parties",database,$resultName,$alias)
         !elseif $alias == "kafka"
-            %invoke_procedure("parties",queue,$resultName,$alias,10)
+            %invoke_procedure("parties",queue,$resultName,$alias)
         !else
             %invoke_procedure("parties",participant,$resultName,$alias)
     !endif
 !endprocedure
+
+!unquoted procedure anchor($name)
+        %set_variable_value($name,$id)
+!end procedure
 
 /'4. ПАРАМЕТРЫ СТИЛЯ
 ========================================================================================================================='/
@@ -289,3 +297,8 @@ ActorFontColor DeepSkyBlue
 ActorFontSize 17
 ActorFontName Aapex
 }
+
+!$link = "**<size:17><color:blue><&link-intact></color>**"
+!$success = "**<size:20><color:green><&circle-check></color>**"
+!$error = "**<size:20><color:red><&circle-x></color>**"
+!$end = "**<size:20><color:red><&x></color>**"
