@@ -1,5 +1,6 @@
 @startuml
 !include Functions/SequenceLib.v3.puml
+'!include C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation\fullLib.puml
 
 parties(actor, Валера ,valera)
 parties(participant,InelliJ IDEA,idea)
@@ -16,7 +17,7 @@ rq(valera,idea,++,Написание библиотеки, "Библиотека
 audit(SOME_AUDIT_EVENT,,"",idea)
 rs(,,,Результат, "Отображение библиотеки, способов ее применения")
 note across: Ниже в качестве примера вызываю функцию NOTE. \nОна накопительная, т.е. наполнение данными зависит от места выззова.
-NOTE()
+
 rq("valera","idea","","Отправить в удаленный репозиторий", "Удаленный репозиторий лежит по адресу [[https://github.com/leraRadicovich/plantUML_Lib.git Репозиторий Валеры]]")
 audit(SOME_AUDIT_EVENT,SUCCESS,"Тестируем разные события",idea)
 note over idea: светло-зеленый цвет говорит нам об отправке успешного события в аудит
@@ -38,6 +39,6 @@ audit(AUDIT_EVENT,SUCCESS,"Тест успешного события",idea)
 rq(valera,chat,,Буду рад обратной связи и предложениям, "Пока все работает на безвозмездной основе, после коммерческого релиза стандартный ценник в пять$")
 rq(chat,colleague,--++,Новое сообщение в чате)
 rq(colleague,chat,++,Прочитать сообщение, "Скачать файлы библиотеки и примера либо посмотреть репозиторий, открыть их в используемой среде разработки, возможно использовать в своей работе, возможно предложить идеит по улучшению или исправлению багов")
-
+NOTE()
 LEGEND()
 @enduml

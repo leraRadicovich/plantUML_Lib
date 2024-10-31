@@ -15,16 +15,7 @@
     %set_variable_value($aliasName,$name)
 !endprocedure
 
-/'Процедуры rq и rs заменяют синтаксис рисования стрелок. Нужно вызвать процедуру в редакторе, передать ей параметры:
-$initiator - участник-инициатор взаимодействия,
-$executor - участник-исполнитель взаимодействия,
-$liveLine - параметр управления линией жизни взаимодействия, подразумевается ++, --, --++, ++--, ...,
-$action - описание взаимодействия,
-$comment - комментарий для данной операции.
-Процедура во время исполнения автоматически вызывает другую вспомогательную процедуру - $processDescriptionBuilder,
-для построения карты процесса в виде текста с разделителями.
-Для удобства использования необходимо создать шаблон автоподстановки в используемой вами среде разработке. В IDEA это находится в меню
-settings -> editor -> LiveTemplates'/
+/'Процедуры rq и rs заменяют синтаксис рисования стрелок.'/
 !unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
     !$id = $id + 1
     /'проверяем, что указанные initiator и executor объявлены на диаграмме,
@@ -32,14 +23,7 @@ settings -> editor -> LiveTemplates'/
     %invoke_procedure("aliasCheck",$initiator)
     %invoke_procedure("aliasCheck",$executor)
     $initiator -> $executor $liveLine: $action
-    !$idInitiator = $id + "initiator"
-    !$idExecutor = $id + "executor"
-    !$idAction = $id + "action"
-    !$idComment = $id + "comment"
-    %set_variable_value($idInitiator,$initiator)
-    %set_variable_value($idExecutor,$executor)
-    %set_variable_value($idAction,$action)
-    %set_variable_value($idComment,$comment)
+    %invoke_procedure("setMetadataVariable", $initiator, $executor, $action, $comment)
 !endprocedure
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
@@ -60,14 +44,7 @@ settings -> editor -> LiveTemplates'/
         !endif
         !$id = $id + 1
         /'Для корректного отображения в карте процесса меняем исполнителя и иницатора местами'/
-        !$idInitiator = $id + "executor"
-        !$idExecutor = $id + "initiator"
-        !$idAction = $id + "action"
-        !$idComment = $id + "comment"
-        %set_variable_value($idInitiator,$initiator)
-        %set_variable_value($idExecutor,$executor)
-        %set_variable_value($idAction,$action)
-        %set_variable_value($idComment,$comment)
+        %invoke_procedure("setMetadataVariable", $executor, $initiator, $action, $comment)
     !endif
 !endprocedure
 
@@ -95,7 +72,7 @@ settings -> editor -> LiveTemplates'/
         !$eventId = "aud" + $auditId
         !$key = "start" + $event
         !$startEvent = %get_variable_value($key)
-        !$eventValue = %newline() + "| " + $auditId + " | " + $event + " | " + $startEvent + " | " + $id + " | " + $status + " | " + $auditDescription + " |"
+        !$eventValue = "| " + $auditId + " | " + $event + " | " + $startEvent + " | " + $id + " | " + $status + " | " + $auditDescription + " |"
         %set_variable_value($eventId,$eventValue)
         !if $status == "FAILURE"
             hnote over $source #orange/red: <color:red><&media-stop> <color:black>$event
@@ -104,18 +81,6 @@ settings -> editor -> LiveTemplates'/
         !endif
     !endif
 !end procedure
-
-/'Новая процедура построения карты процесса'/
-!unquoted procedure proccessMapBuilder()
-    !$i = 1
-    !while $i < $id || $i == $id
-        %invoke_procedure("getMetadataByStep",$i)
-        /'Формируем таблицу для легенды'/
-        !$processMap = $processMap + %newline() + "| " +  $i + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
-        !$i = $i + 1
-        %invoke_procedure("bufferVariableCleaner")
-    !endwhile
-!endprocedure
 
 /'Процедуры создания заметок в виде легенды в начале диаграммы'/
 !unquoted procedure todo($td)
@@ -142,6 +107,7 @@ end note
     note across
     $processMap
     end note
+    !$processMap = "| # | Инициатор | Исполнитель | Действие | Комментарий |"
 !end procedure
 
 /'Процедура рисует строку из карты процесса для последней нарисованной стрелки'/
@@ -157,22 +123,14 @@ end note
 
 /'Строим крату процесса, таблицу событий аудита и список доработок'/
 !unquoted procedure LEGEND()
-
     /'Отображаем построенные таблицы при их наличии'/
     %invoke_procedure("proccessMapBuilder")
     !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + $processMap + %newline()
 
     /'Строим таблицу аудита'/
-        !$i = 0
-        !$r = ""
-        !$auditTable = ""
-        !while $i < $auditId || $i == $auditId
-            !$r = "aud" + $i
-            !$auditTable = $auditTable + %get_variable_value($r)
-            !$i = $i + 1
-        !endwhile
+    %invoke_procedure("auditTableBuilder")
     !if $auditId > 0
-        !$diagramLegend = $diagramLegend + %newline() + "**СОБЫТИЯ АУДИТА**" + %newline() + "====" + %newline() + "| # | name | start | finish | status | description |" + $auditTable + %newline()
+        !$diagramLegend = $diagramLegend + %newline() + "**СОБЫТИЯ АУДИТА**" + %newline() + "====" + %newline() + $auditTable + %newline()
     !endif
 
     /'Строим таблицу со списком доработок'/
