@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Утверждена новая логиа altrs - строит ответ, инвертируя заданную в i стрелку&#10;* Добавлена новая процедура altrq - копирует логику из альтрс, но используется для реквсетов, т.е. копирует стрелку по идентификатору">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
-    </list>
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Якорная процедура была потереня в сервисных, добавил из фуллиб" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -350,7 +347,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730368701760</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="* Якорная процедура была потереня в сервисных, добавил из фуллиб">
+      <option name="closed" value="true" />
+      <created>1730370043805</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1730370043805</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -392,7 +397,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту&#10;4. Добавлена диаграмма классов с описанием зависимостей внутри проекта" />
     <MESSAGE value="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке" />
     <MESSAGE value="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке" />
     <MESSAGE value="1.Добавлена страница со списком задач" />
@@ -417,6 +421,7 @@
     <MESSAGE value="* Переписана процедура построения карты процесса, теперь для нее данные берутся из метаинформации по шагу процесса&#10;* Переписана легенда, добавлены служебные процедуры: получение метаинфо по шагу, чистка буфферных переменных&#10;* Написан прототип нового альтрс, нжуно додумать" />
     <MESSAGE value="* Созданы служебные процедуры для сеттинга и получения метаданных по каждому шагу&#10;* Переписана процедура аудита&#10;* За счет добавления процедур сеттинга и получения значений буфферных переменных переписаны процедуры построения легенды и таблицы" />
     <MESSAGE value="* Утверждена новая логиа altrs - строит ответ, инвертируя заданную в i стрелку&#10;* Добавлена новая процедура altrq - копирует логику из альтрс, но используется для реквсетов, т.е. копирует стрелку по идентификатору" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Утверждена новая логиа altrs - строит ответ, инвертируя заданную в i стрелку&#10;* Добавлена новая процедура altrq - копирует логику из альтрс, но используется для реквсетов, т.е. копирует стрелку по идентификатору" />
+    <MESSAGE value="* Якорная процедура была потереня в сервисных, добавил из фуллиб" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Якорная процедура была потереня в сервисных, добавил из фуллиб" />
   </component>
 </project>
