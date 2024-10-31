@@ -215,7 +215,7 @@ end legend
             %invoke_procedure("parties",actor,$resultName,$alias)
         !elseif $alias == "redis" || $alias == "PostgreSql" || $alias == "postgre" || $alias == "postgreSQL"
             %invoke_procedure("parties",database,$resultName,$alias)
-        !elseif $alias == "kafka" || $alias == "rabbit" $alias == "MQ"
+        !elseif $alias == "kafka" || $alias == "rabbit" || $alias == "MQ"
             %invoke_procedure("parties",queue,$resultName,$alias)
         !else
             %invoke_procedure("parties",participant,$resultName,$alias)
