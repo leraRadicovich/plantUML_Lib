@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Якорная процедура была потереня в сервисных, добавил из фуллиб" />
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Обновлены фуллиб и стиль - добавлена ссылка на репозиторий и автора">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/SequenceStyle.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/SequenceStyle.puml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -355,7 +358,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730370043805</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="* Обновлены фуллиб и стиль - добавлена ссылка на репозиторий и автора">
+      <option name="closed" value="true" />
+      <created>1730370344114</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1730370344114</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -397,7 +408,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке" />
     <MESSAGE value="1. Бага с вызовом функции формирования карты процесса, испольнтель и инициатор передавались в неверном порядке" />
     <MESSAGE value="1.Добавлена страница со списком задач" />
     <MESSAGE value="* Реализована процедура автоответов" />
@@ -422,6 +432,7 @@
     <MESSAGE value="* Созданы служебные процедуры для сеттинга и получения метаданных по каждому шагу&#10;* Переписана процедура аудита&#10;* За счет добавления процедур сеттинга и получения значений буфферных переменных переписаны процедуры построения легенды и таблицы" />
     <MESSAGE value="* Утверждена новая логиа altrs - строит ответ, инвертируя заданную в i стрелку&#10;* Добавлена новая процедура altrq - копирует логику из альтрс, но используется для реквсетов, т.е. копирует стрелку по идентификатору" />
     <MESSAGE value="* Якорная процедура была потереня в сервисных, добавил из фуллиб" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Якорная процедура была потереня в сервисных, добавил из фуллиб" />
+    <MESSAGE value="* Обновлены фуллиб и стиль - добавлена ссылка на репозиторий и автора" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Обновлены фуллиб и стиль - добавлена ссылка на репозиторий и автора" />
   </component>
 </project>
