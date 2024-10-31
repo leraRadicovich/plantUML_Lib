@@ -41,6 +41,7 @@
     !endif
 !endprocedure
 
+/'Процедура, создающая и запоминающая идентификатор - якорь'/
 !unquoted procedure anchor($name)
         %set_variable_value($name,$id)
 !end procedure
