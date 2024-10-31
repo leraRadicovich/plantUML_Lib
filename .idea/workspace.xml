@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Переписана процедура построения карты процесса, теперь для нее данные берутся из метаинформации по шагу процесса&#10;* Переписана легенда, добавлены служебные процедуры: получение метаинфо по шагу, чистка буфферных переменных&#10;* Написан прототип нового альтрс, нжуно додумать">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Созданы служебные процедуры для сеттинга и получения метаданных по каждому шагу&#10;* Переписана процедура аудита&#10;* За счет добавления процедур сеттинга и получения значений буфферных переменных переписаны процедуры построения легенды и таблицы">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODOLIST.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODOLIST.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -339,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730322626287</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="* Созданы служебные процедуры для сеттинга и получения метаданных по каждому шагу&#10;* Переписана процедура аудита&#10;* За счет добавления процедур сеттинга и получения значений буфферных переменных переписаны процедуры построения легенды и таблицы">
+      <option name="closed" value="true" />
+      <created>1730367071491</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1730367071491</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -381,7 +386,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов" />
     <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту" />
     <MESSAGE value="1. Разделение библиотеки на несколько отдельных файлов&#10;2. Структурирование файлов и разделение по отдельным и общим функциям&#10;3. Старт документации по проекту&#10;4. Добавлена диаграмма классов с описанием зависимостей внутри проекта" />
     <MESSAGE value="1. Создан и заполнен на текущий момент файл со списком возможных доработок по библиотеке" />
@@ -406,6 +410,7 @@
     <MESSAGE value="* пример выгрузки июникода" />
     <MESSAGE value="* Добавлена процедура с якорем&#10;* Обновлены процедуры создания участников&#10;* Добавлены новые задачи" />
     <MESSAGE value="* Переписана процедура построения карты процесса, теперь для нее данные берутся из метаинформации по шагу процесса&#10;* Переписана легенда, добавлены служебные процедуры: получение метаинфо по шагу, чистка буфферных переменных&#10;* Написан прототип нового альтрс, нжуно додумать" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Переписана процедура построения карты процесса, теперь для нее данные берутся из метаинформации по шагу процесса&#10;* Переписана легенда, добавлены служебные процедуры: получение метаинфо по шагу, чистка буфферных переменных&#10;* Написан прототип нового альтрс, нжуно додумать" />
+    <MESSAGE value="* Созданы служебные процедуры для сеттинга и получения метаданных по каждому шагу&#10;* Переписана процедура аудита&#10;* За счет добавления процедур сеттинга и получения значений буфферных переменных переписаны процедуры построения легенды и таблицы" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Созданы служебные процедуры для сеттинга и получения метаданных по каждому шагу&#10;* Переписана процедура аудита&#10;* За счет добавления процедур сеттинга и получения значений буфферных переменных переписаны процедуры построения легенды и таблицы" />
   </component>
 </project>

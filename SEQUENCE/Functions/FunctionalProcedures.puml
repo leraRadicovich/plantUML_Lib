@@ -26,9 +26,18 @@
     %invoke_procedure("setMetadataVariable", $initiator, $executor, $action, $comment)
 !endprocedure
 
+/'Процедура строит ответ, инвертируя взаимодействие, заданное в $i'/
+!unquoted procedure altrq($i=$id, $liveLine="", $action, $comment="")
+        !$idInitiator = $i + "initiator"
+        !$idExecutor = $i + "executor"
+        !$ainitiator = %get_variable_value($idInitiator)
+        !$aexecutor = %get_variable_value($idExecutor)
+    %invoke_procedure("rq", $ainitiator, $aexecutor, $liveLine, $action, $comment)
+!endprocedure
+
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
-    /'Это условие позволяет использовать процедуру для автоответов без явного указания инициатора и исполнителя,
-    по requestHistory определяются участники последнего вызова. После отрисовки взаимодействия, значение requestHistory сбрасывается'/
+    /'Если не указать участников взаимодействия, процедура построит ответ, инвертировав
+    предыдущий шаг'/
     !if $executor == "" && $initiator == ""
         !$idInitiator = $id + "initiator"
         !$idExecutor = $id + "executor"
@@ -48,11 +57,10 @@
     !endif
 !endprocedure
 
-/'Процедура для формирования автоответа, берет из истории вызовов последний и инвертирует его,
-НО не удаляя его из истории'/
-!unquoted procedure altrs($x=$id, $liveLine="", $action, $comment="")
-        !$idInitiator = $x + "initiator"
-        !$idExecutor = $x + "executor"
+/'Процедура строит ответ, инвертируя взаимодействие, заданное в $i'/
+!unquoted procedure altrs($i=$id, $liveLine="", $action, $comment="")
+        !$idInitiator = $i + "initiator"
+        !$idExecutor = $i + "executor"
         !$ainitiator = %get_variable_value($idInitiator)
         !$aexecutor = %get_variable_value($idExecutor)
     %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
