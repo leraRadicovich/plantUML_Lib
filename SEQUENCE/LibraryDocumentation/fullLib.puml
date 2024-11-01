@@ -77,8 +77,19 @@
         !endif
         !$id = $id + 1
         /'Для корректного отображения в карте процесса меняем исполнителя и иницатора местами'/
-        %invoke_procedure("setMetadataVariable", $executor, $initiator, $action, $comment)
+        %invoke_procedure("setMetadataVariable", $executor, $initiator, $liveLine, $action, $comment, "response")
     !endif
+!endprocedure
+
+/'Процедура для копирования уже нарисованной стрелки'/
+!unquoted procedure altr($i=$id, $liveLine="", $action="", $comment="")
+    %invoke_procedure("getMetadataByStepForCopy", $i)
+    !if $getType == "request"
+        %invoke_procedure("rq", $getInitiator, $getExecutor, $liveLine, $action, $comment)
+    !elseif $getType == "response"
+        %invoke_procedure("rs", $getInitiator, $getExecutor, %string($liveLine), $action, $comment)
+    !endif
+    %invoke_procedure("bufferVariableCleaner")
 !endprocedure
 
 /'Процедура для копирования уже нарисованной стрелки'/

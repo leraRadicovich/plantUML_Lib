@@ -1,6 +1,6 @@
 @startuml
-!include Functions/SequenceLib.v3.1.puml
-'!include C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation\fullLib.puml
+'!include Functions/SequenceLib.v3.1.puml
+!include C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation\fullLib.puml
 
 parties(actor, Валера ,valera)
 parties(participant,InelliJ IDEA,idea)
@@ -31,6 +31,7 @@ audit(AUDIT_EVENT,FAILURE,"Тест события с ошибкой",idea)
 note over idea: оранжево-красный цвет говорит нам об отправке неуспешного события в аудит
 end
 altr(6,,"","")
+
 audit(AUDIT_EVENT,,"",idea)
 note across: Ниже в качестве примера вызываю функцию todoNote, чтобы отобразить список накопленных к этому моменту доработок
 todoNote()
