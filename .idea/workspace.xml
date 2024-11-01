@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* ошибки консистентности фуллиб и отдельных файлов">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Снова консистентность: забыл переменные обновить">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -397,7 +400,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730455715251</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="* Снова консистентность: забыл переменные обновить">
+      <option name="closed" value="true" />
+      <created>1730456460270</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1730456460270</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -439,7 +450,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="* Тюнинг процедур взаимодействия и автоответов" />
     <MESSAGE value="* Добавлена процедура partnote" />
     <MESSAGE value="* Исправлена ошибка в textNewLineCutter" />
     <MESSAGE value="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей" />
@@ -464,6 +474,7 @@
     <MESSAGE value="* Исправлен баг в rq - не умел рисовать ...&#10;* Отказ от altrs, altrq в пользу новой процедуры altr - копирует стрелку и тип&#10;* добавлен хедер страницы с версией и автором библиотеки" />
     <MESSAGE value="* написаана процедура получения метаинфо из стрелки для рисования новой" />
     <MESSAGE value="* ошибки консистентности фуллиб и отдельных файлов" />
-    <option name="LAST_COMMIT_MESSAGE" value="* ошибки консистентности фуллиб и отдельных файлов" />
+    <MESSAGE value="* Снова консистентность: забыл переменные обновить" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Снова консистентность: забыл переменные обновить" />
   </component>
 </project>
