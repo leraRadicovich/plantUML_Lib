@@ -50,17 +50,13 @@
     если нет - будут объявлены с именем и алиасом, указанными в этом шаге'/
     %invoke_procedure("aliasCheck",$initiator)
     %invoke_procedure("aliasCheck",$executor)
-    $initiator -> $executor $liveLine: $action
-    %invoke_procedure("setMetadataVariable", $initiator, $executor, $action, $comment)
-!endprocedure
-
-/'Процедура строит ответ, инвертируя взаимодействие, заданное в $i'/
-!unquoted procedure altrq($i=$id, $liveLine="", $action, $comment="")
-        !$idInitiator = $i + "initiator"
-        !$idExecutor = $i + "executor"
-        !$ainitiator = %get_variable_value($idInitiator)
-        !$aexecutor = %get_variable_value($idExecutor)
-    %invoke_procedure("rq", $ainitiator, $aexecutor, $liveLine, $action, $comment)
+    !if $liveLine == "..."
+        $initiator -> $executor: $action
+        ...
+    !else
+        $initiator -> $executor $liveLine: $action
+    !endif
+    %invoke_procedure("setMetadataVariable", $initiator, $executor, $liveLine, $action, $comment, "request")
 !endprocedure
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
@@ -85,13 +81,15 @@
     !endif
 !endprocedure
 
-/'Процедура строит ответ, инвертируя взаимодействие, заданное в $i'/
-!unquoted procedure altrs($i=$id, $liveLine="", $action, $comment="")
-        !$idInitiator = $i + "initiator"
-        !$idExecutor = $i + "executor"
-        !$ainitiator = %get_variable_value($idInitiator)
-        !$aexecutor = %get_variable_value($idExecutor)
-    %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
+/'Процедура для копирования уже нарисованной стрелки'/
+!unquoted procedure altr($i=$id, $liveLine="", $action="", $comment="")
+    %invoke_procedure("getMetadataByStepForCopy", $i)
+    !if $getType == "request"
+        %invoke_procedure("rq", $getInitiator, $getExecutor, $liveLine, $action, $comment)
+    !elseif $getType == "response"
+        %invoke_procedure("rs", $getInitiator, $getExecutor, %string($liveLine), $action, $comment)
+    !endif
+    %invoke_procedure("bufferVariableCleaner")
 !endprocedure
 
 /'Процедура для обработки событий Аудит'/
@@ -327,6 +325,8 @@ ActorFontName Aapex
 !$success = "**<size:20><color:green><&circle-check></color>**"
 !$error = "**<size:20><color:red><&circle-x></color>**"
 !$end = "**<size:20><color:red><&x></color>**"
+
+header SequenceLib.v.3.1.Lite\n by PVR
 
 /'САМА ДИАГРАММА
 Данная диаграмма написана с применением библиотеки макросов автоподстановки, написанной Патрушевым Валерием.

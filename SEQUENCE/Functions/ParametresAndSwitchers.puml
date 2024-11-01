@@ -10,6 +10,9 @@
 !$commentResult = ""
 !$initiatorName = ""
 !$executorName = ""
+!$getInitiator = ""
+!$getExecutor = ""
+!$getType = ""
 
 /'Параметры, ограничивающие длину строк в ячейках в таблице'/
 !$actionLength = 40
