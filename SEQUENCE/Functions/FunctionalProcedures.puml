@@ -22,17 +22,13 @@
     если нет - будут объявлены с именем и алиасом, указанными в этом шаге'/
     %invoke_procedure("aliasCheck",$initiator)
     %invoke_procedure("aliasCheck",$executor)
-    $initiator -> $executor $liveLine: $action
-    %invoke_procedure("setMetadataVariable", $initiator, $executor, $action, $comment)
-!endprocedure
-
-/'Процедура строит ответ, инвертируя взаимодействие, заданное в $i'/
-!unquoted procedure altrq($i=$id, $liveLine="", $action, $comment="")
-        !$idInitiator = $i + "initiator"
-        !$idExecutor = $i + "executor"
-        !$ainitiator = %get_variable_value($idInitiator)
-        !$aexecutor = %get_variable_value($idExecutor)
-    %invoke_procedure("rq", $ainitiator, $aexecutor, $liveLine, $action, $comment)
+    !if $liveLine == "..."
+        $initiator -> $executor: $action
+        ...
+    !else
+        $initiator -> $executor $liveLine: $action
+    !endif
+    %invoke_procedure("setMetadataVariable", $initiator, $executor, $liveLine, $action, $comment, "request")
 !endprocedure
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
@@ -53,17 +49,19 @@
         !endif
         !$id = $id + 1
         /'Для корректного отображения в карте процесса меняем исполнителя и иницатора местами'/
-        %invoke_procedure("setMetadataVariable", $executor, $initiator, $action, $comment)
+        %invoke_procedure("setMetadataVariable", $executor, $initiator, $liveLine, $action, $comment, "response")
     !endif
 !endprocedure
 
-/'Процедура строит ответ, инвертируя взаимодействие, заданное в $i'/
-!unquoted procedure altrs($i=$id, $liveLine="", $action, $comment="")
-        !$idInitiator = $i + "initiator"
-        !$idExecutor = $i + "executor"
-        !$ainitiator = %get_variable_value($idInitiator)
-        !$aexecutor = %get_variable_value($idExecutor)
-    %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
+/'Процедура для копирования уже нарисованной стрелки'/
+!unquoted procedure altr($i=$id, $liveLine="", $action="", $comment="")
+    %invoke_procedure("getMetadataByStepForCopy", $i)
+    !if $getType == "request"
+        %invoke_procedure("rq", $getInitiator, $getExecutor, $liveLine, $action, $comment)
+    !elseif $getType == "response"
+        %invoke_procedure("rs", $getInitiator, $getExecutor, %string($liveLine), $action, $comment)
+    !endif
+    %invoke_procedure("bufferVariableCleaner")
 !endprocedure
 
 /'Процедура для обработки событий Аудит'/

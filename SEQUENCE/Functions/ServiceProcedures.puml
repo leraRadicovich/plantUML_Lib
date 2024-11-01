@@ -47,18 +47,22 @@
 !end procedure
 
 /'Процедура сохранения метаинформации по id шага процесса'/
-!unquoted procedure setMetadataVariable($initiator, $executor, $action, $comment)
+!unquoted procedure setMetadataVariable($initiator, $executor, $liveline, $action, $comment, $type)
     !$idInitiator = $id + "initiator"
     !$idExecutor = $id + "executor"
     !$idAction = $id + "action"
     !$idComment = $id + "comment"
+    !$idLiveline = $id + "liveline"
+    !$idType = $id + "type"
     %set_variable_value($idInitiator,$initiator)
     %set_variable_value($idExecutor,$executor)
     %set_variable_value($idAction,$action)
     %set_variable_value($idComment,$comment)
+    %set_variable_value($idLiveline,$liveline)
+    %set_variable_value($idType,$type)
 !endprocedure
 
-/'Процедура для получения информации по шагу процесса'/
+/'Процедура для получения информации по шагу процесса для построения карты процесса'/
 !unquoted procedure getMetadataByStep($i)
     /'Форматируем текст действия и комментария в многострочный вид'/
     !$idAction = $i + "action"
@@ -84,7 +88,25 @@
     !$keyExecutor = %get_variable_value($idExecutor)
     !$keyExecutor = "name" + $keyExecutor
     !$executorName = %get_variable_value($keyExecutor)
+
+    !$idLiveline = $i + "liveline"
+    !$keyLiveline = %get_variable_value($idLiveline)
+
+    !$idType = $i + "type"
+    !$keyType = %get_variable_value($idType)
 !endprocedure
+
+/'Процедура для получения информация по шагу процесса для его копирования'/
+!unquoted procedure getMetadataByStepForCopy($i)
+    !$idInitiator = $i + "initiator"
+    !$getInitiator = %get_variable_value($idInitiator)
+
+    !$idExecutor = $i + "executor"
+    !$getExecutor = %get_variable_value($idExecutor)
+
+    !$idType = $i + "type"
+    !$getType = %get_variable_value($idType)
+!end procedure
 
 /'Процедура для очистки буфферных переменных'/
 !unquoted procedure bufferVariableCleaner()
@@ -93,6 +115,9 @@
     !$initiatorName = ""
     !$executorName = ""
     !$textResult = ""
+!$getInitiator = ""
+!$getExecutor = ""
+!$getType = ""
 !endprocedure
 
 /'Процедура построения таблицы аудита'/
