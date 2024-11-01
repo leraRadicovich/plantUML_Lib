@@ -124,10 +124,9 @@
 !unquoted procedure auditTableBuilder()
     !$i = 0
     !$r = ""
-    !$auditTable = ""
     !while $i < $auditId || $i == $auditId
         !$r = "aud" + $i
-        !$auditTable = $auditTable +  %newline() + %get_variable_value($r)
+        !$auditTable = $auditTable + %get_variable_value($r)
         !$i = $i + 1
     !endwhile
 !endprocedure

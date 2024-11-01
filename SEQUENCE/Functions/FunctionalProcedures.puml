@@ -78,7 +78,7 @@
         !$eventId = "aud" + $auditId
         !$key = "start" + $event
         !$startEvent = %get_variable_value($key)
-        !$eventValue = "| " + $auditId + " | " + $event + " | " + $startEvent + " | " + $id + " | " + $status + " | " + $auditDescription + " |"
+        !$eventValue = %newline() + "| " + $auditId + " | " + $event + " | " + $startEvent + " | " + $id + " | " + $status + " | " + $auditDescription + " |"
         %set_variable_value($eventId,$eventValue)
         !if $status == "FAILURE"
             hnote over $source #orange/red: <color:red><&media-stop> <color:black>$event
