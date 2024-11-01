@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправлен баг в проверке алиаса">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправлен баг в rq - не умел рисовать ...&#10;* Отказ от altrs, altrq в пользу новой процедуры altr - копирует стрелку и тип&#10;* добавлен хедер страницы с версией и автором библиотеки">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ParametresAndSwitchers.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/SequenceLib.v3.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/SequenceLib.v3.1.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/SequenceStyle.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/SequenceStyle.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TODOLIST.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODOLIST.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -379,7 +381,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730381506045</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="* Исправлен баг в rq - не умел рисовать ...&#10;* Отказ от altrs, altrq в пользу новой процедуры altr - копирует стрелку и тип&#10;* добавлен хедер страницы с версией и автором библиотеки">
+      <option name="closed" value="true" />
+      <created>1730455403254</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1730455403255</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -421,7 +431,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.Добавлена страница со списком задач" />
     <MESSAGE value="* Реализована процедура автоответов" />
     <MESSAGE value="* Реализована процедура автоответов для альтов, не удаляет последний реквест" />
     <MESSAGE value="* Тюнинг процедур взаимодействия и автоответов" />
@@ -446,6 +455,7 @@
     <MESSAGE value="* Якорная процедура была потереня в сервисных, добавил из фуллиб" />
     <MESSAGE value="* Обновлены фуллиб и стиль - добавлена ссылка на репозиторий и автора" />
     <MESSAGE value="* Исправлен баг в проверке алиаса" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Исправлен баг в проверке алиаса" />
+    <MESSAGE value="* Исправлен баг в rq - не умел рисовать ...&#10;* Отказ от altrs, altrq в пользу новой процедуры altr - копирует стрелку и тип&#10;* добавлен хедер страницы с версией и автором библиотеки" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Исправлен баг в rq - не умел рисовать ...&#10;* Отказ от altrs, altrq в пользу новой процедуры altr - копирует стрелку и тип&#10;* добавлен хедер страницы с версией и автором библиотеки" />
   </component>
 </project>

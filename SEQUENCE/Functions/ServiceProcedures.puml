@@ -115,9 +115,9 @@
     !$initiatorName = ""
     !$executorName = ""
     !$textResult = ""
-!$getInitiator = ""
-!$getExecutor = ""
-!$getType = ""
+    !$getInitiator = ""
+    !$getExecutor = ""
+    !$getType = ""
 !endprocedure
 
 /'Процедура построения таблицы аудита'/
