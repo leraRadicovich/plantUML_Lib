@@ -22,3 +22,16 @@ ActorFontColor DeepSkyBlue
 ActorFontSize 17
 ActorFontName Aapex
 }
+
+!$link = "**<size:17><color:blue><&link-intact></color>**"
+!$success = "**<size:20><color:green><&circle-check></color>**"
+!$error = "**<size:20><color:red><&circle-x></color>**"
+!$end = "**<size:20><color:red><&x></color>**"
+
+/'САМА ДИАГРАММА
+Данная диаграмма написана с применением библиотеки макросов автоподстановки, написанной Патрушевым Валерием.
+Ознакомиться с билиотекой можно тут: https://github.com/leraRadicovich/plantUML_Lib
+=========================================================================================================================
+'/
+
+header SequenceLib.v.3.1.Lite\n by PVR
