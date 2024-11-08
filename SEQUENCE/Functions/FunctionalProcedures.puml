@@ -17,12 +17,12 @@
 
 /'Процедуры rq и rs заменяют синтаксис рисования стрелок.'/
 !unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
-    !$id = $id + 1
     /'проверяем, что указанные initiator и executor объявлены на диаграмме,
     если нет - будут объявлены с именем и алиасом, указанными в этом шаге'/
     !if $initiator == "*"
         %invoke_procedure("altr",$executor,$liveLine,$action, $comment)
     !else
+        !$id = $id + 1
         %invoke_procedure("aliasCheck",$initiator)
         %invoke_procedure("aliasCheck",$executor)
         !if $liveLine == "..."
@@ -128,9 +128,8 @@ end note
 !unquoted procedure partnote()
     %invoke_procedure("getMetadataByStep",$id)
     /'Формируем таблицу для легенды'/
-    !$partNote = "| " +  $id + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
     note across
-    $partNote
+    | $id | $initiatorName | $executorName | $actionResult | $commentResult |
     end note
     %invoke_procedure("bufferVariableCleaner")
 !end procedure
@@ -138,8 +137,9 @@ end note
 /'Строим крату процесса, таблицу событий аудита и список доработок'/
 !unquoted procedure LEGEND()
     /'Отображаем построенные таблицы при их наличии'/
-    %invoke_procedure("proccessMapBuilder")
-    !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + $processMap + %newline()
+
+/'    %invoke_procedure("proccessMapBuilder")
+    !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + $processMap + %newline()'/
 
     /'Строим таблицу аудита'/
     %invoke_procedure("auditTableBuilder")
@@ -154,6 +154,10 @@ end note
 
 /'Отображаем итоговую легенду диаграммы'/
 legend  left
-$diagramLegend
+**КАРТА ПРОЦЕССА**
+====
+%invoke_procedure("proccessMapBuilder1")
+====
+    $diagramLegend
 end legend
 !end procedure

@@ -5,12 +5,12 @@
 
 /'Вспомогательная процедура, отвечает за построчное отображение текста'/
 !unquoted procedure $textNewLineCutter($text, $length)
-    !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
-        !$cutPosition = $length + %strpos(%substr($text, $length), " ") /'Поиск пробела'/
-        !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
-        !$text = %substr($text,%intval($cutPosition))
-    !endwhile
-    !$textResult = $textResult + $text
+!while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
+!$cutPosition = $length + %strpos(%substr($text, $length), " ") /'Поиск пробела'/
+!$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
+!$text = %substr($text,%intval($cutPosition))
+!endwhile
+!$textResult = $textResult + $text
 !endprocedure
 
 /'Процедура создания списка дел'/
@@ -62,38 +62,35 @@
     %set_variable_value($idType,$type)
 !endprocedure
 
-/'Процедура для получения информации по шагу процесса для построения карты процесса'/
+/'Процедура для получения информации по шагу процесса для построения карты процесса
+Соблюдением стиля кода пришлось пренебречь, т.к. иначе легенда не может построить таблицу'/
 !unquoted procedure getMetadataByStep($i)
-    /'Форматируем текст действия и комментария в многострочный вид'/
-    !$idAction = $i + "action"
-    !$keyAction = %get_variable_value($idAction)
-    %invoke_procedure("$textNewLineCutter", $keyAction,$actionLength) /'Форматирование текста построчно'/
-    !$actionResult = $textResult
-    !$textResult = ""
-
-    !$idComment = $i + "comment"
-    !$keyComment = %get_variable_value($idComment)
-    %invoke_procedure("$textNewLineCutter", $keyComment, $commentLength) /'Форматирование текста построчно'/
-    !$commentResult = $textResult
-    !$textResult = ""
-
-    /'Получаем алиасы иницатора и исполнителя на каждом шаге,
-    затем получаем их имена по полученным алиасам'/
-    !$idInitiator = $i + "initiator"
-    !$keyInitiator = %get_variable_value($idInitiator)
-    !$keyInitiator = "name" + $keyInitiator
-    !$initiatorName = %get_variable_value($keyInitiator)
-
-    !$idExecutor = $i + "executor"
-    !$keyExecutor = %get_variable_value($idExecutor)
-    !$keyExecutor = "name" + $keyExecutor
-    !$executorName = %get_variable_value($keyExecutor)
-
-    !$idLiveline = $i + "liveline"
-    !$keyLiveline = %get_variable_value($idLiveline)
-
-    !$idType = $i + "type"
-    !$keyType = %get_variable_value($idType)
+/'Форматируем текст действия и комментария в многострочный вид'/
+!$idAction = $i + "action"
+!$keyAction = %get_variable_value($idAction)
+'%invoke_procedure("$textNewLineCutter", $keyAction,$actionLength) /'Форматирование текста построчно'/
+!$actionResult = $keyAction
+!$textResult = ""
+/'Текст комментария'/
+!$idComment = $i + "comment"
+!$keyComment = %get_variable_value($idComment)
+'%invoke_procedure("$textNewLineCutter", $keyComment, $commentLength) /'Форматирование текста построчно'/
+!$commentResult = $keyComment
+!$textResult = ""
+/'Получаем алиасы иницатора и исполнителя на каждом шаге,
+затем получаем их имена по полученным алиасам'/
+!$idInitiator = $i + "initiator"
+!$keyInitiator = %get_variable_value($idInitiator)
+!$keyInitiator = "name" + $keyInitiator
+!$initiatorName = %get_variable_value($keyInitiator)
+!$idExecutor = $i + "executor"
+!$keyExecutor = %get_variable_value($idExecutor)
+!$keyExecutor = "name" + $keyExecutor
+!$executorName = %get_variable_value($keyExecutor)
+!$idLiveline = $i + "liveline"
+!$keyLiveline = %get_variable_value($idLiveline)
+!$idType = $i + "type"
+!$keyType = %get_variable_value($idType)
 !endprocedure
 
 /'Процедура для получения информация по шагу процесса для его копирования'/
@@ -110,14 +107,14 @@
 
 /'Процедура для очистки буфферных переменных'/
 !unquoted procedure bufferVariableCleaner()
-    !$actionResult = ""
-    !$commentResult = ""
-    !$initiatorName = ""
-    !$executorName = ""
-    !$textResult = ""
-    !$getInitiator = ""
-    !$getExecutor = ""
-    !$getType = ""
+!$actionResult = ""
+!$commentResult = ""
+!$initiatorName = ""
+!$executorName = ""
+!$textResult = ""
+!$getInitiator = ""
+!$getExecutor = ""
+!$getType = ""
 !endprocedure
 
 /'Процедура построения таблицы аудита'/
@@ -141,4 +138,15 @@
         !$i = $i + 1
         %invoke_procedure("bufferVariableCleaner")
     !endwhile
+!endprocedure
+
+!unquoted procedure proccessMapBuilder1()
+!$i = 1
+| # | Инициатор | Исполнитель | Действие | Комментарий |
+!while $i < $id || $i == $id
+%invoke_procedure("getMetadataByStep",$i)
+| $i | $initiatorName | $executorName | $actionResult | $commentResult |
+!$i = $i + 1
+%invoke_procedure("bufferVariableCleaner")
+!endwhile
 !endprocedure

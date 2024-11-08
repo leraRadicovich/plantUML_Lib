@@ -1,6 +1,6 @@
 @startuml
-'!include Functions/SequenceLib.v3.1.puml
-!include C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation\fullLib.puml
+!include Functions/SequenceLib.v3.1.puml
+'!include C:\Users\Vpatrushev\IdeaProjects\plantUML_Lib\SEQUENCE\LibraryDocumentation\fullLib.puml
 
 parties(actor, Валера ,valera)
 parties(participant,InelliJ IDEA,idea)
@@ -13,7 +13,6 @@ parties(participant,GitHub,git)
 todo("Тест тудушки, показывает таблицу со списком доработок")
 rq(valera,user,"++","Участник диаграммы с именем user явно не задан процедурой","Тест aliasChecl")
 rs(,,...,"Однако user изображен на диаграмме с типом actor","Тест пройден успешно")
-altr(2,,"","")
 rq(valera,idea,++,Написание библиотеки, "Библиотека изначально пишется под себя, после отладки и переиспользования в работе возникает решение поделиться с коллегами.")
 audit(SOME_AUDIT_EVENT,,"",idea)
 rs(,,,Результат, "Отображение библиотеки, способов ее применения")
@@ -27,13 +26,11 @@ audit(AUDIT_EVENT,,"",idea)
 note across: Ниже в качестве примера вызываю функцию partnote - отображает часть карты процесса - последнюю нарисованную стрелку.
 partnote()
 alt Тест вызова процедуры altr через rq со * и через саму процедуру altr напряму
-rq(*,6,,"Вызов через rq со *","asdf")
-altr(6,,Вызов altr напрямую,)
+rq(*,6,,"Вызов через rq со *","Комментарий для таблицы")
+altr(6,,Вызов altr напрямую,Комментарий для таблицы)
 audit(AUDIT_EVENT,FAILURE,"Тест события с ошибкой",idea)
 note over idea: оранжево-красный цвет говорит нам об отправке неуспешного события в аудит
 end
-altr(6,,"","")
-
 audit(AUDIT_EVENT,,"",idea)
 note across: Ниже в качестве примера вызываю функцию todoNote, чтобы отобразить список накопленных к этому моменту доработок
 todoNote()
@@ -43,5 +40,6 @@ note across:Ниже пример использования процедуры 
 altr(9,,Буду рад обратной связи и предложениям, "Пока все работает на безвозмездной основе, после коммерческого релиза стандартный ценник в пять$")
 rq(chat,colleague,--++,Новое сообщение в чате)
 rq(colleague,chat,++,Прочитать сообщение, "Скачать файлы библиотеки и примера либо посмотреть репозиторий, открыть их в используемой среде разработки, возможно использовать в своей работе, возможно предложить идеит по улучшению или исправлению багов")
+
 LEGEND()
 @enduml
