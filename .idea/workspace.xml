@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Снова консистентность: забыл переменные обновить">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправление ошибки в таблице аудита - не отображалась шапка">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="sequence/alt_autonumeration" />
+        <entry key="$PROJECT_DIR$" value="sequence-3.1/SequenceLib.v3.1" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,7 +51,7 @@
     &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;sequence/newProcessMapBuuilder-+-newAutors&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lite/Оптимизация-легенды&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Vpatrushev/IdeaProjects/plantUML_Lib/src/Main.java&quot;,
@@ -408,7 +408,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730456460270</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="* Исправление ошибки в таблице аудита - не отображалась шапка">
+      <option name="closed" value="true" />
+      <created>1730486297947</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1730486297947</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -437,7 +445,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="sequence/alt_autonumeration" />
+                        <option value="lite/Оптимизация-легенды" />
                       </list>
                     </value>
                   </entry>
@@ -450,7 +458,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="* Добавлена процедура partnote" />
     <MESSAGE value="* Исправлена ошибка в textNewLineCutter" />
     <MESSAGE value="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей" />
     <MESSAGE value="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема" />
@@ -475,6 +482,7 @@
     <MESSAGE value="* написаана процедура получения метаинфо из стрелки для рисования новой" />
     <MESSAGE value="* ошибки консистентности фуллиб и отдельных файлов" />
     <MESSAGE value="* Снова консистентность: забыл переменные обновить" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Снова консистентность: забыл переменные обновить" />
+    <MESSAGE value="* Исправление ошибки в таблице аудита - не отображалась шапка" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Исправление ошибки в таблице аудита - не отображалась шапка" />
   </component>
 </project>

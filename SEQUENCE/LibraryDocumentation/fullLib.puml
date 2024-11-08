@@ -51,36 +51,44 @@
     !$id = $id + 1
     /'проверяем, что указанные initiator и executor объявлены на диаграмме,
     если нет - будут объявлены с именем и алиасом, указанными в этом шаге'/
-    %invoke_procedure("aliasCheck",$initiator)
-    %invoke_procedure("aliasCheck",$executor)
-    !if $liveLine == "..."
-        $initiator -> $executor: $action
-        ...
+    !if $initiator == "*"
+        %invoke_procedure("altr",$executor,$liveLine,$action, $comment)
     !else
-        $initiator -> $executor $liveLine: $action
+        %invoke_procedure("aliasCheck",$initiator)
+        %invoke_procedure("aliasCheck",$executor)
+        !if $liveLine == "..."
+            $initiator -> $executor: $action
+            ...
+        !else
+            $initiator -> $executor $liveLine: $action
+        !endif
+        %invoke_procedure("setMetadataVariable", $initiator, $executor, $liveLine, $action, $comment, "request")
     !endif
-    %invoke_procedure("setMetadataVariable", $initiator, $executor, $liveLine, $action, $comment, "request")
 !endprocedure
 
 !unquoted procedure rs($executor, $initiator, $liveLine="",$action, $comment="")
     /'Если не указать участников взаимодействия, процедура построит ответ, инвертировав
     предыдущий шаг'/
-    !if $executor == "" && $initiator == ""
-        !$idInitiator = $id + "initiator"
-        !$idExecutor = $id + "executor"
-        !$ainitiator = %get_variable_value($idInitiator)
-        !$aexecutor = %get_variable_value($idExecutor)
-        %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
+    !if $executor == "*"
+        %invoke_procedure("altr",$initiator,$liveLine,$action, $comment)
     !else
-        !if $liveLine == "..."
-            $executor --> $initiator: $action
-            ...
+        !if $executor == "" && $initiator == ""
+            !$idInitiator = $id + "initiator"
+            !$idExecutor = $id + "executor"
+            !$ainitiator = %get_variable_value($idInitiator)
+            !$aexecutor = %get_variable_value($idExecutor)
+            %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
         !else
-            $executor --> $initiator $liveLine: $action
+            !if $liveLine == "..."
+                $executor --> $initiator: $action
+                ...
+            !else
+                $executor --> $initiator $liveLine: $action
+            !endif
+            !$id = $id + 1
+            /'Для корректного отображения в карте процесса меняем исполнителя и иницатора местами'/
+            %invoke_procedure("setMetadataVariable", $executor, $initiator, $liveLine, $action, $comment, "response")
         !endif
-        !$id = $id + 1
-        /'Для корректного отображения в карте процесса меняем исполнителя и иницатора местами'/
-        %invoke_procedure("setMetadataVariable", $executor, $initiator, $liveLine, $action, $comment, "response")
     !endif
 !endprocedure
 
