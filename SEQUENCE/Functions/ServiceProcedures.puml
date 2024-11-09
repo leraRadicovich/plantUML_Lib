@@ -129,21 +129,9 @@
     !endwhile
 !endprocedure
 
-/'Новая процедура построения карты процесса'/
+/'Процедура построения карты процесса'/
 !unquoted procedure proccessMapBuilder()
-    !$i = 1
-    !while $i < $id || $i == $id
-        %invoke_procedure("getMetadataByStep",$i)
-        /'Формируем таблицу для легенды'/
-        !$processMap = $processMap + %newline() + "| " +  $i + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
-        !$i = $i + 1
-        %invoke_procedure("bufferVariableCleaner")
-    !endwhile
-!endprocedure
-
-!unquoted procedure proccessMapBuilder1()
 !$i = 1
-| # | Инициатор | Исполнитель | Действие | Комментарий |
 !while $i < $id || $i == $id
 %invoke_procedure("getMetadataByStep",$i)
 %invoke_procedure("$textNewLineCutter", $actionResult, $actionLength)

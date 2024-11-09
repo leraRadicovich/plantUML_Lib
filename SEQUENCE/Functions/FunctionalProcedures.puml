@@ -117,11 +117,11 @@ end note
 /'Процедура, отвечающая за отображение таблицы с описанием процесса.'/
 !unquoted procedure NOTE()
     /'Строим крату процесса'/
-    %invoke_procedure("proccessMapBuilder")
     note across
-    $processMap
+**КАРТА ПРОЦЕССА**
+$processMap
+%invoke_procedure("proccessMapBuilder")
     end note
-    !$processMap = "| # | Инициатор | Исполнитель | Действие | Комментарий |"
 !end procedure
 
 /'Процедура рисует строку из карты процесса для последней нарисованной стрелки'/
@@ -129,6 +129,7 @@ end note
     %invoke_procedure("getMetadataByStep",$id)
     /'Формируем таблицу для легенды'/
     note across
+    $processMap
     | $id | $initiatorName | $executorName | $actionResult | $commentResult |
     end note
     %invoke_procedure("bufferVariableCleaner")
@@ -137,9 +138,6 @@ end note
 /'Строим крату процесса, таблицу событий аудита и список доработок'/
 !unquoted procedure LEGEND()
     /'Отображаем построенные таблицы при их наличии'/
-
-/'    %invoke_procedure("proccessMapBuilder")
-    !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + $processMap + %newline()'/
 
     /'Строим таблицу аудита'/
     %invoke_procedure("auditTableBuilder")
@@ -156,8 +154,9 @@ end note
 legend  left
 **КАРТА ПРОЦЕССА**
 ====
-%invoke_procedure("proccessMapBuilder1")
+$processMap
+%invoke_procedure("proccessMapBuilder")
 ====
-    $diagramLegend
+$diagramLegend
 end legend
 !end procedure

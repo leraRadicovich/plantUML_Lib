@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Оптимизирована переменная с аудитом">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* proccessMapBuilder1() оптимизирует построение таблиц, больше не нужно без конца складывать переменные">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/ServiceProcedures.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +294,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729800777000</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="* proccessMapBuilder1() оптимизирует построение таблиц, больше не нужно без конца складывать переменные">
+      <option name="closed" value="true" />
+      <created>1731179738733</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1731179738733</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -375,6 +382,7 @@
     <MESSAGE value="* Добавлены процедуры и переменные для создания списка дел&#10;* Добавлен файлик с кейсами для реализации автонумерации в альтах" />
     <MESSAGE value="* Правка автоответов - теперь создаются переменные для автоответа" />
     <MESSAGE value="* Оптимизирована переменная с аудитом" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Оптимизирована переменная с аудитом" />
+    <MESSAGE value="* proccessMapBuilder1() оптимизирует построение таблиц, больше не нужно без конца складывать переменные" />
+    <option name="LAST_COMMIT_MESSAGE" value="* proccessMapBuilder1() оптимизирует построение таблиц, больше не нужно без конца складывать переменные" />
   </component>
 </project>
