@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Исправление ошибки в таблице аудита - не отображалась шапка">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Оптимизировано построение таблицы с событиями аудита - аналогичным образом, больше не нужно складывать переменные, все хранится и передается в таблицу отдельными переменными">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/DemoSequence.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/LibraryDocumentation/fullLib.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -416,7 +413,31 @@
       <option name="project" value="LOCAL" />
       <updated>1730486297947</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="* Отказ от вызова altr напрямую за счет усложнения вызова rq и rs">
+      <option name="closed" value="true" />
+      <created>1731095825988</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1731095825988</updated>
+    </task>
+    <task id="LOCAL-00044" summary="* Оптимизировано построение карты процесса, больше не нужно складывать переменные, теперь они строятся построчно в легенде. Но теперь тянутся зависимости от textNewLineCutter, из-за особенностей построения легенды нужно отыскать все отступы, лишние пробелы и переносы строк">
+      <option name="closed" value="true" />
+      <created>1731099813201</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1731099813201</updated>
+    </task>
+    <task id="LOCAL-00045" summary="* Оптимизировано построение таблицы с событиями аудита - аналогичным образом, больше не нужно складывать переменные, все хранится и передается в таблицу отдельными переменными">
+      <option name="closed" value="true" />
+      <created>1731316240269</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1731316240269</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -458,9 +479,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="* Исправлена ошибка в textNewLineCutter" />
-    <MESSAGE value="* Добавлены процедуры частичного отображения карты процесса&#10;* Исправлены ошибки&#10;* rs - теперь, если не передать исполнителья и источника, ответит автоматом на последний реквест&#10;* Дополнена диаграмма зависимостей" />
-    <MESSAGE value="* Отказ от autors - ее функция условием ушла в rs. Сохраняем простоту использования&#10;* Добавлены парметры стиля, теоз и тема" />
     <MESSAGE value="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением" />
     <MESSAGE value="* Фиксация дефекта с экранирование цифр - переменных для построения карты процесса" />
     <MESSAGE value="* Исправление дефекта с экранированием цифр в тексте" />
@@ -483,6 +501,9 @@
     <MESSAGE value="* ошибки консистентности фуллиб и отдельных файлов" />
     <MESSAGE value="* Снова консистентность: забыл переменные обновить" />
     <MESSAGE value="* Исправление ошибки в таблице аудита - не отображалась шапка" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Исправление ошибки в таблице аудита - не отображалась шапка" />
+    <MESSAGE value="* Отказ от вызова altr напрямую за счет усложнения вызова rq и rs" />
+    <MESSAGE value="* Оптимизировано построение карты процесса, больше не нужно складывать переменные, теперь они строятся построчно в легенде. Но теперь тянутся зависимости от textNewLineCutter, из-за особенностей построения легенды нужно отыскать все отступы, лишние пробелы и переносы строк" />
+    <MESSAGE value="* Оптимизировано построение таблицы с событиями аудита - аналогичным образом, больше не нужно складывать переменные, все хранится и передается в таблицу отдельными переменными" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Оптимизировано построение таблицы с событиями аудита - аналогичным образом, больше не нужно складывать переменные, все хранится и передается в таблицу отдельными переменными" />
   </component>
 </project>

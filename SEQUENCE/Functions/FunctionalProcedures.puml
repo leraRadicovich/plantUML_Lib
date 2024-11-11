@@ -91,13 +91,13 @@
     !endif
 !end procedure
 
-/'Процедуры создания заметок в виде легенды в начале диаграммы'/
+/'Процедура создания списка дел'/
 !unquoted procedure todo($td)
     !$todoId = $todoId + 1
-    %invoke_procedure("$textNewLineCutter", $td,$commentLength) /'Форматирование текста построчно'/
-    !$tdresult = $textResult
-    !$textResult = ""
-    !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
+    !$todoIdStep = $todoId + "step"
+    !$todoIdDescription = $todoId + "todotext"
+    %set_variable_value($todoIdStep, $id)
+    %set_variable_value($todoIdDescription, $td)
 !endprocedure
 
 /'Процедура, отображающая таблицу с заметками'/
@@ -132,13 +132,6 @@ $processMap
 
 /'Строим крату процесса, таблицу событий аудита и список доработок'/
 !unquoted procedure LEGEND()
-
-    /'Строим таблицу со списком доработок'/
-    !if $todoId > 0
-        !$diagramLegend = $diagramLegend + %newline() + "**СПИСОК ДОРАБОТОК**" + %newline() + "====" + %newline()  + $todoList + %newline()
-    !endif
-
-/'Отображаем итоговую легенду диаграммы'/
 legend  left
 **КАРТА ПРОЦЕССА**
 ====
@@ -150,6 +143,9 @@ $processMap
 $auditTable
 %invoke_procedure("auditTableBuilder")
 ====
-$diagramLegend
+**СПИСОК ДОРАБОТОК**
+====
+$todoList
+%invoke_procedure("todoTableBuilder")
 end legend
-!end procedure
+!endprocedure

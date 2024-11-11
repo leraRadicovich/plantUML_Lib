@@ -13,20 +13,6 @@
     !$textResult = $textResult + $text
 !endprocedure
 
-!unquoted procedure $textCutter ($text, $length)
-
-
-!endprocedure
-
-/'Процедура создания списка дел'/
-!unquoted procedure todo($td)
-    !$todoId = $todoId + 1
-    %invoke_procedure("$textNewLineCutter", $td,$commentLength) /'Форматирование текста построчно'/
-    !$tdresult = $textResult
-    !$textResult = ""
-    !$todoList = $todoList + %newline() + "| " + $todoId + " | " + $id + " | " + $tdresult + " |"
-!endprocedure
-
 /'Вспомогательная процедура для проверки существования участника по его алиасу'/
 !unquoted procedure aliasCheck($alias)
     !$key = "name" + $alias
@@ -152,16 +138,6 @@
     !$getDescriptionEvent = ""
 !endprocedure
 
-/'Процедура построения таблицы аудита'/
-!unquoted procedure auditTableBuilder()
-!$i = 1
-!while $i < $auditId || $i == $auditId
-%invoke_procedure("getAuditVariable", $i)
-| $i | $getEvent | $getStartEvent | $getFinishEvent | $getStatusEvent | $getDescriptionEvent |
-!$i = $i + 1
-!endwhile
-!endprocedure
-
 /'Процедура построения карты процесса'/
 !unquoted procedure proccessMapBuilder()
 !$i = 1
@@ -176,5 +152,34 @@
 | $i | $initiatorName | $executorName | $actionText | $commentText |
 !$i = $i + 1
 %invoke_procedure("bufferVariableCleaner")
+!endwhile
+!endprocedure
+
+/'Процедура построения таблицы со списком доработок'/
+!unquoted procedure todoTableBuilder()
+!$i = 1
+!while $i < $todoId || $i == $todoId
+!$key = $i + "step"
+!$desc =$i  + "todotext"
+!$getTodoIdStep = %get_variable_value($key)
+!$getTodoIdDescription = %get_variable_value($desc)
+%invoke_procedure("$textNewLineCutter", $getTodoIdDescription, $commentLength)
+!$getTodoIdDescription = $textResult
+!$textResult = ""
+| $i | $getTodoIdStep | $getTodoIdDescription |
+!$i = $i + 1
+!endwhile
+!endprocedure
+
+/'Процедура построения таблицы аудита'/
+!unquoted procedure auditTableBuilder()
+!$i = 1
+!while $i < $auditId || $i == $auditId
+%invoke_procedure("getAuditVariable", $i)
+%invoke_procedure("$textNewLineCutter", $getDescriptionEvent, $actionLength)
+!$getDescriptionEvent = $textResult
+!$textResult = ""
+| $i | $getEvent | $getStartEvent | $getFinishEvent | $getStatusEvent | $getDescriptionEvent |
+!$i = $i + 1
 !endwhile
 !endprocedure
