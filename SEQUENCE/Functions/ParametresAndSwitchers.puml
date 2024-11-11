@@ -12,13 +12,18 @@
 !$executorName = ""
 !$getInitiator = ""
 !$getExecutor = ""
+!$getEvent = ""
+!$getStatusEvent = ""
+!$getStartEvent = ""
+!$getFinishEvent = ""
+!$getDescriptionEvent = ""
 !$getType = ""
 
 /'Параметры, ограничивающие длину строк в ячейках в таблице'/
 !$actionLength = 20
 !$commentLength = 35
 
-/'Переменная с легендой диаграммы'/
+/'Переменные с заголовками для легенды диаграммы'/
 !$processMap = "| # | Инициатор | Исполнитель | Действие | Комментарий |"
 !$auditTable = "| # | name | start | finish | status | description |"
 

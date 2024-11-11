@@ -12,13 +12,18 @@
 !$executorName = ""
 !$getInitiator = ""
 !$getExecutor = ""
+!$getEvent = ""
+!$getStatusEvent = ""
+!$getStartEvent = ""
+!$getFinishEvent = ""
+!$getDescriptionEvent = ""
 !$getType = ""
 
 /'Параметры, ограничивающие длину строк в ячейках в таблице'/
-!$actionLength = 40
-!$commentLength = 65
+!$actionLength = 20
+!$commentLength = 35
 
-/'Переменная с легендой диаграммы'/
+/'Переменные с заголовками для легенды диаграммы'/
 !$processMap = "| # | Инициатор | Исполнитель | Действие | Комментарий |"
 !$auditTable = "| # | name | start | finish | status | description |"
 
@@ -48,12 +53,12 @@
 
 /'Процедуры rq и rs заменяют синтаксис рисования стрелок.'/
 !unquoted procedure rq($initiator, $executor, $liveLine="",$action, $comment="")
-    !$id = $id + 1
     /'проверяем, что указанные initiator и executor объявлены на диаграмме,
     если нет - будут объявлены с именем и алиасом, указанными в этом шаге'/
     !if $initiator == "*"
         %invoke_procedure("altr",$executor,$liveLine,$action, $comment)
     !else
+        !$id = $id + 1
         %invoke_procedure("aliasCheck",$initiator)
         %invoke_procedure("aliasCheck",$executor)
         !if $liveLine == "..."
@@ -93,18 +98,7 @@
 !endprocedure
 
 /'Процедура для копирования уже нарисованной стрелки'/
-!unquoted procedure altr($i=$id, $liveLine="", $action="", $comment="")
-    %invoke_procedure("getMetadataByStepForCopy", $i)
-    !if $getType == "request"
-        %invoke_procedure("rq", $getInitiator, $getExecutor, $liveLine, $action, $comment)
-    !elseif $getType == "response"
-        %invoke_procedure("rs", $getInitiator, $getExecutor, %string($liveLine), $action, $comment)
-    !endif
-    %invoke_procedure("bufferVariableCleaner")
-!endprocedure
-
-/'Процедура для копирования уже нарисованной стрелки'/
-!unquoted procedure altr($i=$id, $liveLine="", $action="", $comment="")
+!unquoted procedure altr($i, $liveLine="", $action="", $comment="")
     %invoke_procedure("getMetadataByStepForCopy", $i)
     !if $getType == "request"
         %invoke_procedure("rq", $getInitiator, $getExecutor, $liveLine, $action, $comment)
@@ -117,19 +111,14 @@
 /'Процедура для обработки событий Аудит'/
 !unquoted procedure audit($event, $status = "", $description = "", $source = "pafp")
     !if $status == ""
-        !$eventStart = "start" + $event
-        %set_variable_value($eventStart,$id)
+        !$startEvent = "start" + $event
+        %set_variable_value($startEvent,$id)
         hnote over $source #lightyellow/lightgreen: <color:red><&media-play> <color:black>$event
     !else
-        %invoke_procedure("$textNewLineCutter",$description,$commentLength)
-        !$auditDescription = $textResult
-        !$textResult = ""
         !$auditId = $auditId + 1
-        !$eventId = "aud" + $auditId
         !$key = "start" + $event
         !$startEvent = %get_variable_value($key)
-        !$eventValue = %newline() + "| " + $auditId + " | " + $event + " | " + $startEvent + " | " + $id + " | " + $status + " | " + $auditDescription + " |"
-        %set_variable_value($eventId,$eventValue)
+        %invoke_procedure("setAuditVariable", $auditId, $event, $status, $startEvent, $id, $description)
         !if $status == "FAILURE"
             hnote over $source #orange/red: <color:red><&media-stop> <color:black>$event
         !else
@@ -159,35 +148,26 @@ end note
 /'Процедура, отвечающая за отображение таблицы с описанием процесса.'/
 !unquoted procedure NOTE()
     /'Строим крату процесса'/
-    %invoke_procedure("proccessMapBuilder")
     note across
-    $processMap
+**КАРТА ПРОЦЕССА**
+$processMap
+%invoke_procedure("proccessMapBuilder")
     end note
-    !$processMap = "| # | Инициатор | Исполнитель | Действие | Комментарий |"
 !end procedure
 
 /'Процедура рисует строку из карты процесса для последней нарисованной стрелки'/
 !unquoted procedure partnote()
     %invoke_procedure("getMetadataByStep",$id)
     /'Формируем таблицу для легенды'/
-    !$partNote = "| " +  $id + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
     note across
-    $partNote
+    $processMap
+    | $id | $initiatorName | $executorName | $actionResult | $commentResult |
     end note
     %invoke_procedure("bufferVariableCleaner")
 !end procedure
 
 /'Строим крату процесса, таблицу событий аудита и список доработок'/
 !unquoted procedure LEGEND()
-    /'Отображаем построенные таблицы при их наличии'/
-    %invoke_procedure("proccessMapBuilder")
-    !$diagramLegend = "**КАРТА ПРОЦЕССА**" + %newline() + "====" + %newline() + $processMap + %newline()
-
-    /'Строим таблицу аудита'/
-    %invoke_procedure("auditTableBuilder")
-    !if $auditId > 0
-        !$diagramLegend = $diagramLegend + %newline() + "**СОБЫТИЯ АУДИТА**" + %newline() + "====" + %newline() + $auditTable + %newline()
-    !endif
 
     /'Строим таблицу со списком доработок'/
     !if $todoId > 0
@@ -196,6 +176,16 @@ end note
 
 /'Отображаем итоговую легенду диаграммы'/
 legend  left
+**КАРТА ПРОЦЕССА**
+====
+$processMap
+%invoke_procedure("proccessMapBuilder")
+====
+**СОБЫТИЯ АУДИТА**
+====
+$auditTable
+%invoke_procedure("auditTableBuilder")
+====
 $diagramLegend
 end legend
 !end procedure
@@ -207,11 +197,16 @@ end legend
 /'Вспомогательная процедура, отвечает за построчное отображение текста'/
 !unquoted procedure $textNewLineCutter($text, $length)
     !while %strpos(%substr($text,%intval($length)), " ") > 0 /'Пока в строке есть пробелы после ограничителя длины $length - делать перенос'/
-        !$cutPosition = $length + %strpos(%substr($text, $length), " ") /'Поиск пробела'/
-        !$textResult = $textResult + %substr($text, 0, $cutPosition) + " " + "\n"
-        !$text = %substr($text,%intval($cutPosition))
+    !$cutPosition = $length + %strpos(%substr($text, $length), " ") /'Поиск пробела'/
+    !$textResult = $textResult + %substr($text, 0, $cutPosition) + "\n"
+    !$text = %substr($text,%intval($cutPosition))
     !endwhile
     !$textResult = $textResult + $text
+!endprocedure
+
+!unquoted procedure $textCutter ($text, $length)
+
+
 !endprocedure
 
 /'Процедура создания списка дел'/
@@ -242,8 +237,9 @@ end legend
     !endif
 !endprocedure
 
+/'Процедура, создающая и запоминающая идентификатор - якорь'/
 !unquoted procedure anchor($name)
-        %set_variable_value($name,$id)
+    %set_variable_value($name,$id)
 !end procedure
 
 /'Процедура сохранения метаинформации по id шага процесса'/
@@ -262,36 +258,29 @@ end legend
     %set_variable_value($idType,$type)
 !endprocedure
 
-/'Процедура для получения информации по шагу процесса для построения карты процесса'/
+/'Процедура для получения информации по шагу процесса для построения карты процесса
+Соблюдением стиля кода пришлось пренебречь, т.к. иначе легенда не может построить таблицу'/
 !unquoted procedure getMetadataByStep($i)
     /'Форматируем текст действия и комментария в многострочный вид'/
     !$idAction = $i + "action"
     !$keyAction = %get_variable_value($idAction)
-    %invoke_procedure("$textNewLineCutter", $keyAction,$actionLength) /'Форматирование текста построчно'/
-    !$actionResult = $textResult
-    !$textResult = ""
-
+    !$actionResult = $keyAction
+    /'Текст комментария'/
     !$idComment = $i + "comment"
     !$keyComment = %get_variable_value($idComment)
-    %invoke_procedure("$textNewLineCutter", $keyComment, $commentLength) /'Форматирование текста построчно'/
-    !$commentResult = $textResult
-    !$textResult = ""
-
+    !$commentResult = $keyComment
     /'Получаем алиасы иницатора и исполнителя на каждом шаге,
     затем получаем их имена по полученным алиасам'/
     !$idInitiator = $i + "initiator"
     !$keyInitiator = %get_variable_value($idInitiator)
     !$keyInitiator = "name" + $keyInitiator
     !$initiatorName = %get_variable_value($keyInitiator)
-
     !$idExecutor = $i + "executor"
     !$keyExecutor = %get_variable_value($idExecutor)
     !$keyExecutor = "name" + $keyExecutor
     !$executorName = %get_variable_value($keyExecutor)
-
     !$idLiveline = $i + "liveline"
     !$keyLiveline = %get_variable_value($idLiveline)
-
     !$idType = $i + "type"
     !$keyType = %get_variable_value($idType)
 !endprocedure
@@ -320,27 +309,65 @@ end legend
     !$getType = ""
 !endprocedure
 
-/'Процедура построения таблицы аудита'/
-!unquoted procedure auditTableBuilder()
-    !$i = 0
-    !$r = ""
-    !while $i < $auditId || $i == $auditId
-        !$r = "aud" + $i
-        !$auditTable = $auditTable + %get_variable_value($r)
-        !$i = $i + 1
-    !endwhile
+!unquoted procedure setAuditVariable($auditId, $event, $status, $startEvent, $finishEvent, $description)
+    !$auditIdEvent = $auditId + "event"
+    !$auditIdStatus = $auditId + "status"
+    !$auditIdStartEvent = $auditId + "startEvent"
+    !$auditIdFinishEvent = $auditId + "finishEvent"
+    !$auditIdDescriptionEvent = $auditId + "description"
+    %set_variable_value($auditIdEvent, $event)
+    %set_variable_value($auditIdStatus, $status)
+    %set_variable_value($auditIdStartEvent, $startEvent)
+    %set_variable_value($auditIdFinishEvent, $finishEvent)
+    %set_variable_value($auditIdDescriptionEvent, $description)
 !endprocedure
 
-/'Новая процедура построения карты процесса'/
+!unquoted procedure getAuditVariable($i)
+    !$auditIdEvent = $i + "event"
+    !$auditIdStatus = $i + "status"
+    !$auditIdStartEvent = $i + "startEvent"
+    !$auditIdFinishEvent = $i + "finishEvent"
+    !$auditIdDescriptionEvent = $i + "description"
+    !$getEvent = %get_variable_value($auditIdEvent)
+    !$getStatusEvent = %get_variable_value($auditIdStatus)
+    !$getStartEvent = %get_variable_value($auditIdStartEvent)
+    !$getFinishEvent = %get_variable_value($auditIdFinishEvent)
+    !$getDescriptionEvent = %get_variable_value($auditIdDescriptionEvent)
+!endprocedure
+
+!unquoted procedure auditVariableCleaner()
+    !$getEvent = ""
+    !$getStatusEvent = ""
+    !$getStartEvent = ""
+    !$getFinishEvent = ""
+    !$getDescriptionEvent = ""
+!endprocedure
+
+/'Процедура построения таблицы аудита'/
+!unquoted procedure auditTableBuilder()
+!$i = 1
+!while $i < $auditId || $i == $auditId
+%invoke_procedure("getAuditVariable", $i)
+| $i | $getEvent | $getStartEvent | $getFinishEvent | $getStatusEvent | $getDescriptionEvent |
+!$i = $i + 1
+!endwhile
+!endprocedure
+
+/'Процедура построения карты процесса'/
 !unquoted procedure proccessMapBuilder()
-    !$i = 1
-    !while $i < $id || $i == $id
-        %invoke_procedure("getMetadataByStep",$i)
-        /'Формируем таблицу для легенды'/
-        !$processMap = $processMap + %newline() + "| " +  $i + " | " + $initiatorName + " | "+ $executorName + " | " + $actionResult + " | " + $commentResult + " |"
-        !$i = $i + 1
-        %invoke_procedure("bufferVariableCleaner")
-    !endwhile
+!$i = 1
+!while $i < $id || $i == $id
+%invoke_procedure("getMetadataByStep",$i)
+%invoke_procedure("$textNewLineCutter", $actionResult, $actionLength)
+!$actionText = $textResult
+!$textResult = ""
+%invoke_procedure("$textNewLineCutter", $commentResult, $commentLength)
+!$commentText = $textResult
+!$textResult = ""
+| $i | $initiatorName | $executorName | $actionText | $commentText |
+!$i = $i + 1
+%invoke_procedure("bufferVariableCleaner")
+!endwhile
 !endprocedure
 
 /'4. ПАРАМЕТРЫ СТИЛЯ

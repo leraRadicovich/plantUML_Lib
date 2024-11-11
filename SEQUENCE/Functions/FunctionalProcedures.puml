@@ -75,19 +75,14 @@
 /'Процедура для обработки событий Аудит'/
 !unquoted procedure audit($event, $status = "", $description = "", $source = "pafp")
     !if $status == ""
-        !$eventStart = "start" + $event
-        %set_variable_value($eventStart,$id)
+        !$startEvent = "start" + $event
+        %set_variable_value($startEvent,$id)
         hnote over $source #lightyellow/lightgreen: <color:red><&media-play> <color:black>$event
     !else
-        %invoke_procedure("$textNewLineCutter",$description,$commentLength)
-        !$auditDescription = $textResult
-        !$textResult = ""
         !$auditId = $auditId + 1
-        !$eventId = "aud" + $auditId
         !$key = "start" + $event
         !$startEvent = %get_variable_value($key)
-        !$eventValue = %newline() + "| " + $auditId + " | " + $event + " | " + $startEvent + " | " + $id + " | " + $status + " | " + $auditDescription + " |"
-        %set_variable_value($eventId,$eventValue)
+        %invoke_procedure("setAuditVariable", $auditId, $event, $status, $startEvent, $id, $description)
         !if $status == "FAILURE"
             hnote over $source #orange/red: <color:red><&media-stop> <color:black>$event
         !else
@@ -137,13 +132,6 @@ $processMap
 
 /'Строим крату процесса, таблицу событий аудита и список доработок'/
 !unquoted procedure LEGEND()
-    /'Отображаем построенные таблицы при их наличии'/
-
-    /'Строим таблицу аудита'/
-    %invoke_procedure("auditTableBuilder")
-    !if $auditId > 0
-        !$diagramLegend = $diagramLegend + %newline() + "**СОБЫТИЯ АУДИТА**" + %newline() + "====" + %newline() + $auditTable + %newline()
-    !endif
 
     /'Строим таблицу со списком доработок'/
     !if $todoId > 0
@@ -156,6 +144,11 @@ legend  left
 ====
 $processMap
 %invoke_procedure("proccessMapBuilder")
+====
+**СОБЫТИЯ АУДИТА**
+====
+$auditTable
+%invoke_procedure("auditTableBuilder")
 ====
 $diagramLegend
 end legend
