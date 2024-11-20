@@ -84,6 +84,8 @@
             !$aexecutor = %get_variable_value($idExecutor)
             %invoke_procedure("rs", $aexecutor, $ainitiator, $liveLine, $action, $comment)
         !else
+            %invoke_procedure("aliasCheck",$initiator)
+            %invoke_procedure("aliasCheck",$executor)
             !if $liveLine == "..."
                 $executor --> $initiator: $action
                 ...

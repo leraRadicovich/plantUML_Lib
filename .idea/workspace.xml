@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Оптимизировано построение таблицы с событиями аудита - аналогичным образом, больше не нужно складывать переменные, все хранится и передается в таблицу отдельными переменными">
+    <list default="true" id="bdc5c010-72fc-4431-8aeb-9b8e24eb81ca" name="Changes" comment="* Оптимизировано построение таблицы со списком доработок">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" beforeDir="false" afterPath="$PROJECT_DIR$/SEQUENCE/Functions/FunctionalProcedures.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -437,7 +438,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731316240269</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="* Оптимизировано построение таблицы со списком доработок">
+      <option name="closed" value="true" />
+      <created>1731328371864</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1731328371864</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -479,7 +488,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="* Изменился принцип построения легенды. Теперь нет больших текстовых переменных с истрией всего сиквенса, есть множество переменных с уникальным значением" />
     <MESSAGE value="* Фиксация дефекта с экранирование цифр - переменных для построения карты процесса" />
     <MESSAGE value="* Исправление дефекта с экранированием цифр в тексте" />
     <MESSAGE value="* Исправление дефекта с потвором событий аудита&#10;* Новая версия сборки таблицы с событиями аудита" />
@@ -504,6 +512,7 @@
     <MESSAGE value="* Отказ от вызова altr напрямую за счет усложнения вызова rq и rs" />
     <MESSAGE value="* Оптимизировано построение карты процесса, больше не нужно складывать переменные, теперь они строятся построчно в легенде. Но теперь тянутся зависимости от textNewLineCutter, из-за особенностей построения легенды нужно отыскать все отступы, лишние пробелы и переносы строк" />
     <MESSAGE value="* Оптимизировано построение таблицы с событиями аудита - аналогичным образом, больше не нужно складывать переменные, все хранится и передается в таблицу отдельными переменными" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Оптимизировано построение таблицы с событиями аудита - аналогичным образом, больше не нужно складывать переменные, все хранится и передается в таблицу отдельными переменными" />
+    <MESSAGE value="* Оптимизировано построение таблицы со списком доработок" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Оптимизировано построение таблицы со списком доработок" />
   </component>
 </project>
